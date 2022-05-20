@@ -33,7 +33,7 @@ const SettingsScreen = () => {
         <TouchableOpacity style={styles.goBack}>
           <Ionicons
             name="arrow-back-outline"
-            size={24}
+            size={16}
             color={"rgb(165, 81, 69)"}
           />
         </TouchableOpacity>
@@ -44,7 +44,7 @@ const SettingsScreen = () => {
           <Entypo
             style={styles.settingsIcon}
             name="login"
-            size={24}
+            size={20}
             color="black"
           />
         </TouchableOpacity>
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(226, 218, 210)",
     borderWidth: 1,
     borderRadius: 50,
-    padding: 10,
+    padding: 15,
     color: "rgb(165, 81, 69)",
     borderWidth: 0,
   },
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   },
   settingsText: {
     fontSize: 17,
-    marginLeft: 15,
+    marginLeft: 25,
     color: "rgb(226, 218, 210)",
   },
   settingsIcon: {
