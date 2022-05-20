@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
-  Platform,
 } from "react-native";
 
 // Import Constants package expo : fournit information sur appareil.
@@ -26,11 +25,15 @@ import {
   EvilIcons,
 } from "@expo/vector-icons";
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.goBack}>
+        <TouchableOpacity
+          style={styles.goBack}
+          onPress={() => {
+            navigation.navigate("SingleStory");
+          }}>
           <Ionicons
             name="arrow-back-outline"
             size={16}
