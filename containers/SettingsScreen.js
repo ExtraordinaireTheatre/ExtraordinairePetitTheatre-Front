@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 20,
+    padding: 20,
   },
   goBack: {
     backgroundColor: "rgb(226, 218, 210)",
@@ -228,22 +228,21 @@ const styles = StyleSheet.create({
     color: "rgb(226, 218, 210)",
   },
   main: {
-    marginTop: "-20%",
-    paddingHorizontal: 10,
-    // justifyContent: "space-between",
+    paddingHorizontal: 30,
+    marginTop: "-15%",
   },
   settingsBlock: {
     marginTop: 20,
   },
   settingsButton: {
-    marginTop: 15,
+    marginTop: 10,
   },
   lineSettings: {
     flexDirection: "row",
     alignItems: "center",
   },
   settingsText: {
-    fontSize: 17,
+    fontSize: 16,
     marginLeft: 25,
     color: "rgb(226, 218, 210)",
   },
@@ -252,6 +251,7 @@ const styles = StyleSheet.create({
   },
   resauContainer: {
     flexDirection: "row",
+    paddingHorizontal: 20,
     paddingBottom: 30,
     width: "40%",
     justifyContent: "space-around",
