@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TextInput,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -29,53 +30,68 @@ const AllStoryScreen = ({ navigation }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [data, setData] = useState();
-
   // state array books by age :
 
   const [dataBooksAge1, setDataBooksAge1] = useState(); // - 1-3 ans
   const [dataBooksAge3, setDataBooksAge3] = useState(); // - 3-5 ans
   const [dataBooksAge5, setDataBooksAge5] = useState(); // - 5-7 ans
 
+  // data
+  const [books, setBooks] = useState();
+  const [tomesData, setTomesData] = useState();
+
   useEffect(() => {
-    // const getBooks = async () => {
-    //   setIsLoading(true);
-    //   try {
-    //     const response = await axios.get(
-    //       "https://extraordinaire-petit-theatre-w.herokuapp.com/books/"
-    //     );
+    const getData = async () => {
+      setIsLoading(true);
+      try {
+        const responseBooks = await axios.get(
+          "https://extraordinaire-petit-theatre-w.herokuapp.com/books/"
+        );
 
-    //     setData(response.data);
+        const resultBooks = responseBooks.data;
+        setBooks(resultBooks);
 
-    //     const result = response.data;
-    //     console.log(result);
+        const arrayAge1 = [];
+        const arrayAge3 = [];
+        const arrayAge5 = [];
 
-    //     const arrayBookAge1 = [];
-    //     const arrayBookAge3 = [];
-    //     const arrayBookAge5 = [];
+        resultBooks.map((item) => {
+          if (item.ageCategory === "1-3") {
+            arrayAge1.push(item);
+          } else if (item.ageCategory === "3-5") {
+            arrayAge3.push(item);
+          } else {
+            arrayAge5.push(item);
+          }
 
-    //     result.map((book, index) => {
-    //       if (book.ageCategory === "1-3") {
-    //         arrayBookAge1.push(book);
-    //       } else if (book.ageCategory === "3-5") {
-    //         arrayBookAge3.push(book);
-    //       } else {
-    //         arrayBookAge5.push(book);
-    //       }
-    //     });
+          setDataBooksAge1(arrayAge1);
+          setDataBooksAge3(arrayAge3);
+          setDataBooksAge5(arrayAge5);
+        });
 
-    //     setDataBooksAge1(arrayBookAge1);
-    //     setDataBooksAge3(arrayBookAge3);
-    //     setDataBooksAge5(arrayBookAge5);
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-    //   setIsLoading(false);
-    // };
-    getBooks();
+        const responseTomes = await axios.get(
+          "https://extraordinaire-petit-theatre-w.herokuapp.com/tome/"
+        );
+        setTomesData(responseTomes.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+      setIsLoading(false);
+    };
+    getData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgb(165, 81, 69)",
+      }}>
+      <ActivityIndicator size={"large"} />
+    </View>
+  ) : (
     <View style={styles.container}>
       {showSearchBar ? (
         <View style={{ alignItems: "center", marginVertical: 20 }}>
@@ -128,36 +144,46 @@ const AllStoryScreen = ({ navigation }) => {
           </View>
         </View>
       )}
-      <TouchableOpacity
-        style={styles.selected}
-        activeOpacity={1}
-        onPress={() => {
-          setShowSearchBar(false);
-        }}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require("../assets/img/élément-1.png")}
-          />
-        </View>
+      {tomesData && (
+        <TouchableOpacity
+          style={styles.selected}
+          activeOpacity={1}
+          onPress={() => {
+            setShowSearchBar(false);
+          }}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: tomesData[0].image }} />
+          </View>
 
-        <View style={styles.description}>
-          <Text style={styles.textDescription}>Contes Classiques</Text>
-          <Text style={styles.textDescription}>Tome 1</Text>
-        </View>
-      </TouchableOpacity>
+          <View style={styles.description}>
+            <Text style={styles.textDescription}>{tomesData[0].title}</Text>
+            <Text style={styles.textDescription}>
+              Tome : {tomesData[0].tome}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
 
       <ScrollView
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
         }}>
-        {showSearchBar ? (
-          <ListStory booksAge1={dataBooksAge1} />
+        {dataBooksAge1 && dataBooksAge3 && dataBooksAge5 && showSearchBar ? (
+          <ListStory books={books} />
         ) : (
           <View style={styles.carousselView}>
-            <Caroussel title="Adaptés aux 1-3 ans" booksAge1={dataBooksAge1} />
-            <Caroussel title="Adaptés aux 5-7 ans" />
-            <Caroussel title="Adaptés aux 1-3 ans" />
+            <Caroussel
+              title="Adaptés aux 1-3 ans"
+              dataBooksAge={dataBooksAge1}
+            />
+            <Caroussel
+              title="Adaptés aux 3-5 ans"
+              dataBooksAge={dataBooksAge3}
+            />
+            <Caroussel
+              title="Adaptés aux 5-7 ans"
+              dataBooksAge={dataBooksAge5}
+            />
           </View>
         )}
       </ScrollView>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -13,8 +14,10 @@ import Constants from "expo-constants";
 
 import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
 
-const Caroussel = ({ title }) => {
-  return (
+import axios from "axios";
+
+const Caroussel = ({ dataBooksAge, title }) => {
+  return dataBooksAge ? (
     <View style={styles.containerCaroussel}>
       <View style={styles.titleCarousselContainer}>
         <View
@@ -47,19 +50,21 @@ const Caroussel = ({ title }) => {
           alignItems: "center",
         }}
         showsHorizontalScrollIndicator={false}>
-        <View style={styles.itemCaroussel}>
-          <View style={styles.imageCarousselContainer}>
-            <Image
-              style={styles.imageItem}
-              source={require("../../assets/img/élément-4.png")}
-            />
-          </View>
-          <View style={styles.itemDescription}>
-            <Text style={{ color: "rgb(226, 218, 210)" }}>
-              Aladdin et la Lampe Magique
-            </Text>
-          </View>
-        </View>
+        {dataBooksAge.map((book, index) => {
+          return (
+            <View style={styles.itemCaroussel} key={index}>
+              <View style={styles.imageCarousselContainer}>
+                <Image style={styles.imageItem} source={{ uri: book.image }} />
+              </View>
+              <View style={styles.itemDescription}>
+                <Text style={{ color: "rgb(226, 218, 210)" }}>
+                  {book.title}
+                </Text>
+              </View>
+            </View>
+          );
+        })}
+
         <View style={styles.itemCaroussel}>
           <View style={styles.imageCarousselContainer}>
             <Image
@@ -101,7 +106,7 @@ const Caroussel = ({ title }) => {
         </View>
       </ScrollView>
     </View>
-  );
+  ) : null;
 };
 const styles = StyleSheet.create({
   settingsIcon: {

@@ -4,8 +4,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  Button,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
 import { useState } from "react";
 import axios from "axios";
 
@@ -33,7 +33,6 @@ const SignupForm = ({ setLogin, setUser }) => {
               password,
             }
           );
-          console.log(response);
           setUser(response.data.token);
           setIsLoading(false);
         } catch (error) {
@@ -46,6 +45,7 @@ const SignupForm = ({ setLogin, setUser }) => {
       setErrorMessage("Veuillez remplir tous les champs");
     }
     setIsLoading(false);
+    navigation.navigate("AllStory");
   };
   return isLoading ? (
     <ActivityIndicator />
@@ -86,8 +86,7 @@ const SignupForm = ({ setLogin, setUser }) => {
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}
-      >
+        }}>
         <Text style={styles.text}>
           Vous avez déjà un compte ? Connectez-vous !
         </Text>

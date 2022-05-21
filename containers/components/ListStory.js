@@ -42,7 +42,6 @@ const ListStory = ({ booksAge1 }) => {
         }}>
         {booksAge1 &&
           booksAge1.map((book, index) => {
-            console.log(book);
             return (
               <View style={styles.listItem} key={index}>
                 <View style={styles.containerImageItemList}>

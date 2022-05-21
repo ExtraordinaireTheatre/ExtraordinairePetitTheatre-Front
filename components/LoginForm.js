@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Input from "./Input";
 import { useState } from "react";
+
 const LoginForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,14 +15,17 @@ const LoginForm = ({ setLogin, setUser }) => {
         setState={setPassword}
         eye={true}
       />
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity
+        style={styles.loginBtn}
+        onPress={() => {
+          navigation.navigate("AllStory");
+        }}>
         <Text style={styles.textBtn}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}
-      >
+        }}>
         <Text style={styles.text}>
           Vous n'avez pas encore de compte ? Inscrivez-vous !
         </Text>
