@@ -10,7 +10,9 @@ import {
   StyleSheet,
   TextInput,
   Dimensions,
+
   ActivityIndicator,
+
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -102,7 +104,8 @@ const AllStoryScreen = ({ navigation, route }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Affiche");
-              }}>
+              }}
+            >
               <Entypo
                 style={styles.icons}
                 name="magnifying-glass"
@@ -124,7 +127,8 @@ const AllStoryScreen = ({ navigation, route }) => {
               style={styles.goBack}
               onPress={() => {
                 navigation.navigate("Affiche");
-              }}>
+              }}
+            >
               <Ionicons
                 name="arrow-back-outline"
                 size={16}
@@ -134,7 +138,8 @@ const AllStoryScreen = ({ navigation, route }) => {
             <TouchableOpacity
               onPress={() => {
                 setShowSearchBar(!showSearchBar);
-              }}>
+              }}
+            >
               <View style={styles.buttonCircle}>
                 <Entypo
                   style={styles.icons}
@@ -147,6 +152,7 @@ const AllStoryScreen = ({ navigation, route }) => {
           </View>
         </View>
       )}
+
       {route.params && (
         <TouchableOpacity
           style={styles.selected}
@@ -158,6 +164,7 @@ const AllStoryScreen = ({ navigation, route }) => {
             <Image style={styles.image} source={{ uri: tome.image }} />
           </View>
 
+
           <View style={styles.description}>
             <Text style={styles.textDescription}>{tome.title}</Text>
             <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
@@ -168,6 +175,7 @@ const AllStoryScreen = ({ navigation, route }) => {
       <ScrollView
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
+
         }}>
         {dataBooksAge1 &&
           dataBooksAge3 &&
@@ -213,6 +221,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               />
             </View>
           ))}
+
       </ScrollView>
     </View>
   );

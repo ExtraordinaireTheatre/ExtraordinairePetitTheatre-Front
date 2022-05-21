@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// Import composant Screen
+// Import containers Screen
 import SettingsScreen from "./containers/SettingsScreen";
 import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
@@ -18,6 +18,7 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [userToken, setUserToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const setUser = async (token) => {
     token
@@ -31,20 +32,26 @@ const App = () => {
       const userToken = await AsyncStorage.getItem("userToken");
 
       setUserToken(userToken);
+      setIsLoading(false);
     };
     fetchUser();
   }, []);
-
+  if (isLoading === true) {
+    return null;
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+
         }}>
         {!userToken ? (
+
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
+
         ) : (
           <>
             <Stack.Screen name="Affiche" component={AfficheScreen} />
@@ -53,6 +60,7 @@ const App = () => {
             <Stack.Screen name="Settings" component={SettingsScreen} />
           </>
         )}
+
       </Stack.Navigator>
     </NavigationContainer>
   );

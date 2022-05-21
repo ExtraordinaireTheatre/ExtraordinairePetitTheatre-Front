@@ -1,13 +1,49 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import Input from "./Input";
 import { useState } from "react";
+
+import axios from "axios";
 
 const LoginForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  return (
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+    if (email && password) {
+      try {
+        const response = await axios.post(
+          "https://extraordinaire-petit-theatre-w.herokuapp.com/user/login",
+          {
+            email,
+            password,
+          }
+        );
+        setUser(response.data.token);
+      } catch (error) {
+        setErrorMessage("Email ou mot de passe incorrect");
+
+        console.log(error.response);
+      }
+    } else {
+      setErrorMessage("Veuillez remplir tous les champs");
+    }
+    setIsLoading(false);
+  };
+  return isLoading ? (
+    <ActivityIndicator />
+  ) : (
     <View style={styles.container}>
+      {errorMessage !== "" && <Text>{errorMessage}</Text>}
       <Input placeholder="Adresse e-mail" value={email} setState={setEmail} />
       <Input
         placeholder="Mot de passe"
@@ -17,9 +53,12 @@ const LoginForm = ({ setLogin, setUser }) => {
       />
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={() => {
-          navigation.navigate("AllStory");
-        }}>
+
+        onPress={async () => {
+          handleSubmit();
+        }}
+      >
+
         <Text style={styles.textBtn}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -35,10 +74,11 @@ const LoginForm = ({ setLogin, setUser }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    height: 350,
+    height: 450,
     justifyContent: "space-around",
     alignItems: "center",
     paddingHorizontal: 6,
+    paddingTop: 40,
     width: "100%",
   },
   loginBtn: {
@@ -48,7 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "rgb(226, 218, 210)",
-    marginTop: 150,
+    marginTop: 200,
   },
   textBtn: {
     color: "rgb(226, 218, 210)",
