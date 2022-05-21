@@ -44,7 +44,7 @@ const Caroussel = ({ title }) => {
         horizontal={true}
         style={styles.caroussel}
         contentContainerStyle={{
-          alignItems: "flex-start",
+          alignItems: "center",
         }}
         showsHorizontalScrollIndicator={false}>
         <View style={styles.itemCaroussel}>
@@ -109,12 +109,14 @@ const styles = StyleSheet.create({
   },
   containerCaroussel: {
     marginTop: 20,
+    height: "30%",
   },
   titleCarousselContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 30,
+    marginBottom: 20,
   },
   titleCaroussel: {
     color: "rgb(226, 218, 210)",
@@ -122,17 +124,14 @@ const styles = StyleSheet.create({
   },
   caroussel: {
     marginHorizontal: 20,
-    marginTop: 10,
     backgroundColor: "rgb(226, 218, 210)",
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    height: "45%",
   },
   itemCaroussel: {
     width: "15%",
     height: "75%",
     marginHorizontal: 20,
-    marginTop: 10,
   },
   imageCarousselContainer: {
     height: "70%",
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    padding: 10,
+    padding: 5,
     backgroundColor: "rgb(165, 81, 69)",
   },
 });

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Dimensions,
 } from "react-native";
 
 import Caroussel from "./components/Caroussel";
@@ -20,7 +21,6 @@ import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
 
 const AllStoryScreen = ({ navigation }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
-  console.log(showSearchBar);
   return (
     <View style={styles.container}>
       {showSearchBar ? (
@@ -44,7 +44,7 @@ const AllStoryScreen = ({ navigation }) => {
           </View>
         </View>
       ) : (
-        <View style={styles.container}>
+        <View style={styles.containerModalOff}>
           <View style={styles.header}>
             <TouchableOpacity
               style={styles.goBack}
@@ -99,10 +99,10 @@ const AllStoryScreen = ({ navigation }) => {
         {showSearchBar ? (
           <ListStory />
         ) : (
-          <View style={{ height: "100%" }}>
+          <View style={styles.carousselView}>
             <Caroussel title="Adaptés aux 1-3 ans" />
-            <Caroussel title="Adaptés aux 3-5 ans" />
             <Caroussel title="Adaptés aux 5-7 ans" />
+            <Caroussel title="Adaptés aux 1-3 ans" />
           </View>
         )}
       </ScrollView>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(165, 81, 69)",
     flex: 1,
   },
+  containerModalOff: { paddingTop: 20 },
   header: {
     paddingHorizontal: 20,
     flexDirection: "row",
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     borderBottomColor: "rgb(226, 218, 210)",
+    marginTop: 20,
     borderBottomWidth: 1,
     marginHorizontal: 20,
     height: "20%",
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
 
   imageContainer: {
     width: "25%",
-    height: "100%",
+    height: "90%",
     borderColor: "rgb(226, 218, 210)",
     borderWidth: 1,
   },
@@ -170,11 +172,15 @@ const styles = StyleSheet.create({
   description: {
     justifyContent: "flex-end",
     width: "60%",
+    height: "90%",
   },
   textDescription: {
     color: "rgb(226, 218, 210)",
     fontSize: 20,
     marginVertical: 5,
+  },
+  carousselView: {
+    height: 700,
   },
 });
 

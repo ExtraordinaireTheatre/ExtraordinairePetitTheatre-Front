@@ -55,12 +55,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    marginTop: 10,
   },
   listTitleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 30,
+    marginTop: 20,
   },
   listTitle: {
     color: "rgb(226, 218, 210)",
