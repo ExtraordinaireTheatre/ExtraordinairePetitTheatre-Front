@@ -10,6 +10,7 @@ import {
   Button,
   StyleSheet,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -20,6 +21,8 @@ import axios from "axios";
 const AfficheScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
+
+  console.log();
 
   useEffect(() => {
     const getAffiche = async () => {
@@ -63,11 +66,10 @@ const AfficheScreen = ({ navigation }) => {
           </View>
         </TouchableOpacity>
       </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>à l'affiche</Text>
+      </View>
       <View style={styles.main}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>à l'affiche</Text>
-        </View>
-
         <View style={styles.carousselContainer}>
           <ScrollView
             horizontal={true}
@@ -91,7 +93,7 @@ const AfficheScreen = ({ navigation }) => {
                       <Image
                         style={styles.imageCaroussel}
                         source={{ uri: tome.image }}
-                        // resizeMode={"cover"}
+                        resizeMode={"contain"}
                       />
                     </View>
                     <View style={styles.carousselTitleContainer}>
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(165, 81, 69)",
+    paddingTop: Constants.statusBarHeight,
   },
   header: {
     flexDirection: "row",
@@ -140,10 +143,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   titleContainer: {
-    // alignItems: "center",
+    alignItems: "center",
     // borderColor: "yellow",
     // borderWidth: 2,
     marginTop: 30,
+    paddingBottom: 20,
   },
   title: {
     color: "rgb(226, 218, 210)",
@@ -155,21 +159,28 @@ const styles = StyleSheet.create({
   carousselContainer: {
     // borderColor: "blue",
     // borderWidth: 1,
-    height: "60%",
-    marginTop: 30,
+    height: "70%",
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   },
   itemCaroussel: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 80,
+    // borderColor: "yellow",
+    // borderWidth: 3,
+    marginHorizontal: 65,
+    height: "100%",
   },
   viewImageCaroussel: {
-    height: "80%",
+    height: "75%",
     width: "100%",
   },
   imageCaroussel: {
     height: "100%",
     width: "100%",
+    // borderColor: "rgb(226, 218, 210)",
+    // borderWidth: 2,
   },
   carousselTitleContainer: {
     marginTop: 20,
@@ -184,21 +195,25 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   containerEllipse: {
-    alignItems: "center",
-    height: "5%",
-    marginTop: "20%",
+    marginTop: "5%",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   },
   ellipse: {
     backgroundColor: "rgb(226, 218, 210)",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 40,
+    padding: 50,
     borderRadius: 100,
-    width: "30%",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    position: "relative",
+    bottom: -10,
   },
   iconeEllipse: {
+    height: 40,
     color: "blue",
-    height: 70,
+    position: "absolute",
+    top: 15,
+    left: 35,
   },
 });
 export default AfficheScreen;
