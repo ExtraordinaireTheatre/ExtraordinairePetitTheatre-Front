@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -7,18 +9,45 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Import composant Screen
 import SettingsScreen from "./containers/SettingsScreen";
+import HomeScreen from "./containers/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
+  const [userToken, setUserToken] = useState(null);
+
+  const setUser = async (token) => {
+    token
+      ? await AsyncStorage.setItem("userToken", token)
+      : await AsyncStorage.removeItem("userToken");
+    setUserToken(token);
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userToken = await AsyncStorage.getItem("userToken");
+
+      setUserToken(userToken);
+    };
+    fetchUser();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        }}
+      >
+        {!userToken ? (
+          <Stack.Screen name="Home">
+            {() => <HomeScreen setUser={setUser} />}
+          </Stack.Screen>
+        ) : (
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
+export default App;
