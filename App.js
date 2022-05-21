@@ -7,18 +7,18 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// Import composant Screen
+// Import containers Screen
 import SettingsScreen from "./containers/SettingsScreen";
 import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
 import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [userToken, setUserToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const setUser = async (token) => {
     token
@@ -32,34 +32,32 @@ const App = () => {
       const userToken = await AsyncStorage.getItem("userToken");
 
       setUserToken(userToken);
+      setIsLoading(false);
     };
     fetchUser();
   }, []);
-
+  if (isLoading === true) {
+    return null;
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-
         }}
       >
-        {!userToken ? (
+        {/* {userToken === null ? (
           <Stack.Screen name="Home">
             {() => <HomeScreen setUser={setUser} />}
           </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name="AllStory" component={AllStoryScreen} />
-            <Stack.Screen name="Affiche" component={AfficheScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-            <Stack.Screen name="Story" component={StoryScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-          </>
-        )}
-        }}>
-        
-
+        ) : ( */}
+        <>
+          <Stack.Screen name="Story" component={StoryScreen} />
+          <Stack.Screen name="Affiche" component={AfficheScreen} />
+          <Stack.Screen name="AllStory" component={AllStoryScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        </>
+        {/* )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );

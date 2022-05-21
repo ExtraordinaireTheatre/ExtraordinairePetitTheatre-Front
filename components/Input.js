@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { TextInput, StyleSheet } from "react-native";
 const Input = ({ placeholder, setState, value, eye }) => {
   return (
     <TextInput
