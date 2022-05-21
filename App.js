@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // Import composant Screen
 import SettingsScreen from "./containers/SettingsScreen";
 import AfficheScreen from "./containers/AfficheScreen";
+import AllStoryScreen from "./containers/AllStorysScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,8 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="AllStory" component={AllStoryScreen} />
+
         <Stack.Screen name="Affiche" component={AfficheScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>

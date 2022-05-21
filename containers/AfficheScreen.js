@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Button,
   StyleSheet,
 } from "react-native";
 
@@ -17,6 +18,12 @@ const AfficheScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
+        <Button
+          title="to AllStory"
+          onPress={() => {
+            navigation.navigate("AllStory");
+          }}
+        />
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Settings");
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
     marginTop: 20,
   },
