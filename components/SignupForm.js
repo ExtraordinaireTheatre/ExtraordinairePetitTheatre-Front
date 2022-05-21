@@ -7,6 +7,9 @@ import {
   Button,
 } from "react-native";
 import { useState } from "react";
+
+import { useNavigation } from "@react-navigation/native";
+
 import axios from "axios";
 
 import Input from "./Input";
@@ -19,6 +22,8 @@ const SignupForm = ({ setLogin, setUser }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
+
   const handleSubmit = async () => {
     setIsLoading(true);
     setErrorMessage("");
@@ -28,12 +33,13 @@ const SignupForm = ({ setLogin, setUser }) => {
           const response = await axios.post(
             "https://extraordinaire-petit-theatre-w.herokuapp.com/user/signup",
             {
-              username,
-              email,
-              password,
+              username: username,
+              email: email,
+              password: password,
             }
           );
-          setUser(response.data.token);
+          console.log(response.data);
+          setUser(response.data._id);
           setIsLoading(false);
         } catch (error) {
           console.log(error);
@@ -45,7 +51,6 @@ const SignupForm = ({ setLogin, setUser }) => {
       setErrorMessage("Veuillez remplir tous les champs");
     }
     setIsLoading(false);
-    navigation.navigate("AllStory");
   };
   return isLoading ? (
     <ActivityIndicator />

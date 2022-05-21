@@ -41,16 +41,18 @@ const App = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        {/* {!userToken ? (
+        {!userToken ? (
           <Stack.Screen name="Home">
-            {() => <HomeScreen setUser={setUser} />}
+            {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
-        ) : ( */}
-        <Stack.Screen name="Affiche" component={AfficheScreen} />
-        <Stack.Screen name="AllStory" component={AllStoryScreen} />
-        <Stack.Screen name="Story" component={StoryScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        {/* )} */}
+        ) : (
+          <>
+            <Stack.Screen name="Affiche" component={AfficheScreen} />
+            <Stack.Screen name="AllStory" component={AllStoryScreen} />
+            <Stack.Screen name="Story" component={StoryScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

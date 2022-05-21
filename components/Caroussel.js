@@ -75,7 +75,7 @@ const Caroussel = ({
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
               <View style={styles.itemDescription}>
-                <Text style={{ color: "rgb(226, 218, 210)" }}>
+                <Text style={{ color: "rgb(226, 218, 210)" }} numberOfLines={1}>
                   {book.title}
                 </Text>
               </View>

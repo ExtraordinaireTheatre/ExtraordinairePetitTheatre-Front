@@ -40,7 +40,6 @@ const ListStory = ({
           style={styles.toCarousselButton}
           onPress={() => {
             setPress((prevState) => !prevState);
-            console.log(press);
           }}>
           <Text style={styles.toCarousselText}>Revenir</Text>
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />

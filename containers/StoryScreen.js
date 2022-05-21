@@ -18,8 +18,8 @@ const StoryScreen = ({ route, navigation }) => {
 
   // data single book
   const { bookData } = route.params;
-
   console.log(bookData);
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>

@@ -19,8 +19,8 @@ import Constants from "expo-constants";
 import axios from "axios";
 
 // Import components : caroussel / list (quand modal recherche activée)
-import Caroussel from "./components/Caroussel";
-import ListStory from "./components/ListStory";
+import Caroussel from "../components/Caroussel";
+import ListStory from "../components/ListStory";
 
 // Import icones
 import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
@@ -30,7 +30,7 @@ const AllStoryScreen = ({ navigation, route }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  // state array books by age :
+  // state array books by ageCategory :
 
   const [dataBooksAge1, setDataBooksAge1] = useState(); // - 1-3 ans
   const [dataBooksAge3, setDataBooksAge3] = useState(); // - 3-5 ans
