@@ -23,7 +23,7 @@ const LoginForm = ({ setLogin, setUser }) => {
         }}
       >
         <Text style={styles.text}>
-          Vous n'avez pas encore de compte ? Inscrivez-vous !{" "}
+          Vous n'avez pas encore de compte ? Inscrivez-vous !
         </Text>
       </TouchableOpacity>
     </View>

@@ -42,10 +42,14 @@ const HomeScreen = ({ setUser }) => {
             <Text style={styles.textLoginBtn}>Se connecter</Text>
           </TouchableOpacity>
         </View>
-      ) : login ? (
-        <LoginForm setLogin={setLogin} setUser={setUser} />
       ) : (
-        <SignupForm setLogin={setLogin} setUser={setUser} />
+        <>
+          {login ? (
+            <LoginForm setLogin={setLogin} setUser={setUser} />
+          ) : (
+            <SignupForm setLogin={setLogin} setUser={setUser} />
+          )}
+        </>
       )}
     </KeyboardAwareScrollView>
   );

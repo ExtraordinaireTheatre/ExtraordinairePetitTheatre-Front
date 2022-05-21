@@ -15,13 +15,14 @@ const SignupForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPasssword] = useState("");
-  const [newsletter, setNewsletter] = useState(false);
+  //   const [newsletter, setNewsletter] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     setErrorMessage("");
-    if (username && email && password && confirmPassword && newsletter) {
+    if (username && email && password && confirmPassword) {
       if (password === confirmPassword) {
         try {
           const response = await axios.post(
@@ -30,7 +31,6 @@ const SignupForm = ({ setLogin, setUser }) => {
               username,
               email,
               password,
-              newsletter,
             }
           );
           console.log(response);
@@ -45,6 +45,7 @@ const SignupForm = ({ setLogin, setUser }) => {
     } else {
       setErrorMessage("Veuillez remplir tous les champs");
     }
+    setIsLoading(false);
   };
   return isLoading ? (
     <ActivityIndicator />
