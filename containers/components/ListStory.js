@@ -11,7 +11,14 @@ import {
 
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
-const ListStory = ({ books, press, setPress }) => {
+const ListStory = ({
+  books,
+  press,
+  setPress,
+  booksAgeList,
+  setBooksAgeList,
+  navigation,
+}) => {
   return (
     <View style={styles.listContainer}>
       <View style={styles.listTitleContainer}>
@@ -30,10 +37,12 @@ const ListStory = ({ books, press, setPress }) => {
           <Text style={styles.listTitle}>Adaptés aux 1-3 ans</Text>
         </View>
         <TouchableOpacity
+          style={styles.toCarousselButton}
           onPress={() => {
             setPress((prevState) => !prevState);
             console.log(press);
           }}>
+          <Text style={styles.toCarousselText}>Revenir</Text>
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
       </View>
@@ -48,12 +57,15 @@ const ListStory = ({ books, press, setPress }) => {
             paddingHorizontal: 10,
             height: 500,
           }}>
-          {books.map((book, index) => {
+          {booksAgeList.map((book, index) => {
             return (
               <TouchableOpacity
                 style={styles.listItem}
                 key={index}
-                activeOpacity={0.7}>
+                activeOpacity={0.7}
+                onPress={() => {
+                  navigation.navigate("Story", { bookData: book });
+                }}>
                 <View style={styles.containerImageItemList}>
                   <Image
                     style={styles.imageItem}
@@ -74,6 +86,14 @@ const ListStory = ({ books, press, setPress }) => {
   );
 };
 const styles = StyleSheet.create({
+  toCarousselButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  toCarousselText: {
+    color: "rgb(226, 218, 210)",
+  },
   listTitleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

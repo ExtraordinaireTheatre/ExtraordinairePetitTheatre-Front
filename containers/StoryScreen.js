@@ -5,18 +5,31 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
+  Button,
 } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { AntDesign } from "@expo/vector-icons";
 import Constants from "expo-constants";
 
-const StoryScreen = ({ route }) => {
+const StoryScreen = ({ route, navigation }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  // data single book
+  const { bookData } = route.params;
+
+  console.log(bookData);
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
+        <Text>STORY</Text>
+        <Button
+          title="retour"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
         {/* <Image
           source={require("../assets/Charlie.jpeg")}
           style={styles.img}

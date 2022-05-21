@@ -46,8 +46,8 @@ const App = () => {
             {() => <HomeScreen setUser={setUser} />}
           </Stack.Screen>
         ) : ( */}
-        <Stack.Screen name="AllStory" component={AllStoryScreen} />
         <Stack.Screen name="Affiche" component={AfficheScreen} />
+        <Stack.Screen name="AllStory" component={AllStoryScreen} />
         <Stack.Screen name="Story" component={StoryScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         {/* )} */}

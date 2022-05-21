@@ -16,7 +16,15 @@ import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
 
 import axios from "axios";
 
-const Caroussel = ({ dataBooksAge, title, press, setPress }) => {
+const Caroussel = ({
+  dataBooksAge,
+  title,
+  press,
+  setPress,
+  setBooksAgeList,
+  booksAgeList,
+  navigation,
+}) => {
   return dataBooksAge ? (
     <View style={styles.containerCaroussel}>
       <View style={styles.titleCarousselContainer}>
@@ -37,7 +45,7 @@ const Caroussel = ({ dataBooksAge, title, press, setPress }) => {
         <TouchableOpacity
           onPress={() => {
             setPress((prevState) => !prevState);
-            console.log;
+            setBooksAgeList(dataBooksAge);
           }}>
           <MaterialIcons
             name="navigate-next"
@@ -59,7 +67,10 @@ const Caroussel = ({ dataBooksAge, title, press, setPress }) => {
             <TouchableOpacity
               style={styles.itemCaroussel}
               key={index}
-              activeOpacity={0.8}>
+              activeOpacity={0.8}
+              onPress={() => {
+                navigation.navigate("Story", { bookData: book });
+              }}>
               <View style={styles.imageCarousselContainer}>
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
@@ -71,46 +82,6 @@ const Caroussel = ({ dataBooksAge, title, press, setPress }) => {
             </TouchableOpacity>
           );
         })}
-
-        <View style={styles.itemCaroussel}>
-          <View style={styles.imageCarousselContainer}>
-            <Image
-              style={styles.imageItem}
-              source={require("../../assets/img/élément-5.png")}
-            />
-          </View>
-          <View style={styles.itemDescription}>
-            <Text style={{ color: "rgb(226, 218, 210)" }}>
-              Aladdin et la Lampe Magique
-            </Text>
-          </View>
-        </View>
-        <View style={styles.itemCaroussel}>
-          <View style={styles.imageCarousselContainer}>
-            <Image
-              style={styles.imageItem}
-              source={require("../../assets/img/élément-1.png")}
-            />
-          </View>
-          <View style={styles.itemDescription}>
-            <Text style={{ color: "rgb(226, 218, 210)" }}>
-              Aladdin et la Lampe Magique
-            </Text>
-          </View>
-        </View>
-        <View style={styles.itemCaroussel}>
-          <View style={styles.imageCarousselContainer}>
-            <Image
-              style={styles.imageItem}
-              source={require("../../assets/img/Aladdin-1.png")}
-            />
-          </View>
-          <View style={styles.itemDescription}>
-            <Text style={{ color: "rgb(226, 218, 210)" }}>
-              Aladdin et la Lampe Magique
-            </Text>
-          </View>
-        </View>
       </ScrollView>
     </View>
   ) : null;
@@ -135,19 +106,24 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   caroussel: {
-    marginHorizontal: 20,
+    marginLeft: 15,
     backgroundColor: "rgb(226, 218, 210)",
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
   },
   itemCaroussel: {
-    width: "15%",
+    // flex: 1,
+    width: "25%",
     height: "75%",
     marginHorizontal: 20,
+    // borderColor: "blue",
+    // borderWidth: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   imageCarousselContainer: {
-    height: "70%",
-    width: "100%",
+    height: 90,
+    width: 145,
   },
   imageItem: {
     width: "100%",
@@ -156,12 +132,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
   },
   itemDescription: {
+    height: "30%",
+    width: "90%",
     borderColor: "rgb(226, 218, 210)",
     borderWidth: 1,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     padding: 5,
     backgroundColor: "rgb(165, 81, 69)",
+    alignItems: "center",
   },
 });
 export default Caroussel;

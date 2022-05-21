@@ -49,12 +49,6 @@ const AfficheScreen = ({ navigation }) => {
   ) : (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Button
-          title="to AllStory"
-          onPress={() => {
-            navigation.navigate("AllStory");
-          }}
-        />
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Settings");
@@ -85,13 +79,14 @@ const AfficheScreen = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}>
             {tomesAffiche &&
               tomesAffiche.map((tome, index) => {
-                console.log(tome);
-
                 return (
                   <TouchableOpacity
                     style={styles.itemCaroussel}
                     key={index}
-                    activeOpacity={0.7}>
+                    activeOpacity={0.7}
+                    onPress={() => {
+                      navigation.navigate("AllStory", { tome: tome });
+                    }}>
                     <View style={styles.viewImageCaroussel}>
                       <Image
                         style={styles.imageCaroussel}
@@ -127,7 +122,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     paddingHorizontal: 20,
     marginTop: 20,
   },

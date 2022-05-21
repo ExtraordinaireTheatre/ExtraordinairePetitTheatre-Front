@@ -25,7 +25,7 @@ import ListStory from "./components/ListStory";
 // Import icones
 import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
 
-const AllStoryScreen = ({ navigation }) => {
+const AllStoryScreen = ({ navigation, route }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +40,13 @@ const AllStoryScreen = ({ navigation }) => {
   const [books, setBooks] = useState();
   const [tomesData, setTomesData] = useState();
 
-  // navigation list caroussel
+  // navigation
+  // list / Age screen ListStory
   const [press, setPress] = useState(false);
+  const [booksAgeList, setBooksAgeList] = useState();
+
+  //tome pour affichage dinamyque header AllStoryScreen
+  const { tome } = route.params;
 
   useEffect(() => {
     const getData = async () => {
@@ -71,11 +76,6 @@ const AllStoryScreen = ({ navigation }) => {
           setDataBooksAge3(arrayAge3);
           setDataBooksAge5(arrayAge5);
         });
-
-        const responseTomes = await axios.get(
-          "https://extraordinaire-petit-theatre-w.herokuapp.com/tome/"
-        );
-        setTomesData(responseTomes.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -147,7 +147,7 @@ const AllStoryScreen = ({ navigation }) => {
           </View>
         </View>
       )}
-      {tomesData && (
+      {route.params && (
         <TouchableOpacity
           style={styles.selected}
           activeOpacity={1}
@@ -155,14 +155,12 @@ const AllStoryScreen = ({ navigation }) => {
             setShowSearchBar(false);
           }}>
           <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: tomesData[0].image }} />
+            <Image style={styles.image} source={{ uri: tome.image }} />
           </View>
 
           <View style={styles.description}>
-            <Text style={styles.textDescription}>{tomesData[0].title}</Text>
-            <Text style={styles.textDescription}>
-              Tome : {tomesData[0].tome}
-            </Text>
+            <Text style={styles.textDescription}>{tome.title}</Text>
+            <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
           </View>
         </TouchableOpacity>
       )}
@@ -176,7 +174,13 @@ const AllStoryScreen = ({ navigation }) => {
           dataBooksAge5 &&
           (press ? (
             <View>
-              <ListStory books={books} press={press} setPress={setPress} />
+              <ListStory
+                books={books}
+                press={press}
+                setPress={setPress}
+                booksAgeList={booksAgeList}
+                navigation={navigation}
+              />
             </View>
           ) : (
             <View style={styles.carousselView}>
@@ -185,18 +189,27 @@ const AllStoryScreen = ({ navigation }) => {
                 setPress={setPress}
                 title="Adaptés aux 1-3 ans"
                 dataBooksAge={dataBooksAge1}
+                booksAgeList={booksAgeList}
+                setBooksAgeList={setBooksAgeList}
+                navigation={navigation}
               />
               <Caroussel
                 press={press}
                 setPress={setPress}
                 title="Adaptés aux 3-5 ans"
                 dataBooksAge={dataBooksAge3}
+                booksAgeList={booksAgeList}
+                setBooksAgeList={setBooksAgeList}
+                navigation={navigation}
               />
               <Caroussel
                 press={press}
                 setPress={setPress}
                 title="Adaptés aux 5-7 ans"
                 dataBooksAge={dataBooksAge5}
+                booksAgeList={booksAgeList}
+                setBooksAgeList={setBooksAgeList}
+                navigation={navigation}
               />
             </View>
           ))}
