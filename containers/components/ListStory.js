@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ScrollView,
+  FlatList,
   View,
   Text,
   Image,
@@ -10,7 +11,7 @@ import {
 
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
-const ListStory = ({ booksAge1 }) => {
+const ListStory = ({ books, press, setPress }) => {
   return (
     <View style={styles.listContainer}>
       <View style={styles.listTitleContainer}>
@@ -28,22 +29,31 @@ const ListStory = ({ booksAge1 }) => {
           />
           <Text style={styles.listTitle}>Adaptés aux 1-3 ans</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setPress((prevState) => !prevState);
+            console.log(press);
+          }}>
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
       </View>
-      <ScrollView
-        contentContainerStyle={{
-          flexDirection: "row",
-          height: 150,
-          flexWrap: "wrap",
-          alignItems: "center",
-          marginTop: 10,
-        }}>
-        {booksAge1 &&
-          booksAge1.map((book, index) => {
+      <View contentContainerStyle={{}}>
+        <ScrollView
+          contentContainerStyle={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-around",
+            marginTop: 10,
+            paddingHorizontal: 10,
+            height: 500,
+          }}>
+          {books.map((book, index) => {
             return (
-              <View style={styles.listItem} key={index}>
+              <TouchableOpacity
+                style={styles.listItem}
+                key={index}
+                activeOpacity={0.7}>
                 <View style={styles.containerImageItemList}>
                   <Image
                     style={styles.imageItem}
@@ -55,18 +65,15 @@ const ListStory = ({ booksAge1 }) => {
                     {book.title}
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  listContainer: {
-    height: 500,
-  },
-  liste: {},
   listTitleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -79,17 +86,15 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   listItem: {
-    marginHorizontal: 10,
-    // borderColor: "red",
-    // borderWidth: 5,
-    height: "100%",
-    flex: 1,
+    margin: 10,
+    height: "33%",
+    width: "40%",
   },
 
   containerImageItemList: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    flex: 4,
+    flex: 5,
   },
   imageItem: {
     height: "100%",
@@ -105,6 +110,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    marginTop: 0,
+    paddingTop: 0,
   },
 
   icons: {

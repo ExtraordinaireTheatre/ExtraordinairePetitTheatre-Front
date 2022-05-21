@@ -40,6 +40,9 @@ const AllStoryScreen = ({ navigation }) => {
   const [books, setBooks] = useState();
   const [tomesData, setTomesData] = useState();
 
+  // navigation list caroussel
+  const [press, setPress] = useState(false);
+
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
@@ -168,24 +171,35 @@ const AllStoryScreen = ({ navigation }) => {
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
         }}>
-        {dataBooksAge1 && dataBooksAge3 && dataBooksAge5 && showSearchBar ? (
-          <ListStory books={books} />
-        ) : (
-          <View style={styles.carousselView}>
-            <Caroussel
-              title="Adaptés aux 1-3 ans"
-              dataBooksAge={dataBooksAge1}
-            />
-            <Caroussel
-              title="Adaptés aux 3-5 ans"
-              dataBooksAge={dataBooksAge3}
-            />
-            <Caroussel
-              title="Adaptés aux 5-7 ans"
-              dataBooksAge={dataBooksAge5}
-            />
-          </View>
-        )}
+        {dataBooksAge1 &&
+          dataBooksAge3 &&
+          dataBooksAge5 &&
+          (press ? (
+            <View>
+              <ListStory books={books} press={press} setPress={setPress} />
+            </View>
+          ) : (
+            <View style={styles.carousselView}>
+              <Caroussel
+                press={press}
+                setPress={setPress}
+                title="Adaptés aux 1-3 ans"
+                dataBooksAge={dataBooksAge1}
+              />
+              <Caroussel
+                press={press}
+                setPress={setPress}
+                title="Adaptés aux 3-5 ans"
+                dataBooksAge={dataBooksAge3}
+              />
+              <Caroussel
+                press={press}
+                setPress={setPress}
+                title="Adaptés aux 5-7 ans"
+                dataBooksAge={dataBooksAge5}
+              />
+            </View>
+          ))}
       </ScrollView>
     </View>
   );

@@ -16,7 +16,7 @@ import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
 
 import axios from "axios";
 
-const Caroussel = ({ dataBooksAge, title }) => {
+const Caroussel = ({ dataBooksAge, title, press, setPress }) => {
   return dataBooksAge ? (
     <View style={styles.containerCaroussel}>
       <View style={styles.titleCarousselContainer}>
@@ -34,7 +34,11 @@ const Caroussel = ({ dataBooksAge, title }) => {
           />
           <Text style={styles.titleCaroussel}>{title}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setPress((prevState) => !prevState);
+            console.log;
+          }}>
           <MaterialIcons
             name="navigate-next"
             size={24}
@@ -52,7 +56,10 @@ const Caroussel = ({ dataBooksAge, title }) => {
         showsHorizontalScrollIndicator={false}>
         {dataBooksAge.map((book, index) => {
           return (
-            <View style={styles.itemCaroussel} key={index}>
+            <TouchableOpacity
+              style={styles.itemCaroussel}
+              key={index}
+              activeOpacity={0.8}>
               <View style={styles.imageCarousselContainer}>
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
@@ -61,7 +68,7 @@ const Caroussel = ({ dataBooksAge, title }) => {
                   {book.title}
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
 
