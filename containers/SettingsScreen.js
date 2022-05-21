@@ -32,7 +32,7 @@ const SettingsScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => {
-            navigation.navigate("SingleStory");
+            navigation.goBack();
           }}>
           <Ionicons
             name="arrow-back-outline"
