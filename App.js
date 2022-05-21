@@ -11,6 +11,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SettingsScreen from "./containers/SettingsScreen";
 import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
+import AfficheScreen from "./containers/AfficheScreen";
+import AllStoryScreen from "./containers/AllStorysScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +41,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+
         }}
       >
         {!userToken ? (
@@ -46,10 +50,16 @@ const App = () => {
           </Stack.Screen>
         ) : (
           <>
+            <Stack.Screen name="AllStory" component={AllStoryScreen} />
+            <Stack.Screen name="Affiche" component={AfficheScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="Story" component={StoryScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
           </>
         )}
+        }}>
+        
+
       </Stack.Navigator>
     </NavigationContainer>
   );
