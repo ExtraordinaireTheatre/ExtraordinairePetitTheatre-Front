@@ -7,7 +7,9 @@ import {
 } from "react-native";
 import Input from "./Input";
 import { useState } from "react";
+
 import axios from "axios";
+
 const LoginForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,17 +53,18 @@ const LoginForm = ({ setLogin, setUser }) => {
       />
       <TouchableOpacity
         style={styles.loginBtn}
+
         onPress={async () => {
           handleSubmit();
         }}
       >
+
         <Text style={styles.textBtn}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}
-      >
+        }}>
         <Text style={styles.text}>
           Vous n'avez pas encore de compte ? Inscrivez-vous !
         </Text>

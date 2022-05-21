@@ -193,7 +193,7 @@ const SettingsScreen = ({ navigation }) => {
           <Fontisto style={styles.settingsIcon} name="instagram" size={24} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonCircle}>
+        <TouchableOpacity style={styles.buttonCircleFacebook}>
           <EvilIcons style={styles.settingsIcon} name="sc-facebook" size={30} />
         </TouchableOpacity>
       </View>
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     justifyContent: "space-between",
     backgroundColor: "rgb(165, 81, 69)",
   },
@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
+    marginTop: 20,
   },
   goBack: {
     backgroundColor: "rgb(226, 218, 210)",
@@ -261,6 +262,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 50,
     padding: 10,
+  },
+  buttonCircleFacebook: {
+    borderColor: "rgb(226, 218, 210)",
+    borderWidth: 1,
+    borderRadius: 50,
+    padding: 10,
+    marginLeft: 20,
   },
 });
 

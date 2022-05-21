@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
+  Button,
 } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -13,6 +14,11 @@ import Constants from "expo-constants";
 
 const StoryScreen = ({ route }) => {
   // const [data, setData] = useState();
+  
+    // data single book
+  const { bookData } = route.params;
+  console.log(bookData);
+  
   // const [isLoading, setIsLoading] = useState(true);
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -36,6 +42,7 @@ const StoryScreen = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
+
           source={require("../assets/Charlie.jpeg")}
           style={styles.img}
         ></Image>

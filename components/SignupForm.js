@@ -4,9 +4,15 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  Button,
 } from "react-native";
+
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+
 import { useState } from "react";
+
+import { useNavigation } from "@react-navigation/native";
+
 import axios from "axios";
 
 import Input from "./Input";
@@ -19,6 +25,8 @@ const SignupForm = ({ setLogin, setUser }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
+
   const handleSubmit = async () => {
     setIsLoading(true);
     setErrorMessage("");
@@ -28,6 +36,7 @@ const SignupForm = ({ setLogin, setUser }) => {
           const response = await axios.post(
             "https://extraordinaire-petit-theatre-w.herokuapp.com/user/signup",
             {
+
               username,
               email,
               password,
@@ -36,6 +45,7 @@ const SignupForm = ({ setLogin, setUser }) => {
           );
           console.log(response.data);
           setUser(response.data.token);
+
         } catch (error) {
           console.log(error);
         }
@@ -94,8 +104,7 @@ const SignupForm = ({ setLogin, setUser }) => {
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}
-      >
+        }}>
         <Text style={styles.text}>
           Vous avez déjà un compte ? Connectez-vous !
         </Text>
