@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TextInput,
   Dimensions,
+  Button,
 } from "react-native";
 
 import Caroussel from "./components/Caroussel";
@@ -29,7 +30,8 @@ const AllStoryScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Affiche");
-              }}>
+              }}
+            >
               <Entypo
                 style={styles.icons}
                 name="magnifying-glass"
@@ -50,7 +52,8 @@ const AllStoryScreen = ({ navigation }) => {
               style={styles.goBack}
               onPress={() => {
                 navigation.navigate("Affiche");
-              }}>
+              }}
+            >
               <Ionicons
                 name="arrow-back-outline"
                 size={16}
@@ -60,7 +63,8 @@ const AllStoryScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 setShowSearchBar(!showSearchBar);
-              }}>
+              }}
+            >
               <View style={styles.buttonCircle}>
                 <Entypo
                   style={styles.icons}
@@ -78,7 +82,8 @@ const AllStoryScreen = ({ navigation }) => {
         activeOpacity={1}
         onPress={() => {
           setShowSearchBar(false);
-        }}>
+        }}
+      >
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
@@ -95,7 +100,8 @@ const AllStoryScreen = ({ navigation }) => {
       <ScrollView
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
-        }}>
+        }}
+      >
         {showSearchBar ? (
           <ListStory />
         ) : (

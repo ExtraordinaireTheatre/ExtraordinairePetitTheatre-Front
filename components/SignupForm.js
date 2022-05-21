@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useState } from "react";
 import axios from "axios";
 
@@ -15,14 +15,14 @@ const SignupForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPasssword] = useState("");
-  //   const [newsletter, setNewsletter] = useState(false);
+  const [newsletter, setNewsletter] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     setIsLoading(true);
     setErrorMessage("");
-    if (username && email && password && confirmPassword) {
+    if (username && email && password && confirmPassword && newsletter) {
       if (password === confirmPassword) {
         try {
           const response = await axios.post(
@@ -31,11 +31,11 @@ const SignupForm = ({ setLogin, setUser }) => {
               username,
               email,
               password,
+              newsletter,
             }
           );
-          console.log(response);
+          console.log(response.data);
           setUser(response.data.token);
-          setIsLoading(false);
         } catch (error) {
           console.log(error);
         }
@@ -51,6 +51,7 @@ const SignupForm = ({ setLogin, setUser }) => {
     <ActivityIndicator />
   ) : (
     <View style={styles.container}>
+      {errorMessage !== "" && <Text>{errorMessage}</Text>}
       <Input
         placeholder="Nom d'utilisateur"
         value={username}
@@ -71,8 +72,10 @@ const SignupForm = ({ setLogin, setUser }) => {
       />
 
       <View style={styles.newsletterContainer}>
-        {/* <CheckBox />
-      Invariant Violation: requireNativeComponent: "RNCCheckbox" was not found in the UIManager. */}
+        <BouncyCheckbox
+          onPress={() => setNewsletter(!newsletter)}
+          style={{ paddingLeft: 5, fillColor: "rgb(226, 218, 210)" }}
+        />
         <View style={styles.newsletter}>
           <Text style={styles.newsletterText}>
             Abonnez-vous à notre newsletter pour être informé de nos nouveautés
@@ -80,7 +83,12 @@ const SignupForm = ({ setLogin, setUser }) => {
           </Text>
         </View>
       </View>
-      <TouchableOpacity onPress={handleSubmit} style={styles.signupBtn}>
+      <TouchableOpacity
+        onPress={async () => {
+          handleSubmit();
+        }}
+        style={styles.signupBtn}
+      >
         <Text style={styles.textBtn}>Créer le compte</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -97,7 +105,7 @@ const SignupForm = ({ setLogin, setUser }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    height: 350,
+    height: 450,
     justifyContent: "space-around",
     alignItems: "center",
     paddingHorizontal: 6,
@@ -132,6 +140,7 @@ const styles = StyleSheet.create({
   newsletterText: {
     color: "rgb(226, 218, 210)",
     fontSize: 12,
+    paddingLeft: 10,
   },
 });
 export default SignupForm;
