@@ -10,9 +10,7 @@ import {
   StyleSheet,
   TextInput,
   Dimensions,
-
   ActivityIndicator,
-
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -23,6 +21,7 @@ import axios from "axios";
 // Import components : caroussel / list (quand modal recherche activée)
 import Caroussel from "../components/Caroussel";
 import ListStory from "../components/ListStory";
+import SearchResult from "./SearchResultScreen";
 
 // Import icones
 import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
@@ -33,29 +32,32 @@ const AllStoryScreen = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // state array books by ageCategory :
-
   const [dataBooksAge1, setDataBooksAge1] = useState(); // - 1-3 ans
   const [dataBooksAge3, setDataBooksAge3] = useState(); // - 3-5 ans
   const [dataBooksAge5, setDataBooksAge5] = useState(); // - 5-7 ans
 
   // data
   const [books, setBooks] = useState();
-  const [tomesData, setTomesData] = useState();
+  const { tome } = route.params;
 
   // navigation
   // list / Age screen ListStory
   const [press, setPress] = useState(false);
   const [booksAgeList, setBooksAgeList] = useState();
 
-  //tome pour affichage dinamyque header AllStoryScreen
-  const { tome } = route.params;
+  // search state
+  const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
       try {
+        let searchValue = "";
+        if (searchTitle) {
+          searchValue = `?title=${searchTitle}`;
+        }
         const responseBooks = await axios.get(
-          "https://extraordinaire-petit-theatre-w.herokuapp.com/books/"
+          `https://extraordinaire-petit-theatre-w.herokuapp.com/books/`
         );
 
         const resultBooks = responseBooks.data;
@@ -104,8 +106,7 @@ const AllStoryScreen = ({ navigation, route }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("Affiche");
-              }}
-            >
+              }}>
               <Entypo
                 style={styles.icons}
                 name="magnifying-glass"
@@ -116,6 +117,9 @@ const AllStoryScreen = ({ navigation, route }) => {
             <TextInput
               style={styles.inputSearch}
               placeholder="Titre de l'oeuvre"
+              onChangeText={(v) => {
+                setSearchTitle(v);
+              }}
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
@@ -127,8 +131,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               style={styles.goBack}
               onPress={() => {
                 navigation.navigate("Affiche");
-              }}
-            >
+              }}>
               <Ionicons
                 name="arrow-back-outline"
                 size={16}
@@ -138,8 +141,7 @@ const AllStoryScreen = ({ navigation, route }) => {
             <TouchableOpacity
               onPress={() => {
                 setShowSearchBar(!showSearchBar);
-              }}
-            >
+              }}>
               <View style={styles.buttonCircle}>
                 <Entypo
                   style={styles.icons}
@@ -164,7 +166,6 @@ const AllStoryScreen = ({ navigation, route }) => {
             <Image style={styles.image} source={{ uri: tome.image }} />
           </View>
 
-
           <View style={styles.description}>
             <Text style={styles.textDescription}>{tome.title}</Text>
             <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
@@ -175,9 +176,11 @@ const AllStoryScreen = ({ navigation, route }) => {
       <ScrollView
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
-
         }}>
-        {dataBooksAge1 &&
+        {searchTitle ? (
+          <SearchResult title={searchTitle} navigation={navigation} />
+        ) : (
+          dataBooksAge1 &&
           dataBooksAge3 &&
           dataBooksAge5 &&
           (press ? (
@@ -220,8 +223,8 @@ const AllStoryScreen = ({ navigation, route }) => {
                 navigation={navigation}
               />
             </View>
-          ))}
-
+          ))
+        )}
       </ScrollView>
     </View>
   );
@@ -256,6 +259,7 @@ const styles = StyleSheet.create({
   },
   inputSearch: {
     marginLeft: 10,
+    color: "rgb(226, 218, 210)",
   },
   buttonCircle: {
     padding: 10,
