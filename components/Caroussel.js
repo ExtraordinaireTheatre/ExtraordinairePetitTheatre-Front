@@ -10,19 +10,13 @@ import {
   StyleSheet,
 } from "react-native";
 
-import Constants from "expo-constants";
-
-import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
-
-import axios from "axios";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
 const Caroussel = ({
   dataBooksAge,
   title,
-  press,
   setPress,
   setBooksAgeList,
-  booksAgeList,
   navigation,
 }) => {
   return dataBooksAge ? (
@@ -82,7 +76,7 @@ const Caroussel = ({
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
               <View style={styles.itemDescription}>
-                <Text style={{ color: "rgb(226, 218, 210)" }} numberOfLines={1}>
+                <Text style={{ color: "rgb(226, 218, 210)" }} numberOfLines={2}>
                   {book.title}
                 </Text>
               </View>
@@ -119,14 +113,14 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
   },
   itemCaroussel: {
-    // flex: 1,
+    flex: 1,
     width: "25%",
     height: "75%",
     marginHorizontal: 20,
-    // borderColor: "blue",
-    // borderWidth: 5,
     justifyContent: "center",
     alignItems: "center",
+    // borderColor: "blue",
+    // borderWidth: 5,
   },
   imageCarousselContainer: {
     height: 90,
@@ -139,10 +133,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
   },
   itemDescription: {
-    height: "30%",
-    width: "90%",
+    flex: 1,
+    height: "25%",
+    width: 131,
     borderColor: "rgb(226, 218, 210)",
-    borderWidth: 1,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     padding: 5,

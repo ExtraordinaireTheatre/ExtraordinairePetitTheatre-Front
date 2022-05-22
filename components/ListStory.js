@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ScrollView,
-  FlatList,
   View,
   Text,
   Image,
@@ -9,18 +8,9 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { useEffect } from "react";
-
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
-const ListStory = ({
-  books,
-  press,
-  setPress,
-  booksAgeList,
-  setBooksAgeList,
-  navigation,
-}) => {
+const ListStory = ({ setPress, booksAgeList, navigation }) => {
   return (
     <View style={styles.listContainer}>
       <View style={styles.listTitleContainer}>
@@ -59,6 +49,8 @@ const ListStory = ({
             marginTop: 10,
             paddingHorizontal: 10,
             height: 500,
+            // borderColor: "yellow",
+            // borderWidth: 5,
           }}>
           {booksAgeList.map((book, index) => {
             return (
@@ -73,6 +65,7 @@ const ListStory = ({
                   <Image
                     style={styles.imageItem}
                     source={{ uri: book.image }}
+                    resizeMode={"cover"}
                   />
                 </View>
                 <View style={styles.itemListDescription}>
@@ -112,15 +105,19 @@ const styles = StyleSheet.create({
     margin: 10,
     height: "33%",
     width: "40%",
+    // borderColor: "blue",
+    // borderWidth: 5,
   },
 
   containerImageItemList: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    flex: 5,
+    flex: 4,
+    // borderColor: "red",
+    // borderWidth: 5,
   },
   imageItem: {
-    height: "100%",
+    height: "110%",
     width: "100%",
   },
 
@@ -133,8 +130,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    marginTop: 0,
-    paddingTop: 0,
+    padding: 3,
   },
 
   icons: {

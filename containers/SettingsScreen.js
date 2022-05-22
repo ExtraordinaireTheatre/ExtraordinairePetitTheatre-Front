@@ -25,7 +25,7 @@ import {
   EvilIcons,
 } from "@expo/vector-icons";
 
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = ({ navigation, setUser }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -43,7 +43,10 @@ const SettingsScreen = ({ navigation }) => {
 
         <Text style={styles.title}>Paramètres</Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setUser(null);
+          }}>
           <Entypo
             style={styles.settingsIcon}
             name="login"
