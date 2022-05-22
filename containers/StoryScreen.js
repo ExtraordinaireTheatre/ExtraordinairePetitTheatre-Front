@@ -25,7 +25,6 @@ const StoryScreen = ({ route }) => {
         const response = await axios.get(
           `https://extraordinaire-petit-theatre-w.herokuapp.com/books/${bookData._id}`
         );
-        console.log(response.data);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -50,8 +49,7 @@ const StoryScreen = ({ route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -67,8 +65,7 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 20,
-          }}
-        >
+          }}>
           {data.title}
         </Text>
         <Text
@@ -76,8 +73,7 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 13,
-          }}
-        >
+          }}>
           {data.author}
         </Text>
         <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
@@ -107,7 +103,7 @@ const styles = StyleSheet.create({
   bgdGoBack: {
     height: 50,
     width: 50,
-    borderRadius: "50%",
+    borderRadius: 50,
     backgroundColor: "rgb(226, 218, 210)",
     alignItems: "center",
     justifyContent: "center",

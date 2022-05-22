@@ -22,8 +22,6 @@ const AfficheScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
 
-  console.log();
-
   useEffect(() => {
     const getAffiche = async () => {
       setIsLoading(true);

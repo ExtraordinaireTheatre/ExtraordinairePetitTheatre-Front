@@ -47,6 +47,7 @@ const AllStoryScreen = ({ navigation, route }) => {
 
   // search state
   const [searchTitle, setSearchTitle] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -101,7 +102,12 @@ const AllStoryScreen = ({ navigation, route }) => {
   ) : (
     <View style={styles.container}>
       {showSearchBar ? (
-        <View style={{ alignItems: "center", marginVertical: 20 }}>
+        <View
+          style={{
+            alignItems: "center",
+            marginVertical: 20,
+            position: "relative",
+          }}>
           <View style={styles.viewSearch}>
             <TouchableOpacity
               onPress={() => {
@@ -123,6 +129,26 @@ const AllStoryScreen = ({ navigation, route }) => {
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
+          {searchTitle && searchResults ? (
+            <View style={styles.recommandationsContainer}>
+              {searchResults.map((recommandation, index) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.recommandationsBlock}
+                    key={index}
+                    onPress={() => {
+                      navigation.navigate("Story", {
+                        bookData: recommandation,
+                      });
+                    }}>
+                    <Text style={styles.recommandationsText}>
+                      {recommandation.title}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          ) : null}
         </View>
       ) : (
         <View style={styles.containerModalOff}>
@@ -155,7 +181,7 @@ const AllStoryScreen = ({ navigation, route }) => {
         </View>
       )}
 
-      {route.params && (
+      {route.params && !searchTitle && (
         <TouchableOpacity
           style={styles.selected}
           activeOpacity={1}
@@ -179,7 +205,13 @@ const AllStoryScreen = ({ navigation, route }) => {
           setShowSearchBar(false);
         }}>
         {searchTitle ? (
-          <SearchResult title={searchTitle} navigation={navigation} />
+          <SearchResult
+            title={searchTitle}
+            navigation={navigation}
+            setRecommandations={setRecommandations}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+          />
         ) : (
           dataBooksAge1 &&
           dataBooksAge3 &&
@@ -261,6 +293,24 @@ const styles = StyleSheet.create({
   inputSearch: {
     marginLeft: 10,
     color: "rgb(226, 218, 210)",
+  },
+  recommandationsContainer: {
+    alignItems: "center",
+    marginTop: 5,
+    backgroundColor: "rgb(226, 218, 210)",
+    width: "80%",
+    borderRadius: 10,
+  },
+  recommandationsBlock: {
+    borderBottomColor: "rgb(165, 81, 69)",
+    borderBottomWidth: 1,
+    width: "100%",
+    alignItems: "center",
+    padding: 5,
+  },
+  recommandationsText: {
+    color: "rgb(165, 81, 69)",
+    fontWeight: "700",
   },
   buttonCircle: {
     padding: 10,
