@@ -161,6 +161,7 @@ const AllStoryScreen = ({ navigation, route }) => {
           activeOpacity={1}
           onPress={() => {
             setShowSearchBar(false);
+            setSearchTitle("");
           }}>
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: tome.image }} />

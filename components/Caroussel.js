@@ -28,25 +28,32 @@ const Caroussel = ({
   return dataBooksAge ? (
     <View style={styles.containerCaroussel}>
       <View style={styles.titleCarousselContainer}>
-        <View
+        <TouchableOpacity
           style={{
             flexDirection: "row",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
             alignItems: "center",
-          }}>
-          <Octicons
-            style={styles.settingsIcon}
-            name="dot-fill"
-            size={12}
-            color="black"
-          />
-          <Text style={styles.titleCaroussel}>{title}</Text>
-        </View>
-        <TouchableOpacity
+            width: "100%",
+          }}
           onPress={() => {
             setPress((prevState) => !prevState);
             setBooksAgeList(dataBooksAge);
           }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <Octicons
+              style={styles.settingsIcon}
+              name="dot-fill"
+              size={12}
+              color="black"
+            />
+            <Text style={styles.titleCaroussel}>{title}</Text>
+          </View>
+
           <MaterialIcons
             name="navigate-next"
             size={24}
