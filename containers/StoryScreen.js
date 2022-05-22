@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
@@ -5,47 +8,58 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
-  Button,
 } from "react-native";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 
 const StoryScreen = ({ route }) => {
-  // const [data, setData] = useState();
-  
-    // data single book
-  const { bookData } = route.params;
-  console.log(bookData);
-  
-  // const [isLoading, setIsLoading] = useState(true);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://extraordinaire-petit-theatre-w.herokuapp.com/books/${route.params.id}`
-  //       );
-  //       console.log(response.data);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  const navigation = useNavigation();
+  const [data, setData] = useState();
 
-  // isLoading ? (
-  //   <ActivityIndicator />
-  // ) :
-  return (
+  // data single book
+  const { bookData } = route.params;
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://extraordinaire-petit-theatre-w.herokuapp.com/books/${bookData._id}`
+        );
+        console.log(response.data);
+        setData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+  return isLoading ? (
+    <ActivityIndicator />
+  ) : (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-
-          source={require("../assets/Charlie.jpeg")}
+          source={{
+            uri: data.image,
+          }}
           style={styles.img}
-        ></Image>
+          resizeMode="cover"
+        />
+        <TouchableOpacity
+          style={styles.goBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <View style={styles.bgdGoBack}>
+            <Ionicons
+              name="arrow-back-outline"
+              size={16}
+              color="rgb(165, 81, 69)"
+            />
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
         <Text
@@ -55,22 +69,27 @@ const StoryScreen = ({ route }) => {
             fontSize: 20,
           }}
         >
-          Cendrillon
+          {data.title}
         </Text>
-        <Text style={{ color: "rgb(226, 218, 210)", fontWeight: "bold" }}>
-          Charles Perrault
+        <Text
+          style={{
+            color: "rgb(226, 218, 210)",
+            fontWeight: "bold",
+            fontSize: 13,
+          }}
+        >
+          {data.author}
         </Text>
-        <Text style={{ color: "rgb(226, 218, 210)" }}>7min</Text>
+        <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
+          {data.duration}min
+        </Text>
       </View>
       <Text style={styles.text} numberOfLines={10}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam
-        blanditiis dolor, hic repudiandae quisquam tempora perferendis, tenetur
-        ad unde eius ab architecto praesentium, alias excepturi possimus
-        repellendus eveniet dicta mollitia?
+        {data.description}
       </Text>
-      <View style={styles.playContainer}>
+      <TouchableOpacity style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -83,17 +102,32 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: "40%",
     width: "100%",
+    position: "relative",
+  },
+  bgdGoBack: {
+    height: 50,
+    width: 50,
+    borderRadius: "50%",
+    backgroundColor: "rgb(226, 218, 210)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  goBack: {
+    position: "absolute",
+    left: 20,
+    top: 10,
   },
   img: {
     height: "100%",
     width: "100%",
+    position: "relative",
   },
   titleContainer: {
     height: "10%",
     paddingHorizontal: 30,
     alignItems: "center",
     justifyContent: "space-around",
-    marginTop: 20,
+    marginTop: 50,
   },
   text: {
     marginTop: 30,
@@ -101,12 +135,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "rgb(226, 218, 210)",
     height: "20%",
-    // backgroundColor: "blue",
+    textAlign: "justify",
   },
   playContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 30,
   },
 });
 export default StoryScreen;
