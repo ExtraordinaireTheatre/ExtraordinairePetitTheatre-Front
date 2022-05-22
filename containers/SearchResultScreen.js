@@ -12,24 +12,28 @@ import {
 
 import axios from "axios";
 
-const SearchResult = ({ title, navigation }) => {
-  const [searchResults, setSearchResults] = useState([]);
+const SearchResult = ({
+  title,
+  navigation,
+  setRecommandations,
+  searchResults,
+  setSearchResults,
+}) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchResultTitle = async () => {
-      console.log("dans requete");
-
       setLoading(true);
       if (title) {
         try {
           const server_url = `https://extraordinaire-petit-theatre-w.herokuapp.com/books?title=${title}`;
-          console.log(server_url);
           const response = await axios.get(server_url);
           setSearchResults(response.data);
         } catch (error) {
           console.log(error.message);
         }
+      } else {
+        setRecommandations();
       }
       setLoading(false);
     };
@@ -56,8 +60,6 @@ const SearchResult = ({ title, navigation }) => {
           }}>
           {searchResults &&
             searchResults.map((result, index) => {
-              console.log(result);
-
               return (
                 <TouchableOpacity
                   style={styles.listItem}

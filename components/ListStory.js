@@ -9,6 +9,8 @@ import {
   StyleSheet,
 } from "react-native";
 
+import { useEffect } from "react";
+
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
 const ListStory = ({
@@ -34,7 +36,9 @@ const ListStory = ({
             size={12}
             color="black"
           />
-          <Text style={styles.listTitle}>Adaptés aux 1-3 ans</Text>
+          <Text style={styles.listTitle}>
+            Adaptés aux {booksAgeList[0].ageCategory} ans
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.toCarousselButton}

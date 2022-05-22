@@ -36,16 +36,14 @@ const SignupForm = ({ setLogin, setUser }) => {
           const response = await axios.post(
             "https://extraordinaire-petit-theatre-w.herokuapp.com/user/signup",
             {
-
               username,
               email,
               password,
               newsletter,
             }
           );
-          console.log(response.data);
+          // console.log(response.data);
           setUser(response.data.token);
-
         } catch (error) {
           console.log(error);
         }
@@ -97,8 +95,7 @@ const SignupForm = ({ setLogin, setUser }) => {
         onPress={async () => {
           handleSubmit();
         }}
-        style={styles.signupBtn}
-      >
+        style={styles.signupBtn}>
         <Text style={styles.textBtn}>Créer le compte</Text>
       </TouchableOpacity>
       <TouchableOpacity
