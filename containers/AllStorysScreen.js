@@ -53,7 +53,7 @@ const AllStoryScreen = ({ navigation, route }) => {
       setIsLoading(true);
       try {
         const responseBooks = await axios.get(
-          `https://extraordinaire-petit-theatre-w.herokuapp.com/books/`
+          `https://forest-admin-petit-theatre.herokuapp.com/books/`
         );
 
         const resultBooks = responseBooks.data;
@@ -124,7 +124,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
-          {searchTitle && searchResults ? (
+          {/* {searchTitle && searchResults ? (
             <View style={styles.recommandationsContainer}>
               {searchResults.map((recommandation, index) => {
                 return (
@@ -143,7 +143,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                 );
               })}
             </View>
-          ) : null}
+          ) : null} */}
         </View>
       ) : (
         <View style={styles.containerModalOff}>
