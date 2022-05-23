@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
-  Dimensions,
   ActivityIndicator,
 } from "react-native";
 
@@ -24,7 +23,7 @@ import ListStory from "../components/ListStory";
 import SearchResult from "./SearchResultScreen";
 
 // Import icones
-import { Ionicons, Entypo, MaterialIcons, Octicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 
 const AllStoryScreen = ({ navigation, route }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -53,12 +52,8 @@ const AllStoryScreen = ({ navigation, route }) => {
     const getData = async () => {
       setIsLoading(true);
       try {
-        let searchValue = "";
-        if (searchTitle) {
-          searchValue = `?title=${searchTitle}`;
-        }
         const responseBooks = await axios.get(
-          `https://extraordinaire-petit-theatre-w.herokuapp.com/books/`
+          `https://forest-admin-petit-theatre.herokuapp.com/books/`
         );
 
         const resultBooks = responseBooks.data;
@@ -129,7 +124,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
-          {searchTitle && searchResults ? (
+          {/* {searchTitle && searchResults ? (
             <View style={styles.recommandationsContainer}>
               {searchResults.map((recommandation, index) => {
                 return (
@@ -148,7 +143,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                 );
               })}
             </View>
-          ) : null}
+          ) : null} */}
         </View>
       ) : (
         <View style={styles.containerModalOff}>
@@ -208,7 +203,6 @@ const AllStoryScreen = ({ navigation, route }) => {
           <SearchResult
             title={searchTitle}
             navigation={navigation}
-            setRecommandations={setRecommandations}
             searchResults={searchResults}
             setSearchResults={setSearchResults}
           />
@@ -219,8 +213,6 @@ const AllStoryScreen = ({ navigation, route }) => {
           (press ? (
             <View>
               <ListStory
-                books={books}
-                press={press}
                 setPress={setPress}
                 booksAgeList={booksAgeList}
                 navigation={navigation}
@@ -229,16 +221,13 @@ const AllStoryScreen = ({ navigation, route }) => {
           ) : (
             <View style={styles.carousselView}>
               <Caroussel
-                press={press}
                 setPress={setPress}
                 title="Adaptés aux 1-3 ans"
                 dataBooksAge={dataBooksAge1}
-                booksAgeList={booksAgeList}
                 setBooksAgeList={setBooksAgeList}
                 navigation={navigation}
               />
               <Caroussel
-                press={press}
                 setPress={setPress}
                 title="Adaptés aux 3-5 ans"
                 dataBooksAge={dataBooksAge3}
@@ -247,7 +236,6 @@ const AllStoryScreen = ({ navigation, route }) => {
                 navigation={navigation}
               />
               <Caroussel
-                press={press}
                 setPress={setPress}
                 title="Adaptés aux 5-7 ans"
                 dataBooksAge={dataBooksAge5}

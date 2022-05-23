@@ -1,4 +1,4 @@
-import Rect from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 import {
   ScrollView,
@@ -26,7 +26,7 @@ const SearchResult = ({
       setLoading(true);
       if (title) {
         try {
-          const server_url = `https://extraordinaire-petit-theatre-w.herokuapp.com/books?title=${title}`;
+          const server_url = `https://forest-admin-petit-theatre.herokuapp.com/books?title=${title}`;
           const response = await axios.get(server_url);
           setSearchResults(response.data);
         } catch (error) {
@@ -77,7 +77,7 @@ const SearchResult = ({
                   <View style={styles.itemListDescription}>
                     <Text
                       style={{ color: "rgb(165, 81, 69)" }}
-                      numberOfLines={1}>
+                      numberOfLines={2}>
                       {result.title}
                     </Text>
                   </View>
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
     margin: 10,
     height: "33%",
     width: "40%",
+    // borderColor: "blue",
+    // borderWidth: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   containerImageItemList: {
@@ -113,8 +117,8 @@ const styles = StyleSheet.create({
     flex: 5,
   },
   imageItem: {
-    height: "100%",
-    width: "100%",
+    height: "110%",
+    width: 158,
   },
 
   itemListDescription: {
@@ -125,9 +129,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(226, 218, 210)",
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
-    marginTop: 0,
-    paddingTop: 0,
+    flex: 2,
+    width: "100%",
   },
 });
 

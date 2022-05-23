@@ -46,7 +46,7 @@ const App = () => {
           headerShown: false,
         }}
       >
-        {userToken === null ? (
+        {!userToken ? (
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
@@ -55,7 +55,9 @@ const App = () => {
             <Stack.Screen name="Affiche" component={AfficheScreen} />
             <Stack.Screen name="AllStory" component={AllStoryScreen} />
             <Stack.Screen name="Story" component={StoryScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Settings">
+              {(props) => <SettingsScreen {...props} setUser={setUser} />}
+            </Stack.Screen>
           </>
         )}
       </Stack.Navigator>
