@@ -86,7 +86,12 @@ const StoryScreen = ({ route }) => {
       <Text style={styles.text} numberOfLines={10}>
         {data.description}
       </Text>
-      <TouchableOpacity style={styles.playContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Test");
+        }}
+        style={styles.playContainer}
+      >
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
     </View>
