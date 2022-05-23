@@ -21,13 +21,16 @@ const LoginForm = ({ setLogin, setUser }) => {
     setErrorMessage("");
     if (email && password) {
       try {
+        console.log("avant resposne");
         const response = await axios.post(
-          "https://extraordinaire-petit-theatre-w.herokuapp.com/user/login",
+          "https://forest-admin-petit-theatre.herokuapp.com/user/login",
           {
             email,
             password,
           }
         );
+        console.log("apres response");
+        console.log(response.data);
         setUser(response.data.token);
       } catch (error) {
         setErrorMessage("Email ou mot de passe incorrect");
@@ -53,12 +56,9 @@ const LoginForm = ({ setLogin, setUser }) => {
       />
       <TouchableOpacity
         style={styles.loginBtn}
-
         onPress={async () => {
           handleSubmit();
-        }}
-      >
-
+        }}>
         <Text style={styles.textBtn}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
