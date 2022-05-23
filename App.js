@@ -44,14 +44,12 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-
-        }}>
-        {!userToken ? (
-
+        }}
+      >
+        {userToken === null ? (
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
-
         ) : (
           <>
             <Stack.Screen name="Affiche" component={AfficheScreen} />
@@ -60,7 +58,6 @@ const App = () => {
             <Stack.Screen name="Settings" component={SettingsScreen} />
           </>
         )}
-
       </Stack.Navigator>
     </NavigationContainer>
   );

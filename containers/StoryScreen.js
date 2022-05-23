@@ -49,7 +49,8 @@ const StoryScreen = ({ route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}>
+          }}
+        >
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -65,7 +66,8 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 20,
-          }}>
+          }}
+        >
           {data.title}
         </Text>
         <Text
@@ -73,7 +75,8 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 13,
-          }}>
+          }}
+        >
           {data.author}
         </Text>
         <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
