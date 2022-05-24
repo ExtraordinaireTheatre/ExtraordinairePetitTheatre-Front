@@ -11,7 +11,7 @@ const windowHeight = Dimensions.get("window").height;
 const TestScreen = () => {
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [time, setTime] = useState(166000);
+  const [time, setTime] = useState(0);
   const timeCode = [
     [0, 10, 15],
     [20, 30, 33],
@@ -26,7 +26,7 @@ const TestScreen = () => {
   ];
   const [i, setI] = useState(0);
   const [code, setCode] = useState(timeCode[i][2] * 1000);
-  const [reset, setReset] = useState(0);
+  const [reset, setReset] = useState(timeCode[i][1] * 1000);
   return (
     <View style={styles.container}>
       <Video
@@ -36,7 +36,7 @@ const TestScreen = () => {
           uri: "https://res.cloudinary.com/dpcwqnqtf/video/upload/v1653117283/Video/Cendrillon_video.mp4",
         }}
         // shouldPlay={false}
-        positionMillis={166000}
+        positionMillis={0}
         useNativeControls
         resizeMode="contain"
         // isLooping={false}
