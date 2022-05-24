@@ -14,6 +14,7 @@ import StoryScreen from "./containers/StoryScreen";
 import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
 import TestScreen from "./containers/TestScreen";
+import CountDownScreen from "./containers/CountdownScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,8 +46,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}
-      >
+        }}>
         {!userToken ? (
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
@@ -56,6 +56,8 @@ const App = () => {
             <Stack.Screen name="Affiche" component={AfficheScreen} />
             <Stack.Screen name="AllStory" component={AllStoryScreen} />
             <Stack.Screen name="Story" component={StoryScreen} />
+            <Stack.Screen name="CountDown" component={CountDownScreen} />
+
             <Stack.Screen name="Settings">
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>

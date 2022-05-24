@@ -1,10 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View, Dimensions, Button , Platform} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Button,
+  Platform,
+} from "react-native";
 // import { StatusBar } from "expo-status-bar";
 import { Video } from "expo-av";
 // import VideoPlayer from "expo-video-player";
 // import * as ScreenOrientation from "expo-screen-orientation";
 // import * as NavigationBar from "expo-navigation-bar";
+
+import { Magnetometer } from "expo-sensors";
+import Constants from "expo-constants";
 
 const { width, height } = Dimensions.get("screen");
 const TestScreen = () => {
@@ -35,12 +45,52 @@ const TestScreen = () => {
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
   const fullscreen = () => video.current?.presentFullscreenPlayer();
-  {Platform.OS === 'android'? fullscreen(): null}
+  {
+    Platform.OS === "android" ? fullscreen() : null;
+  }
   // fullscreen();
+
+  const [data, setData] = useState({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+
+  useEffect(() => {
+    const magnetFunction = async () => {
+      Magnetometer.setUpdateInterval(1000);
+      Magnetometer.addListener((result) => {
+        setData(result);
+      });
+
+      if (data.z > 500) {
+        alert("COUCOU");
+        setCode(timeCode[i + 1][2] * 1000);
+        // console.log("code ::::", code);
+        setReset(timeCode[i + 1][1] * 1000);
+        // console.log("reset :::: ", reset);
+
+        {
+          i + 1 === timeCode.length + 1 ? i : setI(i + 1);
+        }
+        // setI(i + 1);
+        // console.log("i :::: ", i);
+        // toogleVideo()
+      }
+    };
+    magnetFunction();
+  }, [data]);
+
   return (
     <View style={styles.container}>
+      <View>
+        <Text>x : {data.x}</Text>
+        <Text>y : {data.y}</Text>
+        <Text>z : {data.z}</Text>
+        <View style={{ marginTop: 20 }}></View>
+      </View>
+
       <Video
-      
         ref={video}
         style={styles.video}
         source={{
@@ -105,6 +155,7 @@ const styles = StyleSheet.create({
     // flexDirection:'column',
     // justifyContent: "center",
     backgroundColor: "#ECF0F1",
+    paddingTop: Constants.statusBarHeight,
   },
   video: {
     alignSelf: "center",

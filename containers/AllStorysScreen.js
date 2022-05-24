@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TextInput,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -219,7 +220,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               />
             </View>
           ) : (
-            <View style={styles.carousselView}>
+            <ScrollView style={styles.carousselView}>
               <Caroussel
                 setPress={setPress}
                 title="Adaptés aux 1-3 ans"
@@ -243,7 +244,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                 setBooksAgeList={setBooksAgeList}
                 navigation={navigation}
               />
-            </View>
+            </ScrollView>
           ))
         )}
       </ScrollView>
@@ -316,6 +317,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginHorizontal: 20,
     height: "20%",
+    // width: Dimensions.get("screen").width - Dimensions.get("screen").width / 4,
     paddingBottom: 10,
   },
 
@@ -340,7 +342,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   carousselView: {
-    height: 700,
+    // height: 700,
+    height: Dimensions.get("screen").height,
   },
 });
 

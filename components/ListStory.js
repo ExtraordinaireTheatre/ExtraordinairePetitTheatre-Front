@@ -39,7 +39,7 @@ const ListStory = ({ setPress, booksAgeList, navigation }) => {
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
       </View>
-      <View contentContainerStyle={{}}>
+      <View contentContainerStyle={{ flex: 1 }}>
         <ScrollView
           contentContainerStyle={{
             flexDirection: "row",
