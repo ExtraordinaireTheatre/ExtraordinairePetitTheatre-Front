@@ -27,7 +27,7 @@ const AfficheScreen = ({ navigation }) => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "https://forest-admin-petit-theatre.herokuapp.com/tome"
+          "https://backoffice-forest-admin-sr.herokuapp.com/tome"
         );
         setTomeAffiche(response.data);
       } catch (error) {

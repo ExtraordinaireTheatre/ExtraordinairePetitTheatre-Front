@@ -34,7 +34,7 @@ const SignupForm = ({ setLogin, setUser }) => {
       if (password === confirmPassword) {
         try {
           const response = await axios.post(
-            "https://forest-admin-petit-theatre.herokuapp.com/user/signup",
+            "https://backoffice-forest-admin-sr.herokuapp.com/user/signup",
             {
               username,
               email,
