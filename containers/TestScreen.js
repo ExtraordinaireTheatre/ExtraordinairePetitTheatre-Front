@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View, Dimensions, Button } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Button , Platform} from "react-native";
 // import { StatusBar } from "expo-status-bar";
 import { Video } from "expo-av";
 // import VideoPlayer from "expo-video-player";
 // import * as ScreenOrientation from "expo-screen-orientation";
 // import * as NavigationBar from "expo-navigation-bar";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("screen");
 const TestScreen = () => {
   // useEffect(() => {
   //   const foo = async () => {
@@ -34,9 +34,13 @@ const TestScreen = () => {
   const [i, setI] = useState(0);
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
+  const fullscreen = () => video.current?.presentFullscreenPlayer();
+  {Platform.OS === 'android'? fullscreen(): null}
+  // fullscreen();
   return (
     <View style={styles.container}>
       <Video
+      
         ref={video}
         style={styles.video}
         source={{
@@ -98,6 +102,7 @@ const TestScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // flexDirection:'column',
     // justifyContent: "center",
     backgroundColor: "#ECF0F1",
   },
