@@ -33,7 +33,8 @@ const LoginForm = ({ setLogin, setUser }) => {
         console.log(response.data);
         setUser(response.data.token);
       } catch (error) {
-        setErrorMessage("Email ou mot de passe incorrect");
+
+        console.log("CAATCH");
 
         console.log(error.response.data);
       }
@@ -58,13 +59,15 @@ const LoginForm = ({ setLogin, setUser }) => {
         style={styles.loginBtn}
         onPress={async () => {
           handleSubmit();
-        }}>
+        }}
+      >
         <Text style={styles.textBtn}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}>
+        }}
+      >
         <Text style={styles.text}>
           Vous n'avez pas encore de compte ? Inscrivez-vous !
         </Text>

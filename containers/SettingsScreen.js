@@ -33,7 +33,8 @@ const SettingsScreen = ({ navigation, setUser }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}>
+          }}
+        >
           <Ionicons
             name="arrow-back-outline"
             size={16}
