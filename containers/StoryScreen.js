@@ -20,6 +20,7 @@ const StoryScreen = ({ route }) => {
   // data single book
   const { bookData } = route.params;
   const [isLoading, setIsLoading] = useState(true);
+
   const foo = async () => {
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
