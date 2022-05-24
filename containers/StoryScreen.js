@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-import * as ScreenOrientation from 'expo-screen-orientation';
+import * as ScreenOrientation from "expo-screen-orientation";
 import {
   View,
   Text,
@@ -20,9 +20,11 @@ const StoryScreen = ({ route }) => {
   // data single book
   const { bookData } = route.params;
   const [isLoading, setIsLoading] = useState(true);
-  const foo = async()=>{
-    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
-  }
+  const foo = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+    );
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {

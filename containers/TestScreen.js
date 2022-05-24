@@ -5,9 +5,7 @@ import { Video } from "expo-av";
 // import VideoPlayer from "expo-video-player";
 // import * as ScreenOrientation from "expo-screen-orientation";
 // import * as NavigationBar from "expo-navigation-bar";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const { width, height } = Dimensions.get("window");
 const TestScreen = () => {
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -83,9 +81,6 @@ const TestScreen = () => {
         />
       </View>
 
-      {/* {time >= 15000 && playFromPositionAsync(10000)}
-    {time >= 15000 && <Text>ZIZI</Text>} */}
-      {/* {time >= 15000 && setIsPlaying(false)} */}
       <Text style={{ textAlign: "center", marginTop: 50 }}>{time}</Text>
     </View>
   );
@@ -94,20 +89,21 @@ const TestScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
     backgroundColor: "#ECF0F1",
   },
   video: {
     alignSelf: "center",
-    width: 320,
-    height: 200,
+    width: width,
+    height: height,
     position: "relative",
   },
   buttons: {
-    // flexDirection: "row",
-    // justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "space-between",
     // alignItems: "center",
-    left: 30,
+    // left: 30,
     position: "absolute",
   },
 });
