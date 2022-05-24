@@ -53,7 +53,7 @@ const AllStoryScreen = ({ navigation, route }) => {
       setIsLoading(true);
       try {
         const responseBooks = await axios.get(
-          `https://forest-admin-petit-theatre.herokuapp.com/books/`
+          `https://backoffice-forest-admin-sr.herokuapp.com/books/`
         );
 
         const resultBooks = responseBooks.data;

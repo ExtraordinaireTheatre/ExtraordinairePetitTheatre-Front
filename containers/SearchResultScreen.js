@@ -26,7 +26,7 @@ const SearchResult = ({
       setLoading(true);
       if (title) {
         try {
-          const server_url = `https://forest-admin-petit-theatre.herokuapp.com/books?title=${title}`;
+          const server_url = `https://backoffice-forest-admin-sr.herokuapp.com/books?title=${title}`;
           const response = await axios.get(server_url);
           setSearchResults(response.data);
         } catch (error) {

@@ -23,7 +23,7 @@ const StoryScreen = ({ route }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://forest-admin-petit-theatre.herokuapp.com/books/${bookData._id}`
+          `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
         );
         setData(response.data);
         setIsLoading(false);

@@ -23,7 +23,7 @@ const LoginForm = ({ setLogin, setUser }) => {
       try {
         console.log("avant resposne");
         const response = await axios.post(
-          "https://forest-admin-petit-theatre.herokuapp.com/user/login",
+          "https://backoffice-forest-admin-sr.herokuapp.com/user/login",
           {
             email,
             password,
@@ -35,7 +35,7 @@ const LoginForm = ({ setLogin, setUser }) => {
       } catch (error) {
         setErrorMessage("Email ou mot de passe incorrect");
 
-        console.log(error.response);
+        console.log(error.response.data);
       }
     } else {
       setErrorMessage("Veuillez remplir tous les champs");
