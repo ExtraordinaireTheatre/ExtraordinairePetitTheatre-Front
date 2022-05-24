@@ -1,12 +1,21 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View, Dimensions, Button } from "react-native";
 // import { StatusBar } from "expo-status-bar";
 import { Video } from "expo-av";
 // import VideoPlayer from "expo-video-player";
 // import * as ScreenOrientation from "expo-screen-orientation";
 // import * as NavigationBar from "expo-navigation-bar";
+
 const { width, height } = Dimensions.get("window");
 const TestScreen = () => {
+  // useEffect(() => {
+  //   const foo = async () => {
+  //     await ScreenOrientation.lockAsync(
+  //       ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+  //     );
+  //   };
+  //   foo();
+  // }, []);
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
@@ -39,11 +48,11 @@ const TestScreen = () => {
         resizeMode="contain"
         // isLooping={false}
         onPlaybackStatusUpdate={(status) => {
-          setTime(status.positionMillis),
-            // console.log(status.positionMillis);
-            // console.log(timeCode.length);
-            console.log(timeCode[i]);
-          console.log(i);
+          setTime(status.positionMillis);
+          // console.log(status.positionMillis);
+          // console.log(timeCode.length);
+          // console.log(timeCode[i]);
+          // console.log(i);
           // ne pas boucler sur [163, 173, 182] :
           {
             i < timeCode.length - 1 &&
@@ -94,8 +103,8 @@ const styles = StyleSheet.create({
   },
   video: {
     alignSelf: "center",
-    width: width,
-    height: height,
+    width: height,
+    height: width,
     position: "relative",
   },
   buttons: {
