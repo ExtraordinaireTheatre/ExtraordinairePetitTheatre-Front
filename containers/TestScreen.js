@@ -7,7 +7,7 @@ import {
   Button,
   Platform,
 } from "react-native";
-// import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar";
 import { Video } from "expo-av";
 // import VideoPlayer from "expo-video-player";
 // import * as ScreenOrientation from "expo-screen-orientation";
@@ -16,16 +16,18 @@ import { Video } from "expo-av";
 import { Magnetometer } from "expo-sensors";
 import Constants from "expo-constants";
 
+import * as ScreenOrientation from "expo-screen-orientation";
+
 const { width, height } = Dimensions.get("screen");
 const TestScreen = () => {
-  // useEffect(() => {
-  //   const foo = async () => {
-  //     await ScreenOrientation.lockAsync(
-  //       ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-  //     );
-  //   };
-  //   foo();
-  // }, []);
+  useEffect(() => {
+    const foo = async () => {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+      );
+    };
+    foo();
+  }, []);
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
@@ -44,11 +46,8 @@ const TestScreen = () => {
   const [i, setI] = useState(0);
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
-  const fullscreen = () => video.current?.presentFullscreenPlayer();
-  {
-    Platform.OS === "android" ? fullscreen() : null;
-  }
-  // fullscreen();
+
+  const [stateUser, setUser] = useState("admin");
 
   const [data, setData] = useState({
     x: 0,
@@ -81,13 +80,36 @@ const TestScreen = () => {
     magnetFunction();
   }, [data]);
 
+  if (stateUser !== "admin") {
+    useEffect(() => {
+      const fullscreen = () => video.current?.presentFullscreenPlayer();
+      {
+        Platform.OS === "android" ? fullscreen() : null;
+      }
+      fullscreen();
+    }, []);
+  }
+
   return (
     <View style={styles.container}>
-      <View>
+      <StatusBar hidden={true} />
+      {/* <View>
         <Text>x : {data.x}</Text>
         <Text>y : {data.y}</Text>
         <Text>z : {data.z}</Text>
         <View style={{ marginTop: 20 }}></View>
+      </View> */}
+      <View>
+        <Button
+          title={isPlaying ? "Stop" : "Play"}
+          onPress={() => {
+            isPlaying
+              ? video.current.pauseAsync() && setIsPlaying(!isPlaying)
+              : video.current.playAsync() && setIsPlaying(!isPlaying);
+          }}
+          disabled={stateUser === "admin" ? false : true}
+        />
+        <Text style={{ textAlign: "center", marginTop: 50 }}>{time}</Text>
       </View>
 
       <Video
@@ -116,61 +138,69 @@ const TestScreen = () => {
         }}
       />
 
-      <View style={styles.buttons}>
-        <Button
-          title={isPlaying ? "Pause" : "Play"}
-          onPress={() => {
-            isPlaying
-              ? video.current.pauseAsync() && setIsPlaying(!isPlaying)
-              : video.current.playAsync() && setIsPlaying(!isPlaying);
-          }}
-        />
-        <Button
-          // ne plus nexter qd [163, 173, 182] :
-          title={i === timeCode.length - 1 ? "" : "next"}
-          onPress={() => {
-            setCode(timeCode[i + 1][2] * 1000);
-            // console.log("code ::::", code);
-            setReset(timeCode[i + 1][1] * 1000);
-            // console.log("reset :::: ", reset);
+      <Button
+        // ne plus nexter qd [163, 173, 182] :
+        title={i === timeCode.length - 1 ? "" : "next"}
+        onPress={() => {
+          setCode(timeCode[i + 1][2] * 1000);
+          // console.log("code ::::", code);
+          setReset(timeCode[i + 1][1] * 1000);
+          // console.log("reset :::: ", reset);
 
-            {
-              i + 1 === timeCode.length + 1 ? i : setI(i + 1);
-            }
-            // setI(i + 1);
-            // console.log("i :::: ", i);
-            // toogleVideo()
-          }}
-        />
-      </View>
-
-      <Text style={{ textAlign: "center", marginTop: 50 }}>{time}</Text>
+          {
+            i + 1 === timeCode.length + 1 ? i : setI(i + 1);
+          }
+          // setI(i + 1);
+          // console.log("i :::: ", i);
+          // toogleVideo()
+        }}
+        disabled={stateUser === "admin" ? false : true}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // flexDirection:'column',
+    flexDirection: "row",
     // justifyContent: "center",
-    backgroundColor: "#ECF0F1",
-    paddingTop: Constants.statusBarHeight,
+    // backgroundColor: "black",
+    // paddingTop: Constants.statusBarHeight,
+    // borderColor: "yellow",
+    // borderWidth: 5,
+    // flex: 1,
+    // justifyContent: "center",
+    width: Dimensions.get("screen").width - Dimensions.get("screen").width / 5,
+    height: Dimensions.get("screen").height,
+    alignItems: "center",
+    // justifyContent: "center",
   },
   video: {
+    // alignSelf: "center",
+    // width: height,
+    // height: width,
+    // position: "absolute",
+    // zIndex: 0,
+    // borderColor: "red",
+    // borderWidth: 5,
     alignSelf: "center",
-    width: height,
-    height: width,
-    position: "relative",
-  },
-  buttons: {
     width: "100%",
-    flexDirection: "row",
-    alignItems: "space-between",
-    // alignItems: "center",
-    // left: 30,
-    position: "absolute",
+    height: "100%",
   },
+  // buttons: {
+  //   // width: "100%",
+  //   // flexDirection: "row",
+  //   // // alignItems: "space-between",
+  //   // alignItems: "center",
+  //   // justifyContent: "center",
+  //   // // left: 30,
+  //   // position: "absolute",
+  //   // top: 50,
+  //   // backgroundColor: "red",
+  //   // zIndex: 2,
+  //   position: "absolute",
+  //   bottom: 10,
+  // },
 });
 
 export default TestScreen;

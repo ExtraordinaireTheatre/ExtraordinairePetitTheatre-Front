@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginHorizontal: 20,
     height: "20%",
-    // width: Dimensions.get("screen").width - Dimensions.get("screen").width / 4,
+    width: Dimensions.get("screen").width - Dimensions.get("screen").width / 4,
     paddingBottom: 10,
   },
 

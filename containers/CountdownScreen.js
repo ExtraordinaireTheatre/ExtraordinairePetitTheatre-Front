@@ -40,7 +40,7 @@ const CountDownScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (count === 0) {
-      foo();
+      // foo();
       navigation.navigate("Test");
     }
   }, [count]);
