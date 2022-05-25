@@ -21,7 +21,7 @@ const LoginForm = ({ setLogin, setUser }) => {
     setErrorMessage("");
     if (email && password) {
       try {
-        console.log("avant resposne");
+        // console.log("avant resposne");
         const response = await axios.post(
           "https://backoffice-forest-admin-sr.herokuapp.com/user/login",
           {
@@ -29,14 +29,11 @@ const LoginForm = ({ setLogin, setUser }) => {
             password,
           }
         );
-        console.log("apres response");
+        // console.log("apres response");
         console.log(response.data);
         setUser(response.data.token);
       } catch (error) {
-
-        console.log("CAATCH");
-
-        console.log(error.response.data);
+        // console.log(error.response.data);
       }
     } else {
       setErrorMessage("Veuillez remplir tous les champs");
@@ -59,15 +56,13 @@ const LoginForm = ({ setLogin, setUser }) => {
         style={styles.loginBtn}
         onPress={async () => {
           handleSubmit();
-        }}
-      >
+        }}>
         <Text style={styles.textBtn}>Se connecter</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}
-      >
+        }}>
         <Text style={styles.text}>
           Vous n'avez pas encore de compte ? Inscrivez-vous !
         </Text>

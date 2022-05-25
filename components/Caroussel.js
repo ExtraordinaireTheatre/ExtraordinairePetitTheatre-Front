@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -94,8 +93,6 @@ const styles = StyleSheet.create({
   },
   containerCaroussel: {
     marginTop: 20,
-    // height: "80%",
-    // flex: 1,
   },
   titleCarousselContainer: {
     flexDirection: "row",
@@ -116,7 +113,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get("screen").height / 4.5,
   },
   itemCaroussel: {
-    // flex: 1,
     width: Dimensions.get("screen").width / 2.3,
     height: "85%",
     justifyContent: "center",
@@ -139,7 +135,6 @@ const styles = StyleSheet.create({
   },
   itemDescription: {
     flex: 2,
-    // height: "25%",
     width: "100%",
     borderColor: "rgb(226, 218, 210)",
     borderBottomLeftRadius: 15,

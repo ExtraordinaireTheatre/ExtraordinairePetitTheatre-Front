@@ -11,11 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import Constants from "expo-constants";
-
 import { Entypo } from "@expo/vector-icons";
-
-import * as ScreenOrientation from "expo-screen-orientation";
 
 const CountDownScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(3);
@@ -33,7 +29,6 @@ const CountDownScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (count === 0) {
-      // foo();
       navigation.navigate("Display", { bookData: route.params.bookData });
     }
   }, [count]);
