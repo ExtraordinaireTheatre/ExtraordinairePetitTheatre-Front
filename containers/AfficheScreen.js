@@ -212,8 +212,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(226, 218, 210)",
     padding: 50,
     borderRadius: 100,
-
-    // alignItems: "flex-start",
   },
   iconeEllipse: {
     height: 40,

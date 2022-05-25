@@ -114,11 +114,15 @@ const styles = StyleSheet.create({
   containerImageItemList: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    flex: 5,
+    width: "100%",
+
+    flex: 6,
   },
   imageItem: {
-    height: "110%",
-    width: 158,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    height: "100%",
+    width: "100%",
   },
 
   itemListDescription: {
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 2,
-    width: "100%",
+    width: "101%",
   },
 });
 

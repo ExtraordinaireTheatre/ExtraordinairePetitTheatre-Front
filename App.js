@@ -62,7 +62,7 @@ const App = () => {
             <Stack.Screen name="CountDown" component={CountDownScreen} />
 
             <Stack.Screen name="Settings">
-              {(props) => <AfficheScreen {...props} setUser={setUser} />}
+              {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
             <Stack.Screen name="Display" component={DisplayScreen} />
           </>

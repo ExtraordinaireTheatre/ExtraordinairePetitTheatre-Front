@@ -186,7 +186,11 @@ const AllStoryScreen = ({ navigation, route }) => {
             setSearchTitle("");
           }}>
           <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: tome.image }} />
+            <Image
+              style={styles.image}
+              source={{ uri: tome.image }}
+              resizeMode="contain"
+            />
           </View>
 
           <View style={styles.description}>
@@ -316,16 +320,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderBottomWidth: 1,
     marginHorizontal: 20,
-    height: "20%",
-    width: Dimensions.get("screen").width - Dimensions.get("screen").width / 4,
+    height: "15%",
+    // width: Dimensions.get("screen").width - Dimensions.get("screen").width / 4,
     paddingBottom: 10,
   },
 
   imageContainer: {
     width: "25%",
     height: "90%",
-    borderColor: "rgb(226, 218, 210)",
-    borderWidth: 1,
   },
   image: {
     width: "100%",
