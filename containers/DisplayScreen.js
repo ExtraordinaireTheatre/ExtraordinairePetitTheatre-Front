@@ -43,7 +43,7 @@ const DisplayScreen = ({ navigation, route }) => {
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
 
-  const [stateUser, setUser] = useState("admin");
+  const [stateUser, setUser] = useState("user");
 
   const [data, setData] = useState({
     x: 0,
@@ -79,18 +79,19 @@ const DisplayScreen = ({ navigation, route }) => {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       );
-      await NavigationBar.setVisibilityAsync("hidden");
     };
-    if (stateUser !== "admin") {
-      const fullscreen = async () => {
-        video.current?.presentFullscreenPlayer();
-      };
+    const setFullScreen = async () => {
+      if (stateUser !== "admin") {
+        const fullscreen = async () => {
+          video.current?.presentFullscreenPlayer();
+        };
 
-      {
-        Platform.OS === "android" ? fullscreen() : null;
+        {
+          Platform.OS === "android" ? fullscreen() : null;
+        }
       }
-      fullscreen();
-    }
+    };
+    setFullScreen();
     foo();
   }, []);
 
@@ -99,6 +100,14 @@ const DisplayScreen = ({ navigation, route }) => {
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
   };
+
+  useEffect(() => {
+    const navigationBar = async () => {
+      await NavigationBar.setVisibilityAsync("hidden");
+      await NavigationBar.setBackgroundColorAsync("black");
+    };
+    navigationBar();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -144,7 +153,7 @@ const DisplayScreen = ({ navigation, route }) => {
           uri: "https://res.cloudinary.com/dpcwqnqtf/video/upload/v1653117283/Video/Cendrillon_video.mp4",
         }}
         // shouldPlay={false}
-        positionMillis={0}
+        positionMillis={178000}
         useNativeControls
         // resizeMode="cover"
         // isLooping={false}
