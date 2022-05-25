@@ -16,8 +16,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "requireFullScreen": true
+      "supportsTablet": true
+
     },
     "android": {
       "adaptiveIcon": {

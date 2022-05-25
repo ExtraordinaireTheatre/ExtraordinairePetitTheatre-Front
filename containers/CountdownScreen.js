@@ -27,9 +27,14 @@ const CountDownScreen = ({ navigation, route }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if (count === 0) {
+  //     navigation.navigate("Display", { bookData: route.params.bookData });
+  //   }
+  // }, [count]);
   useEffect(() => {
     if (count === 0) {
-      navigation.navigate("Display", { bookData: route.params.bookData });
+      navigation.navigate("Test", { bookData: route.params.bookData });
     }
   }, [count]);
 
