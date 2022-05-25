@@ -160,7 +160,7 @@ const DisplayScreen = ({ navigation, route }) => {
           uri: "https://res.cloudinary.com/dpcwqnqtf/video/upload/v1653117283/Video/Cendrillon_video.mp4",
         }}
         // shouldPlay={false}
-        positionMillis={178000}
+        positionMillis={0}
         useNativeControls
         // resizeMode="cover"
         // isLooping={false}
