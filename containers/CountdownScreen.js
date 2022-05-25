@@ -21,12 +21,6 @@ const CountDownScreen = ({ navigation }) => {
   const [count, setCount] = useState(3);
   const [click, setClick] = useState(false);
 
-  const foo = async () => {
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-  };
-
   useEffect(() => {
     const countDown = setInterval(() => {
       setCount((prevState) =>
@@ -41,7 +35,7 @@ const CountDownScreen = ({ navigation }) => {
   useEffect(() => {
     if (count === 0) {
       // foo();
-      navigation.navigate("Test");
+      navigation.navigate("Display");
     }
   }, [count]);
 

@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
   },
   containerCaroussel: {
     marginTop: 20,
-    height: "80%",
-    flex: 1,
+    // height: "80%",
+    // flex: 1,
   },
   titleCarousselContainer: {
     flexDirection: "row",
@@ -113,11 +113,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(226, 218, 210)",
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    height: Dimensions.get("screen").height / 5.3,
+    height: Dimensions.get("screen").height / 4.5,
   },
   itemCaroussel: {
     // flex: 1,
-    width: Dimensions.get("screen").width / 2.5,
+    width: Dimensions.get("screen").width / 2.3,
     height: "85%",
     justifyContent: "center",
     alignItems: "center",

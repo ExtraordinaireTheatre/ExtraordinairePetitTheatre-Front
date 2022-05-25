@@ -341,10 +341,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 5,
   },
-  carousselView: {
-    // height: 700,
-    height: Dimensions.get("screen").height,
-  },
+  carousselView: {},
 });
 
 export default AllStoryScreen;
