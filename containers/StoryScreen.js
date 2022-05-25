@@ -15,31 +15,26 @@ import Constants from "expo-constants";
 
 const StoryScreen = ({ route }) => {
   const navigation = useNavigation();
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
 
-  // data single book
+  // bookData single book
   const { bookData } = route.params;
   const [isLoading, setIsLoading] = useState(true);
 
-  const foo = async () => {
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
-        );
-        setData(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
+  //       );
+  //       setData(response.data);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
   return isLoading ? (
     <ActivityIndicator />
   ) : (
@@ -73,7 +68,7 @@ const StoryScreen = ({ route }) => {
             fontWeight: "bold",
             fontSize: 20,
           }}>
-          {data.title}
+          {bookData.title}
         </Text>
         <Text
           style={{
@@ -81,20 +76,20 @@ const StoryScreen = ({ route }) => {
             fontWeight: "bold",
             fontSize: 13,
           }}>
-          {data.author}
+          {bookData.author}
         </Text>
         <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
-          {data.duration}min
+          {bookData.duration}min
         </Text>
       </View>
       <Text style={styles.text} numberOfLines={10}>
-        {data.description}
+        {bookData.description}
       </Text>
       <TouchableOpacity
         onPress={() => {
           // foo();
           // navigation.navigate("Test");
-          navigation.navigate("CountDown", { bookData: data });
+          navigation.navigate("CountDown", { bookData: bookData });
         }}
         style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />

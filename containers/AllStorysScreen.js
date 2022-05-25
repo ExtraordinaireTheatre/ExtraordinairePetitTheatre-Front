@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -21,7 +20,7 @@ import axios from "axios";
 // Import components : caroussel / list (quand modal recherche activée)
 import Caroussel from "../components/Caroussel";
 import ListStory from "../components/ListStory";
-import SearchResult from "./SearchResultScreen";
+import SearchResult from "../components/SearchResultScreen";
 
 // Import icones
 import { Ionicons, Entypo } from "@expo/vector-icons";
@@ -125,26 +124,6 @@ const AllStoryScreen = ({ navigation, route }) => {
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
-          {/* {searchTitle && searchResults ? (
-            <View style={styles.recommandationsContainer}>
-              {searchResults.map((recommandation, index) => {
-                return (
-                  <TouchableOpacity
-                    style={styles.recommandationsBlock}
-                    key={index}
-                    onPress={() => {
-                      navigation.navigate("Story", {
-                        bookData: recommandation,
-                      });
-                    }}>
-                    <Text style={styles.recommandationsText}>
-                      {recommandation.title}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          ) : null} */}
         </View>
       ) : (
         <View style={styles.containerModalOff}>

@@ -7,7 +7,6 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Button,
   StyleSheet,
   ActivityIndicator,
   Dimensions,
@@ -15,18 +14,13 @@ import {
 
 import Constants from "expo-constants";
 
-import {
-  MaterialIcons,
-  AntDesign,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import axios from "axios";
 
 const AfficheScreen = ({ navigation, portrait }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
-  console.log(Dimensions.get("screen").height / 3);
   useEffect(() => {
     portrait;
     const getAffiche = async () => {
