@@ -13,7 +13,7 @@ import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
 import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
-import TestScreen from "./containers/TestScreen";
+import DisplayScreen from "./containers/DisplayScreen";
 import CountDownScreen from "./containers/CountdownScreen";
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +38,7 @@ const App = () => {
     };
     fetchUser();
   }, []);
+
   if (isLoading === true) {
     return null;
   }
@@ -53,15 +54,17 @@ const App = () => {
           </Stack.Screen>
         ) : (
           <>
-            <Stack.Screen name="Affiche" component={AfficheScreen} />
+            <Stack.Screen name="Affiche">
+              {(props) => <AfficheScreen {...props} setUser={setUser} />}
+            </Stack.Screen>
             <Stack.Screen name="AllStory" component={AllStoryScreen} />
             <Stack.Screen name="Story" component={StoryScreen} />
             <Stack.Screen name="CountDown" component={CountDownScreen} />
 
             <Stack.Screen name="Settings">
-              {(props) => <SettingsScreen {...props} setUser={setUser} />}
+              {(props) => <AfficheScreen {...props} setUser={setUser} />}
             </Stack.Screen>
-            <Stack.Screen name="Test" component={TestScreen} />
+            <Stack.Screen name="Display" component={DisplayScreen} />
           </>
         )}
       </Stack.Navigator>

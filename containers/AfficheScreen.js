@@ -22,13 +22,15 @@ import {
 } from "@expo/vector-icons";
 import axios from "axios";
 
-const AfficheScreen = ({ navigation }) => {
+const AfficheScreen = ({ navigation, portrait }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
   console.log(Dimensions.get("screen").height / 3);
   useEffect(() => {
+    portrait;
     const getAffiche = async () => {
       setIsLoading(true);
+
       try {
         const response = await axios.get(
           "https://backoffice-forest-admin-sr.herokuapp.com/tome"
