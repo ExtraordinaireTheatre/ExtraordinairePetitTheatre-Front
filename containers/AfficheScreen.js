@@ -15,13 +15,17 @@ import {
 
 import Constants from "expo-constants";
 
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import {
+  MaterialIcons,
+  AntDesign,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import axios from "axios";
 
 const AfficheScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
-
+  console.log(Dimensions.get("screen").height / 3);
   useEffect(() => {
     const getAffiche = async () => {
       setIsLoading(true);
@@ -108,7 +112,12 @@ const AfficheScreen = ({ navigation }) => {
 
         <View style={styles.containerEllipse}>
           <TouchableOpacity style={styles.ellipse}>
-            <AntDesign style={styles.iconeEllipse} name="scan1" size={30} />
+            <MaterialCommunityIcons
+              style={styles.iconeEllipse}
+              name="ticket"
+              size={24}
+              color="rgb(165, 81, 69)"
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -194,24 +203,21 @@ const styles = StyleSheet.create({
   },
   containerEllipse: {
     marginTop: "5%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    position: "absolute",
+    top: Dimensions.get("screen").height - Dimensions.get("screen").height / 3,
   },
   ellipse: {
     backgroundColor: "rgb(226, 218, 210)",
     padding: 50,
     borderRadius: 100,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    position: "relative",
-    bottom: -10,
+
+    // alignItems: "flex-start",
   },
   iconeEllipse: {
     height: 40,
-    color: "blue",
     position: "absolute",
+    alignSelf: "center",
     top: 15,
-    left: 35,
   },
 });
 export default AfficheScreen;

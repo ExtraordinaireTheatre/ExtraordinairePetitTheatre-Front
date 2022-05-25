@@ -56,8 +56,7 @@ const StoryScreen = ({ route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -73,8 +72,7 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 20,
-          }}
-        >
+          }}>
           {data.title}
         </Text>
         <Text
@@ -82,8 +80,7 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 13,
-          }}
-        >
+          }}>
           {data.author}
         </Text>
         <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
@@ -95,11 +92,11 @@ const StoryScreen = ({ route }) => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          foo();
-          navigation.navigate("Test");
+          // foo();
+          // navigation.navigate("Test");
+          navigation.navigate("CountDown");
         }}
-        style={styles.playContainer}
-      >
+        style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
     </View>

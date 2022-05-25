@@ -39,7 +39,7 @@ const ListStory = ({ setPress, booksAgeList, navigation }) => {
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
       </View>
-      <View contentContainerStyle={{}}>
+      <View contentContainerStyle={{ flex: 1 }}>
         <ScrollView
           contentContainerStyle={{
             flexDirection: "row",
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     margin: 10,
     height: "33%",
     width: "40%",
+
     // borderColor: "blue",
     // borderWidth: 5,
   },
@@ -117,6 +118,8 @@ const styles = StyleSheet.create({
     // borderWidth: 5,
   },
   imageItem: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     height: "110%",
     width: "100%",
   },
