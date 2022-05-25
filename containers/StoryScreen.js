@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-import * as ScreenOrientation from "expo-screen-orientation";
+// import * as ScreenOrientation from "expo-screen-orientation";
 import {
   View,
   Text,
@@ -21,11 +21,11 @@ const StoryScreen = ({ route }) => {
   const { bookData } = route.params;
   console.log(bookData.author);
   const [isLoading, setIsLoading] = useState(true);
-  const foo = async () => {
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-  };
+  // const foo = async () => {
+  //   await ScreenOrientation.lockAsync(
+  //     ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+  //   );
+  // };
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -94,10 +94,10 @@ const StoryScreen = ({ route }) => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          foo();
-          navigation.navigate("TestUser");
+          // foo();
+          // navigation.navigate("TestUser");
           // navigation.navigate("TestAdmin");
-          // navigation.navigate("CountDown", { bookData: bookData });
+          navigation.navigate("CountDown", { bookData: bookData });
         }}
         style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
