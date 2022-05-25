@@ -18,9 +18,9 @@ import { Magnetometer } from "expo-sensors";
 import Constants from "expo-constants";
 
 import * as ScreenOrientation from "expo-screen-orientation";
+import * as NavigationBar from "expo-navigation-bar";
 
 import { Ionicons } from "@expo/vector-icons";
-import { roundToNearestPixel } from "react-native/Libraries/Utilities/PixelRatio";
 
 const { width, height } = Dimensions.get("screen");
 const DisplayScreen = ({ navigation, route }) => {
@@ -43,7 +43,7 @@ const DisplayScreen = ({ navigation, route }) => {
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
 
-  const [stateUser, setUser] = useState("user");
+  const [stateUser, setUser] = useState("admin");
 
   const [data, setData] = useState({
     x: 0,
@@ -69,6 +69,9 @@ const DisplayScreen = ({ navigation, route }) => {
       }
     };
     magnetFunction();
+    return () => {
+      Magnetometer.removeAllListeners();
+    };
   }, [data]);
 
   useEffect(() => {
@@ -76,9 +79,13 @@ const DisplayScreen = ({ navigation, route }) => {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       );
+      await NavigationBar.setVisibilityAsync("hidden");
     };
     if (stateUser !== "admin") {
-      const fullscreen = () => video.current?.presentFullscreenPlayer();
+      const fullscreen = async () => {
+        video.current?.presentFullscreenPlayer();
+      };
+
       {
         Platform.OS === "android" ? fullscreen() : null;
       }
@@ -112,6 +119,7 @@ const DisplayScreen = ({ navigation, route }) => {
             />
           </TouchableOpacity>
           <Button
+            style={styles.button}
             title={isPlaying ? "Stop" : "Play"}
             onPress={() => {
               isPlaying
@@ -120,14 +128,6 @@ const DisplayScreen = ({ navigation, route }) => {
             }}
             disabled={stateUser === "admin" ? false : true}
           />
-          <Text
-            style={{
-              textAlign: "center",
-              marginTop: 50,
-              color: "rgb(226, 218, 210)",
-            }}>
-            {time}
-          </Text>
         </View>
       )}
 
@@ -161,7 +161,16 @@ const DisplayScreen = ({ navigation, route }) => {
 
       {stateUser === "admin" && (
         <View style={styles.ViewButtons}>
+          <Text
+            style={{
+              textAlign: "center",
+              marginTop: 50,
+              color: "rgb(226, 218, 210)",
+            }}>
+            {time}
+          </Text>
           <Button
+            style={styles.button}
             // ne plus nexter qd [163, 173, 182] :
             title={i === timeCode.length - 1 ? "" : "next"}
             onPress={() => {
@@ -192,11 +201,15 @@ const styles = StyleSheet.create({
     height: Dimensions.get("screen").height,
   },
   ViewButtons: {
-    height: "70%",
+    height: "50%",
+    paddingTop: 40,
     // borderColor: "yellow",
     // borderWidth: 4,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
+  },
+  button: {
+    marginTop: 150,
   },
   goBack: {
     backgroundColor: "rgb(226, 218, 210)",
