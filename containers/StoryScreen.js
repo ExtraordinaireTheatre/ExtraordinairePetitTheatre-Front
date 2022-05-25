@@ -19,6 +19,7 @@ const StoryScreen = ({ route }) => {
 
   // bookData single book
   const { bookData } = route.params;
+  console.log(bookData.author);
   const [isLoading, setIsLoading] = useState(true);
 
   // useEffect(() => {
@@ -35,14 +36,15 @@ const StoryScreen = ({ route }) => {
   //   };
   //   fetchData();
   // }, []);
-  return isLoading ? (
-    <ActivityIndicator />
-  ) : (
+  // return isLoading ? (
+  //   <ActivityIndicator />
+  // ) : (
+  return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: data.image,
+            uri: bookData.image,
           }}
           style={styles.img}
           resizeMode="cover"
@@ -96,6 +98,7 @@ const StoryScreen = ({ route }) => {
       </TouchableOpacity>
     </View>
   );
+  // );
 };
 const styles = StyleSheet.create({
   container: {

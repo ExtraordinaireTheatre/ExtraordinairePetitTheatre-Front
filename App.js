@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Platform } from "react-native";
 
 //Import librairies navigation. Default Theme => stylyser toutes l'app avec une const Theme
 import { NavigationContainer } from "@react-navigation/native";
@@ -40,7 +41,9 @@ const App = () => {
 
   useEffect(() => {
     const colorBottomBar = async () => {
-      await NavigationBar.setBackgroundColorAsync("rgb(165, 81, 69)");
+      if (Platform.OS === "android") {
+        await NavigationBar.setBackgroundColorAsync("rgb(165, 81, 69)");
+      }
     };
     colorBottomBar();
   }, []);
