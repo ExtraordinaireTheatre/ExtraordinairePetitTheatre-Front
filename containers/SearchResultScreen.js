@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 
 import axios from "axios";
@@ -56,7 +57,7 @@ const SearchResult = ({
             justifyContent: "space-around",
             marginTop: 10,
             paddingHorizontal: 10,
-            height: 500,
+            height: Dimensions.get("screen").height,
           }}>
           {searchResults &&
             searchResults.map((result, index) => {
@@ -103,8 +104,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     margin: 10,
-    height: "33%",
-    width: "40%",
+    height: "20%",
+    width: "42%",
     // borderColor: "blue",
     // borderWidth: 5,
     alignItems: "center",

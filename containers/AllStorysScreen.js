@@ -205,12 +205,14 @@ const AllStoryScreen = ({ navigation, route }) => {
           setShowSearchBar(false);
         }}>
         {searchTitle ? (
-          <SearchResult
-            title={searchTitle}
-            navigation={navigation}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-          />
+          <ScrollView style={styles.carousselView}>
+            <SearchResult
+              title={searchTitle}
+              navigation={navigation}
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
+            />
+          </ScrollView>
         ) : (
           dataBooksAge1 &&
           dataBooksAge3 &&
@@ -343,7 +345,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 5,
   },
-  carousselView: {},
+  carousselView: {
+    // borderColor: "blue",
+    // borderWidth: 2,
+  },
 });
 
 export default AllStoryScreen;

@@ -20,6 +20,7 @@ import {
   AntDesign,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+
 import axios from "axios";
 
 const AfficheScreen = ({ navigation, portrait }) => {
