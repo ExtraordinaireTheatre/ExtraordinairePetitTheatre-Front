@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   listItem: {
     margin: 10,
     height: "33%",
-    width: "40%",
+    width: "44%",
 
     // borderColor: "blue",
     // borderWidth: 5,

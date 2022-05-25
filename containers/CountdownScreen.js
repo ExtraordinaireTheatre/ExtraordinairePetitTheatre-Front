@@ -17,9 +17,8 @@ import { Entypo } from "@expo/vector-icons";
 
 import * as ScreenOrientation from "expo-screen-orientation";
 
-const CountDownScreen = ({ navigation }) => {
+const CountDownScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(3);
-  const [click, setClick] = useState(false);
 
   useEffect(() => {
     const countDown = setInterval(() => {
@@ -35,7 +34,7 @@ const CountDownScreen = ({ navigation }) => {
   useEffect(() => {
     if (count === 0) {
       // foo();
-      navigation.navigate("Display");
+      navigation.navigate("Display", { bookData: route.params.bookData });
     }
   }, [count]);
 
@@ -45,7 +44,7 @@ const CountDownScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => {
-            navigation.navigate("Affiche");
+            navigation.goBack();
           }}>
           <Entypo name="cross" size={24} color="rgb(165, 81, 69)" />
         </TouchableOpacity>

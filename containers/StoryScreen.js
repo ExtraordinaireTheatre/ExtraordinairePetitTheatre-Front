@@ -94,7 +94,7 @@ const StoryScreen = ({ route }) => {
         onPress={() => {
           // foo();
           // navigation.navigate("Test");
-          navigation.navigate("CountDown");
+          navigation.navigate("CountDown", { bookData: data });
         }}
         style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />

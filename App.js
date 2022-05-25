@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 
 //Import librairies navigation. Default Theme => stylyser toutes l'app avec une const Theme
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as NavigationBar from "expo-navigation-bar";
 
 // Import containers Screen
 import SettingsScreen from "./containers/SettingsScreen";
@@ -37,6 +36,13 @@ const App = () => {
       setIsLoading(false);
     };
     fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const hideBottomBar = async () => {
+      await NavigationBar.setBackgroundColorAsync("rgb(165, 81, 69)");
+    };
+    hideBottomBar();
   }, []);
 
   if (isLoading === true) {
