@@ -39,10 +39,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const hideBottomBar = async () => {
+    const colorBottomBar = async () => {
       await NavigationBar.setBackgroundColorAsync("rgb(165, 81, 69)");
     };
-    hideBottomBar();
+    colorBottomBar();
   }, []);
 
   if (isLoading === true) {
