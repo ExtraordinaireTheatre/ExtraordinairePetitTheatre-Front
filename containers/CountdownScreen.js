@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
 import {
   SafeAreaView,
   View,
@@ -27,9 +28,21 @@ const CountDownScreen = ({ navigation, route }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if (count === 0) {
+  //     navigation.navigate("Display", { bookData: route.params.bookData });
+  //   }
+  // }, [count]);
+  const foo = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+    );
+  };
+
   useEffect(() => {
     if (count === 0) {
-      navigation.navigate("Display", { bookData: route.params.bookData });
+      foo();
+      navigation.navigate("TestUser", { bookData: route.params.bookData });
     }
   }, [count]);
 
