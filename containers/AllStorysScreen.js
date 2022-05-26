@@ -50,6 +50,18 @@ const AllStoryScreen = ({ navigation, route }) => {
   const [searchResults, setSearchResults] = useState([]);
 
   // animation
+  const animation = useRef(new Animated.Value(0)).current;
+
+  const startAnimation = () => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 500,
+    }).start();
+  };
+  const interpolate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["10%", "90%"],
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -87,20 +99,6 @@ const AllStoryScreen = ({ navigation, route }) => {
     getData();
   }, []);
 
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-
-  const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 1000,
-    }).start();
-  };
-
-  useEffect(() => {
-    fadeIn();
-  }, [fadeAnim]);
-
   return isLoading ? (
     <View
       style={{
@@ -113,66 +111,64 @@ const AllStoryScreen = ({ navigation, route }) => {
     </View>
   ) : (
     <View style={styles.container}>
-      {showSearchBar ? (
-        <Animated.View
-          style={{
-            alignItems: "center",
-            marginVertical: 20,
-            position: "relative",
-            opacity: fadeAnim,
-          }}>
-          <View style={styles.viewSearch}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Affiche");
-              }}>
-              <Entypo
-                style={styles.icons}
-                name="magnifying-glass"
-                size={24}
-                color="black"
-              />
-            </TouchableOpacity>
-            <TextInput
-              style={styles.inputSearch}
-              placeholder="Titre de l'oeuvre"
-              onChangeText={(v) => {
-                setSearchTitle(v);
-              }}
-              placeholderTextColor={"rgb(226, 218, 210)"}
-            />
-          </View>
-        </Animated.View>
-      ) : (
-        <View style={styles.containerModalOff}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              style={styles.goBack}
-              onPress={() => {
-                navigation.navigate("Affiche");
-              }}>
-              <Ionicons
-                name="arrow-back-outline"
-                size={16}
-                color={"rgb(165, 81, 69)"}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setShowSearchBar(!showSearchBar);
-              }}>
-              <View style={styles.buttonCircle}>
-                <Entypo
-                  style={styles.icons}
-                  name="magnifying-glass"
-                  size={24}
-                  color="black"
+      {showSearchBar
+        ? (startAnimation(),
+          (
+            <Animated.View style={[styles.box, { width: interpolate }]}>
+              <View style={styles.viewSearch}>
+                <TouchableOpacity
+                  onPress={() => {
+                    startAnimation();
+                  }}>
+                  <Entypo
+                    style={styles.icons}
+                    name="magnifying-glass"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TextInput
+                  style={styles.inputSearch}
+                  placeholder="Titre de l'oeuvre"
+                  onChangeText={(v) => {
+                    setSearchTitle(v);
+                  }}
+                  placeholderTextColor={"rgb(226, 218, 210)"}
                 />
               </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
+            </Animated.View>
+          ))
+        : (animation.setValue(0),
+          (
+            <View style={styles.containerModalOff}>
+              <View style={styles.header}>
+                <TouchableOpacity
+                  style={styles.goBack}
+                  onPress={() => {
+                    navigation.navigate("Affiche");
+                  }}>
+                  <Ionicons
+                    name="arrow-back-outline"
+                    size={16}
+                    color={"rgb(165, 81, 69)"}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowSearchBar(!showSearchBar);
+                  }}>
+                  <View style={styles.buttonCircle}>
+                    <Entypo
+                      style={styles.icons}
+                      name="magnifying-glass"
+                      size={24}
+                      color="black"
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
 
       {route.params && !searchTitle && (
         <TouchableOpacity
@@ -278,10 +274,21 @@ const styles = StyleSheet.create({
 
   viewSearch: {
     flexDirection: "row",
-    padding: 10,
-    borderRadius: 50,
+  },
+  searchModal: {
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  box: {
+    backgroundColor: "tomato",
+    height: "7%",
+    alignItems: "center",
+    marginVertical: 10,
     backgroundColor: "rgba(226, 218, 210,0.5)",
-    width: "90%",
+    borderRadius: 50,
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    marginLeft: 24,
   },
   inputSearch: {
     marginLeft: 10,
