@@ -20,15 +20,15 @@ import * as NavigationBar from "expo-navigation-bar";
 import StoryScreen from "./StoryScreen";
 
 import { Ionicons } from "@expo/vector-icons";
-    
+
 // const width = Dimensions.get("window").height;
 // const height = Dimensions.get("window").width;
 
-const TestUser = ({  navigation: { goBack } , route }) => {
+const TestUser = ({ navigation, route }) => {
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
-    // NavigationBarVisibility='hidden';
+  // NavigationBarVisibility='hidden';
   const timeCode = [
     [0, 16, 18], //Cependant Cendrillon, avec ses méchants habits, était cent fois plus belle que ses sœurs, quoique vêtues très magnifiquement.
     [21, 30, 33], // Cendrillon les conseilla le mieux du monde, et s’offrit même à les coiffer ; ce qu’elles voulurent bien.
@@ -65,7 +65,9 @@ const TestUser = ({  navigation: { goBack } , route }) => {
         alert("COUCOU");
         setCode(timeCode[i + 1][2] * 1000);
         setReset(timeCode[i + 1][1] * 1000);
-        {i + 1 === timeCode.length + 1 ? i : setI(i + 1);}
+        {
+          i + 1 === timeCode.length + 1 ? i : setI(i + 1);
+        }
       }
     };
     magnetFunction();
@@ -73,15 +75,16 @@ const TestUser = ({  navigation: { goBack } , route }) => {
       Magnetometer.removeAllListeners();
     };
   }, [data]);
-// HIDE BOTTOM BAR ON ANDROID DEVICE
+  // HIDE BOTTOM BAR ON ANDROID DEVICE
   useEffect(() => {
     const navigationBar = async () => {
       await NavigationBar.setVisibilityAsync("hidden");
     };
-    {Platform.OS === 'android' &&
-        navigationBar();}
+    {
+      Platform.OS === "android" && navigationBar();
+    }
   }, []);
-// QUIT VIDEO AND MAKE PORTRAIT_UP
+  // QUIT VIDEO AND MAKE PORTRAIT_UP
   const back = async () => {
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT_UP
@@ -90,9 +93,8 @@ const TestUser = ({  navigation: { goBack } , route }) => {
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
-      
+
       <Video
-      
         ref={video}
         style={styles.video}
         source={{
@@ -104,7 +106,8 @@ const TestUser = ({  navigation: { goBack } , route }) => {
         resizeMode="cover"
         onPlaybackStatusUpdate={(status) => {
           setTime(status.positionMillis);
-          {i < timeCode.length - 1 &&
+          {
+            i < timeCode.length - 1 &&
               time >= code &&
               video.current.playFromPositionAsync(reset);
           }
@@ -114,57 +117,51 @@ const TestUser = ({  navigation: { goBack } , route }) => {
         style={styles.goBack}
         onPress={() => {
           back();
-          // navigation.navigate("Story", { bookData: route.params.bookData });
-          goBack();
+          navigation.navigate("Story", { bookData: route.params.bookData });
         }}>
-        <Ionicons
-          name="arrow-back-outline"
-          size={22}
-          color='white'
-        />
+        <Ionicons name="arrow-back-outline" size={22} color="white" />
       </TouchableOpacity>
     </View>
-    )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
-      // borderWidth:4,
-      // borderColor:'red',
-      flex:1,
+    // borderWidth:4,
+    // borderColor:'red',
+    flex: 1,
   },
   video: {
-      height: '100%',
-      width: '100%',
-      // borderWidth:4,
-      // borderColor:'blue',
-      position:'relative'
-
+    height: "100%",
+    width: "100%",
+    // borderWidth:4,
+    // borderColor:'blue',
+    position: "relative",
   },
-  goBack:{
-    position:'absolute',
+  goBack: {
+    position: "absolute",
     top: 10,
     left: 10,
-    color:'white'
-  }
-//   ViewButtons: {
-//     height: "50%",
-//     paddingTop: 40,
-//     // borderColor: "yellow",
-//     // borderWidth: 4,
-//     alignItems: "center",
-//     justifyContent: "space-around",
-//   },
-//   button: {
-//     marginTop: 150,
-//   },
-//   goBack: {
-//     backgroundColor: "rgb(226, 218, 210)",
-//     borderWidth: 1,
-//     borderRadius: 50,
-//     padding: 15,
-//     color: "rgb(165, 81, 69)",
-//     borderWidth: 0,
-//   },
+    color: "white",
+  },
+  //   ViewButtons: {
+  //     height: "50%",
+  //     paddingTop: 40,
+  //     // borderColor: "yellow",
+  //     // borderWidth: 4,
+  //     alignItems: "center",
+  //     justifyContent: "space-around",
+  //   },
+  //   button: {
+  //     marginTop: 150,
+  //   },
+  //   goBack: {
+  //     backgroundColor: "rgb(226, 218, 210)",
+  //     borderWidth: 1,
+  //     borderRadius: 50,
+  //     padding: 15,
+  //     color: "rgb(165, 81, 69)",
+  //     borderWidth: 0,
+  //   },
 });
 
 export default TestUser;

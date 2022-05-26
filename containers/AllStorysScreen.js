@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ScrollView,
   View,
@@ -10,6 +10,7 @@ import {
   TextInput,
   ActivityIndicator,
   Dimensions,
+  Animated,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -48,6 +49,8 @@ const AllStoryScreen = ({ navigation, route }) => {
   const [searchTitle, setSearchTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  // animation
+
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
@@ -84,6 +87,20 @@ const AllStoryScreen = ({ navigation, route }) => {
     getData();
   }, []);
 
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 1000,
+    }).start();
+  };
+
+  useEffect(() => {
+    fadeIn();
+  }, [fadeAnim]);
+
   return isLoading ? (
     <View
       style={{
@@ -97,11 +114,12 @@ const AllStoryScreen = ({ navigation, route }) => {
   ) : (
     <View style={styles.container}>
       {showSearchBar ? (
-        <View
+        <Animated.View
           style={{
             alignItems: "center",
             marginVertical: 20,
             position: "relative",
+            opacity: fadeAnim,
           }}>
           <View style={styles.viewSearch}>
             <TouchableOpacity
@@ -124,7 +142,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
-        </View>
+        </Animated.View>
       ) : (
         <View style={styles.containerModalOff}>
           <View style={styles.header}>
@@ -182,16 +200,17 @@ const AllStoryScreen = ({ navigation, route }) => {
       <ScrollView
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
-        }}>
+        }}
+        contentContainerStyle={{ flexGrow: 1 }}>
         {searchTitle ? (
-          <ScrollView style={styles.carousselView}>
+          <View style={styles.carousselView}>
             <SearchResult
               title={searchTitle}
               navigation={navigation}
               searchResults={searchResults}
               setSearchResults={setSearchResults}
             />
-          </ScrollView>
+          </View>
         ) : (
           dataBooksAge1 &&
           dataBooksAge3 &&
@@ -205,7 +224,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               />
             </View>
           ) : (
-            <ScrollView style={styles.carousselView}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
               <Caroussel
                 setPress={setPress}
                 title="Adaptés aux 1-3 ans"

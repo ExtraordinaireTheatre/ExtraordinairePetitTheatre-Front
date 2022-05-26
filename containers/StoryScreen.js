@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+
 // import * as ScreenOrientation from "expo-screen-orientation";
 import {
+  SafeAreaView,
+  ScrollView,
   View,
   Text,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
   Image,
+  Dimensions,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
@@ -16,10 +21,10 @@ import Constants from "expo-constants";
 const StoryScreen = ({ route }) => {
   const navigation = useNavigation();
   // const [data, setData] = useState();
+  const [seeMore, setSeeMore] = useState(false);
 
   // bookData single book
   const { bookData } = route.params;
-  console.log(bookData.author);
   const [isLoading, setIsLoading] = useState(true);
   // const foo = async () => {
   //   await ScreenOrientation.lockAsync(
@@ -45,7 +50,8 @@ const StoryScreen = ({ route }) => {
   //   <ActivityIndicator />
   // ) : (
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar hidden={true} />
       <View style={styles.imageContainer}>
         <Image
           source={{
@@ -89,9 +95,13 @@ const StoryScreen = ({ route }) => {
           {bookData.duration}min
         </Text>
       </View>
-      <Text style={styles.text} numberOfLines={10}>
-        {bookData.description}
-      </Text>
+      <ScrollView
+        style={styles.synopsis}
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}>
+        <Text style={styles.text}>{bookData.description}</Text>
+      </ScrollView>
       <TouchableOpacity
         onPress={() => {
           // foo();
@@ -102,7 +112,7 @@ const StoryScreen = ({ route }) => {
         style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
   // );
 };
@@ -110,12 +120,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(165, 81, 69)",
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
   },
   imageContainer: {
     height: "40%",
     width: "100%",
     position: "relative",
+    top: 0,
   },
   bgdGoBack: {
     height: 50,
@@ -147,13 +158,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     fontSize: 15,
     color: "rgb(226, 218, 210)",
-    height: "20%",
+    height: "100%",
     textAlign: "justify",
+  },
+  synopsis: {
+    height: "10%",
   },
   playContainer: {
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
+    flex: 2,
   },
 });
 export default StoryScreen;

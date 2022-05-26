@@ -50,7 +50,7 @@ const DisplayScreen = ({ navigation, route }) => {
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
 
-  const [stateUser, setUser] = useState("user");
+  const [stateUser, setUser] = useState("admin");
 
   const [data, setData] = useState({
     x: 0,
@@ -148,12 +148,12 @@ const DisplayScreen = ({ navigation, route }) => {
       )}
 
       <Video
-        onFullscreenUpdate={() => {
-          if (i === timeCode.length - 1) {
-            navigation.navigate("Story", { bookData: route.params.bookData });
-            portrait();
-          }
-        }}
+        // onFullscreenUpdate={() => {
+        //   if (i === timeCode.length - 1) {
+        //     navigation.navigate("Story", { bookData: route.params.bookData });
+        //     portrait();
+        //   }
+        // }}
         ref={video}
         style={styles.video}
         source={{
