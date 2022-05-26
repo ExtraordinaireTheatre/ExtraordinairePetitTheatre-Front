@@ -12,6 +12,7 @@ import {
 
 import { StatusBar } from "expo-status-bar";
 import { Video } from "expo-av";
+import LottieView from 'lottie-react-native';
 
 import { Magnetometer } from "expo-sensors";
 
@@ -50,7 +51,9 @@ const TestUser = ({  navigation: { goBack } , route }) => {
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
 
   const [stateUser, setUser] = useState("user");
-  const [stepForward, setStepForward] = useState(false)
+  const [stepForward, setStepForward] = useState(false);
+  const [finish, setFinish] = useState(false);
+  const animation = useRef(null);
 
   const [data, setData] = useState({
     x: 0,
@@ -94,8 +97,33 @@ const TestUser = ({  navigation: { goBack } , route }) => {
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
   };
-  return (
-    <View style={styles.container}>
+  const handleFinish = () =>{
+    setFinish(true);
+  }
+  return (!finish ? (
+    <View style={styles.animationContainer}>
+      <StatusBar hidden={true}/>
+      <LottieView
+    
+        autoPlay
+        resizeMode='cover'
+        loop={false}
+        ref={animation}
+        style={{
+          flex:1,
+          backgroundColor: '#000000',
+        }}
+        // Find more Lottie files at https://lottiefiles.com/featured
+        source={require('../assets/Curtain.json')}
+        onAnimationFinish={()=>{ handleFinish();
+            // navigation.navigate("TestUser", { bookData: route.params.bookData });
+            // <Text style={{backgroundColor:'white'}}>fin de l'animation</Text>
+        }}
+        
+      />
+      </View>)
+  :
+    (<View style={styles.container}>
 
       <StatusBar hidden={true} />
       
@@ -131,23 +159,27 @@ const TestUser = ({  navigation: { goBack } , route }) => {
           color='white'
         />
       </TouchableOpacity>
-      {/* {display:{stepForward}, */}
       <View style={stepForward && { position:'absolute', top:10, right:10}}>
         <AntDesign
           name="stepforward"
           size={22}
           color='white'
-          // position='absolute'
-          // top='10'
-          // left='100'
         />
       </View>
         
-    </View>
+    </View>)
     )
 }
 const styles = StyleSheet.create({
+  animationContainer: {
+    backgroundColor: '#000000',
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
   container: {
+      backgroundColor:'#000000',
       // borderWidth:4,
       // borderColor:'red',
       flex:1,
