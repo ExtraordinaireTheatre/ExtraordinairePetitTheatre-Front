@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -10,17 +10,20 @@ import {
   StyleSheet,
   ActivityIndicator,
   Dimensions,
+  Animated,
 } from "react-native";
 
 import Constants from "expo-constants";
 
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import axios from "axios";
+const { width, height } = Dimensions.get("window");
 
 const AfficheScreen = ({ navigation, portrait }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
+
   useEffect(() => {
     portrait;
     const getAffiche = async () => {
@@ -45,7 +48,8 @@ const AfficheScreen = ({ navigation, portrait }) => {
         justifyContent: "center",
         flex: 1,
         backgroundColor: "rgb(165, 81, 69)",
-      }}>
+      }}
+    >
       <ActivityIndicator size={"large"} />
     </View>
   ) : (
@@ -54,7 +58,8 @@ const AfficheScreen = ({ navigation, portrait }) => {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Settings");
-          }}>
+          }}
+        >
           <View style={styles.buttonCircle}>
             <MaterialIcons
               style={styles.settingsIcon}
@@ -66,18 +71,23 @@ const AfficheScreen = ({ navigation, portrait }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>à l'affiche</Text>
+        <Text
+          style={{
+            color: "rgb(226, 218, 210)",
+            fontSize: 20,
+            textTransform: "uppercase",
+          }}
+        >
+          à l'affiche
+        </Text>
       </View>
       <View style={styles.main}>
         <View style={styles.carousselContainer}>
           <ScrollView
             horizontal={true}
             style={styles.caroussel}
-            contentContainerStyle={{
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            showsHorizontalScrollIndicator={false}>
+            showsHorizontalScrollIndicator={false}
+          >
             {tomesAffiche &&
               tomesAffiche.map((tome, index) => {
                 return (
@@ -87,7 +97,8 @@ const AfficheScreen = ({ navigation, portrait }) => {
                     activeOpacity={0.7}
                     onPress={() => {
                       navigation.navigate("AllStory", { tome: tome });
-                    }}>
+                    }}
+                  >
                     <View style={styles.viewImageCaroussel}>
                       <Image
                         style={styles.imageCaroussel}
@@ -106,24 +117,14 @@ const AfficheScreen = ({ navigation, portrait }) => {
               })}
           </ScrollView>
         </View>
-
-        <View style={styles.containerEllipse}>
-          <TouchableOpacity style={styles.ellipse}>
-            <MaterialCommunityIcons
-              style={styles.iconeEllipse}
-              name="ticket"
-              size={24}
-              color="rgb(165, 81, 69)"
-            />
-          </TouchableOpacity>
-        </View>
       </View>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
+    width: width,
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,
   },
@@ -145,36 +146,24 @@ const styles = StyleSheet.create({
   main: {
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
   },
   titleContainer: {
     alignItems: "center",
-    // borderColor: "yellow",
-    // borderWidth: 2,
-    marginTop: 30,
-    paddingBottom: 20,
-  },
-  title: {
-    color: "rgb(226, 218, 210)",
-    fontSize: 20,
-    textTransform: "uppercase",
-    // borderColor: "yellow",
-    // borderWidth: 2,
+    paddingVertical: 30,
+    marginTop: 10,
   },
   carousselContainer: {
-    // borderColor: "blue",
-    // borderWidth: 1,
-    height: "70%",
-    width: "100%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    height: height / 1.8,
+    width: width,
+    justifyContent: "center",
+    alignItems: "center",
   },
   itemCaroussel: {
     alignItems: "center",
     justifyContent: "center",
-    // borderColor: "yellow",
-    // borderWidth: 3,
-    marginHorizontal: 65,
     height: "100%",
+    width: width,
   },
   viewImageCaroussel: {
     height: "75%",
@@ -183,8 +172,6 @@ const styles = StyleSheet.create({
   imageCaroussel: {
     height: "100%",
     width: "100%",
-    // borderColor: "rgb(226, 218, 210)",
-    // borderWidth: 2,
   },
   carousselTitleContainer: {
     marginTop: 20,
@@ -197,22 +184,6 @@ const styles = StyleSheet.create({
   subTitleCaroussel: {
     color: "rgb(226, 218, 210)",
     fontSize: 22,
-  },
-  containerEllipse: {
-    marginTop: "5%",
-    position: "absolute",
-    top: Dimensions.get("screen").height - Dimensions.get("screen").height / 3,
-  },
-  ellipse: {
-    backgroundColor: "rgb(226, 218, 210)",
-    padding: 50,
-    borderRadius: 100,
-  },
-  iconeEllipse: {
-    height: 40,
-    position: "absolute",
-    alignSelf: "center",
-    top: 15,
   },
 });
 export default AfficheScreen;
