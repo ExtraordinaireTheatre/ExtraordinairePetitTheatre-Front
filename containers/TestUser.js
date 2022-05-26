@@ -18,14 +18,17 @@ import { Magnetometer } from "expo-sensors";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as NavigationBar from "expo-navigation-bar";
 import StoryScreen from "./StoryScreen";
+// import LottieView from 'lottie-react-native';
 
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
     
 // const width = Dimensions.get("window").height;
 // const height = Dimensions.get("window").width;
 
 const TestUser = ({  navigation: { goBack } , route }) => {
   const video = useRef(null);
+  // const animation = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
     // NavigationBarVisibility='hidden';
@@ -47,12 +50,14 @@ const TestUser = ({  navigation: { goBack } , route }) => {
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
 
   const [stateUser, setUser] = useState("user");
+  const [stepForward, setStepForward] = useState(false)
 
   const [data, setData] = useState({
     x: 0,
     y: 0,
     z: 0,
   });
+
   // USE MAGNET TO GO TO NEXT SCENE
   useEffect(() => {
     const magnetFunction = async () => {
@@ -62,21 +67,23 @@ const TestUser = ({  navigation: { goBack } , route }) => {
       });
 
       if (data.z > 700) {
-        alert("COUCOU");
+        // alert("COUCOU");
+        setStepForward(true)
         setCode(timeCode[i + 1][2] * 1000);
         setReset(timeCode[i + 1][1] * 1000);
-        {i + 1 === timeCode.length + 1 ? i : setI(i + 1);}
+        {i + 1 === timeCode.length  ? setI(timeCode.length) : setI(i + 1);}
       }
     };
     magnetFunction();
     return () => {
       Magnetometer.removeAllListeners();
+      setStepForward(false)
     };
   }, [data]);
 // HIDE BOTTOM BAR ON ANDROID DEVICE
   useEffect(() => {
     const navigationBar = async () => {
-      await NavigationBar.setVisibilityAsync("hidden");
+      await NavigationBar.setVisibilityAsync('hidden');
     };
     {Platform.OS === 'android' &&
         navigationBar();}
@@ -89,6 +96,7 @@ const TestUser = ({  navigation: { goBack } , route }) => {
   };
   return (
     <View style={styles.container}>
+
       <StatusBar hidden={true} />
       
       <Video
@@ -123,6 +131,18 @@ const TestUser = ({  navigation: { goBack } , route }) => {
           color='white'
         />
       </TouchableOpacity>
+      {/* {display:{stepForward}, */}
+      <View style={stepForward && { position:'absolute', top:10, right:10}}>
+        <AntDesign
+          name="stepforward"
+          size={22}
+          color='white'
+          // position='absolute'
+          // top='10'
+          // left='100'
+        />
+      </View>
+        
     </View>
     )
 }

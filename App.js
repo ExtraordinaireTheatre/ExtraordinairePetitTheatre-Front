@@ -15,6 +15,7 @@ import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
 // import DisplayScreen from "./containers/DisplayScreen";
 import CountDownScreen from "./containers/CountdownScreen";
+import Curtain from "./containers/Curtain";
 import TestUser from "./containers/TestUser";
 import TestAdmin from "./containers/TestAdmin";
 
@@ -76,6 +77,7 @@ const App = () => {
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
             {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
+            <Stack.Screen name="Curtain" component={Curtain} />
             <Stack.Screen name="TestUser" component={TestUser} />
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
           </>
