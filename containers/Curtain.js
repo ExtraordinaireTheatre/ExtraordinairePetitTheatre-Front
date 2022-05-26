@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import LottieView from 'lottie-react-native';
 
 
-export default function Curtain({navigation}) {
+export default function Curtain({navigation, route}) {
   const animation = useRef(null);
   useEffect(() => {
     // You can control the ref programmatically, rather than using autoPlay
