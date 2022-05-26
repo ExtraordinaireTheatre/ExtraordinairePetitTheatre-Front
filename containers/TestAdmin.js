@@ -20,15 +20,17 @@ import * as NavigationBar from "expo-navigation-bar";
 import StoryScreen from "./StoryScreen";
 
 import { Ionicons } from "@expo/vector-icons";
-    
+
 // const width = Dimensions.get("window").height;
 // const height = Dimensions.get("window").width;
 
-const TestAdmin = ({  navigation: { goBack } , route }) => {
+const TestAdmin = ({ navigation, route }) => {
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
-    // NavigationBarVisibility='hidden';
+  // NavigationBarVisibility='hidden';
+  const bookData = route.params.bookData;
+
   const timeCode = [
     [0, 16, 18], //Cependant Cendrillon, avec ses méchants habits, était cent fois plus belle que ses sœurs, quoique vêtues très magnifiquement.
     [21, 30, 33], // Cendrillon les conseilla le mieux du monde, et s’offrit même à les coiffer ; ce qu’elles voulurent bien.
@@ -48,15 +50,16 @@ const TestAdmin = ({  navigation: { goBack } , route }) => {
 
   const [stateUser, setUser] = useState("user");
 
-// HIDE BOTTOM BAR ON ANDROID DEVICE
+  // HIDE BOTTOM BAR ON ANDROID DEVICE
   useEffect(() => {
     const navigationBar = async () => {
       await NavigationBar.setVisibilityAsync("hidden");
     };
-    {Platform.OS === 'android' &&
-        navigationBar();}
+    {
+      Platform.OS === "android" && navigationBar();
+    }
   }, []);
-// QUIT VIDEO AND MAKE PORTRAIT_UP
+  // QUIT VIDEO AND MAKE PORTRAIT_UP
   const back = async () => {
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT_UP
@@ -78,7 +81,8 @@ const TestAdmin = ({  navigation: { goBack } , route }) => {
         resizeMode="cover"
         onPlaybackStatusUpdate={(status) => {
           setTime(status.positionMillis);
-          {i < timeCode.length - 1 &&
+          {
+            i < timeCode.length - 1 &&
               time >= code &&
               video.current.playFromPositionAsync(reset);
           }
@@ -88,71 +92,69 @@ const TestAdmin = ({  navigation: { goBack } , route }) => {
         style={styles.goBack}
         onPress={() => {
           back();
-          goBack();
-        //   back();
+          // goBack();
+          //   back();
+          navigation.navigate("Story", { bookData: bookData });
         }}>
-        <Ionicons
-          name="arrow-back-outline"
-          size={22}
-          color='white'
-        />
+        <Ionicons name="arrow-back-outline" size={22} color="white" />
       </TouchableOpacity>
       <View style={styles.ViewButtons}>
-
         <Button
-            style={styles.button}
-            title={isPlaying ? "Stop" : "Play"}
-            onPress={() => {
-              isPlaying
-                ? video.current.pauseAsync() && setIsPlaying(!isPlaying)
-                : video.current.playAsync() && setIsPlaying(!isPlaying);
-            }}
-          />
-          <Button
-            style={styles.button}
-            title={i === timeCode.length - 1 ? "" : "next"}
-            onPress={() => {
-              setCode(timeCode[i + 1][2] * 1000);
-              setReset(timeCode[i + 1][1] * 1000);
-              {i + 1 === timeCode.length + 1 ? i : setI(i + 1);}
-            }}
-          />
-            <Text
-            style={{
-              textAlign: "center",
-              marginTop: 50,
-              color: "rgb(226, 218, 210)",
-            }}>
-            {time}
-          </Text>
+          style={styles.button}
+          title={isPlaying ? "Stop" : "Play"}
+          onPress={() => {
+            isPlaying
+              ? video.current.pauseAsync() && setIsPlaying(!isPlaying)
+              : video.current.playAsync() && setIsPlaying(!isPlaying);
+          }}
+        />
+        <Button
+          style={styles.button}
+          title={i === timeCode.length - 1 ? "" : "next"}
+          onPress={() => {
+            setCode(timeCode[i + 1][2] * 1000);
+            setReset(timeCode[i + 1][1] * 1000);
+            {
+              i + 1 === timeCode.length + 1 ? i : setI(i + 1);
+            }
+          }}
+        />
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: 50,
+            color: "rgb(226, 218, 210)",
+          }}>
+          {time}
+        </Text>
       </View>
     </View>
-    )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     //   borderWidth:4,
     //   borderColor:'yellow',
-      flex:1,
+    flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
   },
   video: {
-      height: '100%',
-      width: '90%',
+    height: "100%",
+    width: "90%",
     //   borderWidth:4,
     //   borderColor:'green',
-      position:'relative'
+    position: "relative",
   },
-  goBack:{
-    position:'absolute',
+  goBack: {
+    position: "absolute",
     top: 10,
     left: 10,
-    color:'white'
+    color: "white",
   },
   ViewButtons: {
-    flex:1,
-    backgroundColor:'black',
+    flex: 1,
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "space-around",
   },
