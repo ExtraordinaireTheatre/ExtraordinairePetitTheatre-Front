@@ -42,8 +42,10 @@ const CountDownScreen = ({ navigation, route }) => {
   useEffect(() => {
     if (count === 0) {
       foo();
+
       // navigation.navigate("Curtain", { bookData: route.params.bookData });
       navigation.navigate("TestUser", { bookData: route.params.bookData });
+
     }
   }, [count]);
 

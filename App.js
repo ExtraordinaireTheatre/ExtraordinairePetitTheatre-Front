@@ -77,9 +77,12 @@ const App = () => {
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
             {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
+
             {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
             <Stack.Screen name="TestUser" component={TestUser} />
+
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
+            <Stack.Screen name="TestUser" component={TestUser} />
           </>
         )}
       </Stack.Navigator>

@@ -42,7 +42,7 @@ const SearchResult = ({
   }, [title]);
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <View contentContainerStyle={{ flex: 1 }}>
       {loading ? (
         <View
           style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
@@ -51,13 +51,14 @@ const SearchResult = ({
       ) : (
         <ScrollView
           contentContainerStyle={{
+            // flexGrow: 1,
+            height: Dimensions.get("screen").height,
             flexDirection: "row",
             flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "space-around",
             marginTop: 10,
             paddingHorizontal: 10,
-            height: Dimensions.get("screen").height,
           }}>
           {searchResults &&
             searchResults.map((result, index) => {
@@ -87,7 +88,7 @@ const SearchResult = ({
             })}
         </ScrollView>
       )}
-    </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
