@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "rgb(226, 218, 210)",
     fontSize: 12,
-    paddingVertical: 8,
+    paddingVertical: 6,
   },
 });
 export default Input;

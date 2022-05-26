@@ -4,12 +4,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
-import Input from "./Input";
 import { useState } from "react";
 
 import axios from "axios";
+import Input from "./Input";
 
+const { width, height } = Dimensions.get("window");
 const LoginForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,7 @@ const LoginForm = ({ setLogin, setUser }) => {
     setErrorMessage("");
     if (email && password) {
       try {
-        console.log("avant resposne");
+        // console.log("avant resposne");
         const response = await axios.post(
           "https://backoffice-forest-admin-sr.herokuapp.com/user/login",
           {
@@ -29,14 +31,11 @@ const LoginForm = ({ setLogin, setUser }) => {
             password,
           }
         );
-        console.log("apres response");
+        // console.log("apres response");
         console.log(response.data);
         setUser(response.data.token);
       } catch (error) {
-
-        console.log("CAATCH");
-
-        console.log(error.response.data);
+        // console.log(error.response.data);
       }
     } else {
       setErrorMessage("Veuillez remplir tous les champs");
@@ -77,7 +76,7 @@ const LoginForm = ({ setLogin, setUser }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    height: 450,
+    height: height / 2,
     justifyContent: "space-around",
     alignItems: "center",
     paddingHorizontal: 6,
@@ -85,13 +84,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   loginBtn: {
-    paddingVertical: 6,
+    paddingVertical: 8,
     width: "90%",
     alignItems: "center",
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "rgb(226, 218, 210)",
-    marginTop: 200,
+    marginTop: height / 6,
   },
   textBtn: {
     color: "rgb(226, 218, 210)",

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
@@ -10,6 +9,7 @@ import {
   StyleSheet,
   TextInput,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -20,7 +20,7 @@ import axios from "axios";
 // Import components : caroussel / list (quand modal recherche activée)
 import Caroussel from "../components/Caroussel";
 import ListStory from "../components/ListStory";
-import SearchResult from "./SearchResultScreen";
+import SearchResult from "../components/SearchResultScreen";
 
 // Import icones
 import { Ionicons, Entypo } from "@expo/vector-icons";
@@ -124,26 +124,6 @@ const AllStoryScreen = ({ navigation, route }) => {
               placeholderTextColor={"rgb(226, 218, 210)"}
             />
           </View>
-          {/* {searchTitle && searchResults ? (
-            <View style={styles.recommandationsContainer}>
-              {searchResults.map((recommandation, index) => {
-                return (
-                  <TouchableOpacity
-                    style={styles.recommandationsBlock}
-                    key={index}
-                    onPress={() => {
-                      navigation.navigate("Story", {
-                        bookData: recommandation,
-                      });
-                    }}>
-                    <Text style={styles.recommandationsText}>
-                      {recommandation.title}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          ) : null} */}
         </View>
       ) : (
         <View style={styles.containerModalOff}>
@@ -185,7 +165,11 @@ const AllStoryScreen = ({ navigation, route }) => {
             setSearchTitle("");
           }}>
           <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: tome.image }} />
+            <Image
+              style={styles.image}
+              source={{ uri: tome.image }}
+              resizeMode="contain"
+            />
           </View>
 
           <View style={styles.description}>
@@ -200,12 +184,14 @@ const AllStoryScreen = ({ navigation, route }) => {
           setShowSearchBar(false);
         }}>
         {searchTitle ? (
-          <SearchResult
-            title={searchTitle}
-            navigation={navigation}
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-          />
+          <ScrollView style={styles.carousselView}>
+            <SearchResult
+              title={searchTitle}
+              navigation={navigation}
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
+            />
+          </ScrollView>
         ) : (
           dataBooksAge1 &&
           dataBooksAge3 &&
@@ -219,7 +205,7 @@ const AllStoryScreen = ({ navigation, route }) => {
               />
             </View>
           ) : (
-            <View style={styles.carousselView}>
+            <ScrollView style={styles.carousselView}>
               <Caroussel
                 setPress={setPress}
                 title="Adaptés aux 1-3 ans"
@@ -243,7 +229,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                 setBooksAgeList={setBooksAgeList}
                 navigation={navigation}
               />
-            </View>
+            </ScrollView>
           ))
         )}
       </ScrollView>
@@ -315,15 +301,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderBottomWidth: 1,
     marginHorizontal: 20,
-    height: "20%",
+    height: "15%",
+    // width: Dimensions.get("screen").width - Dimensions.get("screen").width / 4,
     paddingBottom: 10,
   },
 
   imageContainer: {
     width: "25%",
     height: "90%",
-    borderColor: "rgb(226, 218, 210)",
-    borderWidth: 1,
   },
   image: {
     width: "100%",
@@ -340,7 +325,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   carousselView: {
-    height: 700,
+    // borderColor: "blue",
+    // borderWidth: 2,
   },
 });
 

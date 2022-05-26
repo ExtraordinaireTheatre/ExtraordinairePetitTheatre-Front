@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -7,24 +7,28 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Button,
   StyleSheet,
   ActivityIndicator,
   Dimensions,
+  Animated,
 } from "react-native";
 
 import Constants from "expo-constants";
 
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
-import axios from "axios";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const AfficheScreen = ({ navigation }) => {
+import axios from "axios";
+const { width, height } = Dimensions.get("window");
+
+const AfficheScreen = ({ navigation, portrait }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
 
   useEffect(() => {
+    portrait;
     const getAffiche = async () => {
       setIsLoading(true);
+
       try {
         const response = await axios.get(
           "https://backoffice-forest-admin-sr.herokuapp.com/tome"
@@ -44,7 +48,8 @@ const AfficheScreen = ({ navigation }) => {
         justifyContent: "center",
         flex: 1,
         backgroundColor: "rgb(165, 81, 69)",
-      }}>
+      }}
+    >
       <ActivityIndicator size={"large"} />
     </View>
   ) : (
@@ -53,7 +58,8 @@ const AfficheScreen = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Settings");
-          }}>
+          }}
+        >
           <View style={styles.buttonCircle}>
             <MaterialIcons
               style={styles.settingsIcon}
@@ -65,18 +71,23 @@ const AfficheScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>à l'affiche</Text>
+        <Text
+          style={{
+            color: "rgb(226, 218, 210)",
+            fontSize: 20,
+            textTransform: "uppercase",
+          }}
+        >
+          à l'affiche
+        </Text>
       </View>
       <View style={styles.main}>
         <View style={styles.carousselContainer}>
           <ScrollView
             horizontal={true}
             style={styles.caroussel}
-            contentContainerStyle={{
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            showsHorizontalScrollIndicator={false}>
+            showsHorizontalScrollIndicator={false}
+          >
             {tomesAffiche &&
               tomesAffiche.map((tome, index) => {
                 return (
@@ -86,7 +97,8 @@ const AfficheScreen = ({ navigation }) => {
                     activeOpacity={0.7}
                     onPress={() => {
                       navigation.navigate("AllStory", { tome: tome });
-                    }}>
+                    }}
+                  >
                     <View style={styles.viewImageCaroussel}>
                       <Image
                         style={styles.imageCaroussel}
@@ -105,19 +117,14 @@ const AfficheScreen = ({ navigation }) => {
               })}
           </ScrollView>
         </View>
-
-        <View style={styles.containerEllipse}>
-          <TouchableOpacity style={styles.ellipse}>
-            <AntDesign style={styles.iconeEllipse} name="scan1" size={30} />
-          </TouchableOpacity>
-        </View>
       </View>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
+    width: width,
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,
   },
@@ -139,36 +146,24 @@ const styles = StyleSheet.create({
   main: {
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
   },
   titleContainer: {
     alignItems: "center",
-    // borderColor: "yellow",
-    // borderWidth: 2,
-    marginTop: 30,
-    paddingBottom: 20,
-  },
-  title: {
-    color: "rgb(226, 218, 210)",
-    fontSize: 20,
-    textTransform: "uppercase",
-    // borderColor: "yellow",
-    // borderWidth: 2,
+    paddingVertical: 30,
+    marginTop: 10,
   },
   carousselContainer: {
-    // borderColor: "blue",
-    // borderWidth: 1,
-    height: "70%",
-    width: "100%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    height: height / 1.8,
+    width: width,
+    justifyContent: "center",
+    alignItems: "center",
   },
   itemCaroussel: {
     alignItems: "center",
     justifyContent: "center",
-    // borderColor: "yellow",
-    // borderWidth: 3,
-    marginHorizontal: 65,
     height: "100%",
+    width: width,
   },
   viewImageCaroussel: {
     height: "75%",
@@ -177,8 +172,6 @@ const styles = StyleSheet.create({
   imageCaroussel: {
     height: "100%",
     width: "100%",
-    // borderColor: "rgb(226, 218, 210)",
-    // borderWidth: 2,
   },
   carousselTitleContainer: {
     marginTop: 20,
@@ -191,27 +184,6 @@ const styles = StyleSheet.create({
   subTitleCaroussel: {
     color: "rgb(226, 218, 210)",
     fontSize: 22,
-  },
-  containerEllipse: {
-    marginTop: "5%",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  ellipse: {
-    backgroundColor: "rgb(226, 218, 210)",
-    padding: 50,
-    borderRadius: 100,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    position: "relative",
-    bottom: -10,
-  },
-  iconeEllipse: {
-    height: 40,
-    color: "blue",
-    position: "absolute",
-    top: 15,
-    left: 35,
   },
 });
 export default AfficheScreen;

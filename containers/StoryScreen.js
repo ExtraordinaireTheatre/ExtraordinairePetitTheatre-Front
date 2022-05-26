@@ -15,39 +15,36 @@ import Constants from "expo-constants";
 
 const StoryScreen = ({ route }) => {
   const navigation = useNavigation();
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
 
-  // data single book
+  // bookData single book
   const { bookData } = route.params;
+  console.log(bookData.author);
   const [isLoading, setIsLoading] = useState(true);
 
-  const foo = async () => {
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
-        );
-        setData(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-  return isLoading ? (
-    <ActivityIndicator />
-  ) : (
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
+  //       );
+  //       setData(response.data);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+  // return isLoading ? (
+  //   <ActivityIndicator />
+  // ) : (
+  return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: data.image,
+            uri: bookData.image,
           }}
           style={styles.img}
           resizeMode="cover"
@@ -56,8 +53,7 @@ const StoryScreen = ({ route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -73,37 +69,36 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 20,
-          }}
-        >
-          {data.title}
+          }}>
+          {bookData.title}
         </Text>
         <Text
           style={{
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
             fontSize: 13,
-          }}
-        >
-          {data.author}
+          }}>
+          {bookData.author}
         </Text>
         <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
-          {data.duration}min
+          {bookData.duration}min
         </Text>
       </View>
       <Text style={styles.text} numberOfLines={10}>
-        {data.description}
+        {bookData.description}
       </Text>
       <TouchableOpacity
         onPress={() => {
-          foo();
-          navigation.navigate("Test");
+          // foo();
+          // navigation.navigate("Test");
+          navigation.navigate("CountDown", { bookData: bookData });
         }}
-        style={styles.playContainer}
-      >
+        style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
     </View>
   );
+  // );
 };
 const styles = StyleSheet.create({
   container: {

@@ -1,13 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   View,
   Text,
   Image,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   },
   containerCaroussel: {
     marginTop: 20,
-    height: "30%",
   },
   titleCarousselContainer: {
     flexDirection: "row",
@@ -111,20 +110,22 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(226, 218, 210)",
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
+    height: Dimensions.get("screen").height / 4.5,
   },
   itemCaroussel: {
-    flex: 1,
-    width: "25%",
-    height: "75%",
-    marginHorizontal: 20,
+    width: Dimensions.get("screen").width / 2.3,
+    height: "85%",
     justifyContent: "center",
     alignItems: "center",
     // borderColor: "blue",
     // borderWidth: 5,
+    marginHorizontal: 10,
   },
   imageCarousselContainer: {
-    height: 90,
-    width: 145,
+    flex: 6,
+    width: "100%",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   imageItem: {
     width: "100%",
@@ -133,15 +134,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
   },
   itemDescription: {
-    flex: 1,
-    height: "25%",
-    width: 131,
+    flex: 2,
+    width: "100%",
     borderColor: "rgb(226, 218, 210)",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    padding: 5,
+    padding: 3,
     backgroundColor: "rgb(165, 81, 69)",
     alignItems: "center",
+    justifyContent: "center",
   },
 });
 export default Caroussel;

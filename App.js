@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform } from "react-native";
 
 //Import librairies navigation. Default Theme => stylyser toutes l'app avec une const Theme
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as NavigationBar from "expo-navigation-bar";
 
 // Import containers Screen
 import SettingsScreen from "./containers/SettingsScreen";
@@ -13,7 +13,8 @@ import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
 import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
-import TestScreen from "./containers/TestScreen";
+import DisplayScreen from "./containers/DisplayScreen";
+import CountDownScreen from "./containers/CountdownScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,16 @@ const App = () => {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const colorBottomBar = async () => {
+      if (Platform.OS === "android") {
+        await NavigationBar.setBackgroundColorAsync("rgb(165, 81, 69)");
+      }
+    };
+    colorBottomBar();
+  }, []);
+
   if (isLoading === true) {
     return null;
   }
@@ -45,21 +56,24 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}
-      >
+        }}>
         {!userToken ? (
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
         ) : (
           <>
-            <Stack.Screen name="Affiche" component={AfficheScreen} />
+            <Stack.Screen name="Affiche">
+              {(props) => <AfficheScreen {...props} setUser={setUser} />}
+            </Stack.Screen>
             <Stack.Screen name="AllStory" component={AllStoryScreen} />
             <Stack.Screen name="Story" component={StoryScreen} />
+            <Stack.Screen name="CountDown" component={CountDownScreen} />
+
             <Stack.Screen name="Settings">
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
-            <Stack.Screen name="Test" component={TestScreen} />
+            <Stack.Screen name="Display" component={DisplayScreen} />
           </>
         )}
       </Stack.Navigator>
