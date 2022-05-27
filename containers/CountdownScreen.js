@@ -17,6 +17,7 @@ import { Entypo } from "@expo/vector-icons";
 const CountDownScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(3);
 
+  const { bookData, tome } = route.params;
   useEffect(() => {
     const countDown = setInterval(() => {
       setCount((prevState) =>
@@ -44,7 +45,10 @@ const CountDownScreen = ({ navigation, route }) => {
       foo();
 
       // navigation.navigate("Curtain", { bookData: route.params.bookData });
-      navigation.navigate("TestUser", { bookData: route.params.bookData });
+      navigation.navigate("TestUser", {
+        bookData: bookData,
+        tome: tome,
+      });
     }
   }, [count]);
 
@@ -54,7 +58,7 @@ const CountDownScreen = ({ navigation, route }) => {
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate("Story", { bookData: bookData, tome: tome });
           }}>
           <Entypo name="cross" size={24} color="rgb(165, 81, 69)" />
         </TouchableOpacity>

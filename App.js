@@ -29,6 +29,10 @@ const App = () => {
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // state search bar
+  const [searchTitle, setSearchTitle] = useState("");
+  const [showSearchBar, setShowSearchBar] = useState(true);
+
   const setUser = async (token) => {
     token
       ? await AsyncStorage.setItem("userToken", token)
@@ -78,10 +82,41 @@ const App = () => {
             {/* <Stack.Screen name="Animation" component={AnimationTest} /> */}
 
             <Stack.Screen name="Affiche">
-              {(props) => <AfficheScreen {...props} setUser={setUser} />}
+              {(props) => (
+                <AfficheScreen
+                  {...props}
+                  setUser={setUser}
+                  setShowSearchBar={setShowSearchBar}
+                  setSearchTitle={setSearchTitle}
+                />
+              )}
             </Stack.Screen>
-            <Stack.Screen name="AllStory" component={AllStoryScreen} />
-            <Stack.Screen name="Story" component={StoryScreen} />
+
+            <Stack.Screen name="AllStory">
+              {(props) => (
+                <AllStoryScreen
+                  {...props}
+                  setUser={setUser}
+                  searchTitle={searchTitle}
+                  setSearchTitle={setSearchTitle}
+                  showSearchBar={showSearchBar}
+                  setShowSearchBar={setShowSearchBar}
+                />
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen name="Story">
+              {(props) => (
+                <StoryScreen
+                  {...props}
+                  setUser={setUser}
+                  searchTitle={searchTitle}
+                  setSearchTitle={setSearchTitle}
+                  setShowSearchBar={setShowSearchBar}
+                />
+              )}
+            </Stack.Screen>
+
             <Stack.Screen name="CountDown" component={CountDownScreen} />
 
             <Stack.Screen name="Settings">
