@@ -11,7 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import Input from "./Input";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 const LoginForm = ({ setLogin, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +23,6 @@ const LoginForm = ({ setLogin, setUser }) => {
     setErrorMessage("");
     if (email && password) {
       try {
-        // console.log("avant resposne");
         const response = await axios.post(
           "https://backoffice-forest-admin-sr.herokuapp.com/user/login",
           {
@@ -31,11 +30,11 @@ const LoginForm = ({ setLogin, setUser }) => {
             password,
           }
         );
-        // console.log("apres response");
+
         console.log(response.data);
         setUser(response.data.token);
       } catch (error) {
-        // console.log(error.response.data);
+        setErrorMessage("Votre adresse email ou mot de passe est incorrect");
       }
     } else {
       setErrorMessage("Veuillez remplir tous les champs");
@@ -46,7 +45,7 @@ const LoginForm = ({ setLogin, setUser }) => {
     <ActivityIndicator />
   ) : (
     <View style={styles.container}>
-      {errorMessage !== "" && <Text>{errorMessage}</Text>}
+      {errorMessage !== "" && <Text style={styles.error}>{errorMessage}</Text>}
       <Input placeholder="Adresse e-mail" value={email} setState={setEmail} />
       <Input
         placeholder="Mot de passe"
@@ -82,6 +81,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingTop: 40,
     width: "100%",
+  },
+  error: {
+    textAlign: "center",
   },
   loginBtn: {
     paddingVertical: 8,
