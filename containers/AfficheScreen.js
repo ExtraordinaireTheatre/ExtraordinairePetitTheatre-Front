@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 
 import {
   SafeAreaView,
@@ -19,7 +19,7 @@ import {
 
 import Constants from "expo-constants";
 
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import axios from "axios";
 const { width, height } = Dimensions.get("window");
@@ -31,7 +31,6 @@ const AfficheScreen = ({ navigation, portrait }) => {
   const animation = useRef(null);
   const [mask, setMask] = useState(true);
 
-
   // animation
   const leftValue = useRef(new Animated.Value(100)).current;
 
@@ -42,7 +41,6 @@ const AfficheScreen = ({ navigation, portrait }) => {
       useNativeDriver: true,
     }).start();
   };
-
 
   useEffect(() => {
     portrait;
@@ -63,7 +61,6 @@ const AfficheScreen = ({ navigation, portrait }) => {
     getAffiche();
   }, []);
 
-
   const [count, setCount] = useState(3);
   useEffect(() => {
     const countDown = setInterval(() => {
@@ -76,24 +73,28 @@ const AfficheScreen = ({ navigation, portrait }) => {
     };
   }, []);
   return mask ? (
-    <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
-       <LottieView
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "rgb(165, 81, 69)",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <LottieView
         autoPlay={true}
-        resizeMode='contain'
+        resizeMode="contain"
         loop={count ? true : false}
         ref={animation}
         style={{
-          height:200,
-          width:200,
-          backgroundColor: 'rgb(165, 81, 69)',
+          height: 200,
+          width: 200,
+          backgroundColor: "rgb(165, 81, 69)",
         }}
-        source={require('../assets/Mask.json')}
-        onAnimationFinish={()=>{
-            setMask(false);
+        source={require("../assets/Mask.json")}
+        onAnimationFinish={() => {
+          setMask(false);
         }}
-    
       />
-
     </View>
   ) : (
     (moveBack(),
@@ -123,22 +124,24 @@ const AfficheScreen = ({ navigation, portrait }) => {
                 marginTop: 10,
                 overflow: "hidden",
 
-
-        <View style={styles.containerEllipse}>
-          <TouchableOpacity style={styles.ellipse} onPress={()=>{
-            navigation.navigate("DisplayTwoScreen");
-          }}>
-            <MaterialCommunityIcons
-              style={styles.iconeEllipse}
-              name="ticket"
-              size={24}
-              color="rgb(165, 81, 69)"
-            />
-          </TouchableOpacity>
-
                 transform: [{ translateY: leftValue }],
               },
             ]}>
+            <View style={styles.containerEllipse}>
+              <TouchableOpacity
+                style={styles.ellipse}
+                onPress={() => {
+                  navigation.navigate("DisplayTwoScreen");
+                }}>
+                <MaterialCommunityIcons
+                  style={styles.iconeEllipse}
+                  name="ticket"
+                  size={24}
+                  color="rgb(165, 81, 69)"
+                />
+              </TouchableOpacity>
+            </View>
+
             <Text
               style={{
                 color: "rgb(226, 218, 210)",
@@ -186,7 +189,6 @@ const AfficheScreen = ({ navigation, portrait }) => {
                 })}
             </ScrollView>
           </View>
-
         </View>
       </SafeAreaView>
     ))
