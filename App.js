@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Platform } from "react-native";
+import { useFonts } from "expo-font";
 
 //Import librairies navigation. Default Theme => stylyser toutes l'app avec une const Theme
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,6 +23,9 @@ import TestAdmin from "./containers/TestAdmin";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [loaded] = useFonts({
+    casablanca: require("./assets/fonts/casablanca-medium.ttf"),
+  });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -53,13 +57,17 @@ const App = () => {
 
   if (isLoading === true) {
     return null;
+  } else if (!loaded) {
+    return null;
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
+        }}
+      >
         {!userToken ? (
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
@@ -82,7 +90,6 @@ const App = () => {
             <Stack.Screen name="TestUser" component={TestUser} />
 
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
-            <Stack.Screen name="TestUser" component={TestUser} />
           </>
         )}
       </Stack.Navigator>

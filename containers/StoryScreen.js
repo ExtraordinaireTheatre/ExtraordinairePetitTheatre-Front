@@ -64,7 +64,8 @@ const StoryScreen = ({ route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}>
+          }}
+        >
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -79,19 +80,29 @@ const StoryScreen = ({ route }) => {
           style={{
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
-            fontSize: 20,
-          }}>
+            fontSize: 26,
+            fontFamily: "casablanca",
+          }}
+        >
           {bookData.title}
         </Text>
         <Text
           style={{
             color: "rgb(226, 218, 210)",
             fontWeight: "bold",
-            fontSize: 13,
-          }}>
+            fontSize: 18,
+            fontFamily: "casablanca",
+          }}
+        >
           {bookData.author}
         </Text>
-        <Text style={{ color: "rgb(226, 218, 210)", fontSize: 12 }}>
+        <Text
+          style={{
+            color: "rgb(226, 218, 210)",
+            fontSize: 15,
+            fontFamily: "casablanca",
+          }}
+        >
           {bookData.duration}min
         </Text>
       </View>
@@ -99,7 +110,8 @@ const StoryScreen = ({ route }) => {
         style={styles.synopsis}
         contentContainerStyle={{
           flexGrow: 1,
-        }}>
+        }}
+      >
         <Text style={styles.text}>{bookData.description}</Text>
       </ScrollView>
       <TouchableOpacity
@@ -109,7 +121,8 @@ const StoryScreen = ({ route }) => {
           // navigation.navigate("TestAdmin");
           navigation.navigate("CountDown", { bookData: bookData });
         }}
-        style={styles.playContainer}>
+        style={styles.playContainer}
+      >
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
     </SafeAreaView>

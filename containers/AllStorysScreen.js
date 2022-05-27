@@ -106,7 +106,8 @@ const AllStoryScreen = ({ navigation, route }) => {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "rgb(165, 81, 69)",
-      }}>
+      }}
+    >
       <ActivityIndicator size={"large"} />
     </View>
   ) : (
@@ -119,7 +120,8 @@ const AllStoryScreen = ({ navigation, route }) => {
                 <TouchableOpacity
                   onPress={() => {
                     startAnimation();
-                  }}>
+                  }}
+                >
                   <Entypo
                     style={styles.icons}
                     name="magnifying-glass"
@@ -146,7 +148,8 @@ const AllStoryScreen = ({ navigation, route }) => {
                   style={styles.goBack}
                   onPress={() => {
                     navigation.navigate("Affiche");
-                  }}>
+                  }}
+                >
                   <Ionicons
                     name="arrow-back-outline"
                     size={16}
@@ -156,7 +159,8 @@ const AllStoryScreen = ({ navigation, route }) => {
                 <TouchableOpacity
                   onPress={() => {
                     setShowSearchBar(!showSearchBar);
-                  }}>
+                  }}
+                >
                   <View style={styles.buttonCircle}>
                     <Entypo
                       style={styles.icons}
@@ -177,7 +181,8 @@ const AllStoryScreen = ({ navigation, route }) => {
           onPress={() => {
             setShowSearchBar(false);
             setSearchTitle("");
-          }}>
+          }}
+        >
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
@@ -197,7 +202,8 @@ const AllStoryScreen = ({ navigation, route }) => {
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
         }}
-        contentContainerStyle={{ flexGrow: 1 }}>
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         {searchTitle ? (
           <View style={styles.carousselView}>
             <SearchResult
@@ -349,6 +355,7 @@ const styles = StyleSheet.create({
     color: "rgb(226, 218, 210)",
     fontSize: 20,
     marginVertical: 5,
+    fontFamily: "casablanca",
   },
   carousselView: {
     // borderColor: "blue",
