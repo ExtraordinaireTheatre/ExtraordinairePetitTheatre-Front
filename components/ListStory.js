@@ -10,7 +10,12 @@ import {
 
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
-const ListStory = ({ setPress, booksAgeList, navigation }) => {
+const ListStory = ({
+  setPress,
+  booksAgeList,
+  navigation,
+  setShowSearchBar,
+}) => {
   return (
     <View style={styles.listContainer}>
       <View style={styles.listTitleContainer}>
@@ -59,6 +64,7 @@ const ListStory = ({ setPress, booksAgeList, navigation }) => {
                 key={index}
                 activeOpacity={0.7}
                 onPress={() => {
+                  setShowSearchBar(false);
                   navigation.navigate("Story", { bookData: book });
                 }}>
                 <View style={styles.containerImageItemList}>

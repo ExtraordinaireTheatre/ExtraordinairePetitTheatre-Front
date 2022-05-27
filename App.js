@@ -19,6 +19,7 @@ import CountDownScreen from "./containers/CountdownScreen";
 
 import TestUser from "./containers/TestUser";
 import TestAdmin from "./containers/TestAdmin";
+import AnimationTest from "./containers/testScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +75,8 @@ const App = () => {
           </Stack.Screen>
         ) : (
           <>
+            {/* <Stack.Screen name="Animation" component={AnimationTest} /> */}
+
             <Stack.Screen name="Affiche">
               {(props) => <AfficheScreen {...props} setUser={setUser} />}
             </Stack.Screen>
@@ -87,7 +90,6 @@ const App = () => {
             {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
 
             {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
-            <Stack.Screen name="TestUser" component={TestUser} />
 
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
           </>
