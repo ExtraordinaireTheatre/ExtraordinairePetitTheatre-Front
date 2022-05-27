@@ -65,7 +65,7 @@ const ListStory = ({
                 activeOpacity={0.7}
                 onPress={() => {
                   setShowSearchBar(false);
-                  navigation.navigate("Story", { bookData: book });
+                  navigation.navigate("Story", { bookData: book, tome: tome });
                 }}>
                 <View style={styles.containerImageItemList}>
                   <Image
@@ -75,7 +75,13 @@ const ListStory = ({
                   />
                 </View>
                 <View style={styles.itemListDescription}>
-                  <Text style={{ color: "rgb(165, 81, 69)" }} numberOfLines={1}>
+                  <Text
+                    style={{
+                      color: "rgb(165, 81, 69)",
+                      fontFamily: "casablanca",
+                      fontSize: 18,
+                    }}
+                    numberOfLines={1}>
                     {book.title}
                   </Text>
                 </View>
@@ -95,6 +101,8 @@ const styles = StyleSheet.create({
   },
   toCarousselText: {
     color: "rgb(226, 218, 210)",
+    fontFamily: "casablanca",
+    fontSize: 18,
   },
   listTitleContainer: {
     flexDirection: "row",
@@ -106,6 +114,8 @@ const styles = StyleSheet.create({
   listTitle: {
     color: "rgb(226, 218, 210)",
     marginLeft: 20,
+    fontFamily: "casablanca",
+    fontSize: 18,
   },
   listItem: {
     margin: 10,

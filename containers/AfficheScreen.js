@@ -24,7 +24,7 @@ import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
 const { width, height } = Dimensions.get("window");
 
-const AfficheScreen = ({ navigation, portrait }) => {
+const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
 

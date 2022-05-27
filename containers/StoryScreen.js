@@ -10,21 +10,18 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ActivityIndicator,
   StyleSheet,
   Image,
-  Dimensions,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import Constants from "expo-constants";
 
-const StoryScreen = ({ route }) => {
+const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
   const navigation = useNavigation();
   // const [data, setData] = useState();
   const [seeMore, setSeeMore] = useState(false);
 
   // bookData single book
-  const { bookData } = route.params;
+  const { bookData, tome } = route.params;
   const [isLoading, setIsLoading] = useState(true);
   // const foo = async () => {
   //   await ScreenOrientation.lockAsync(
@@ -63,9 +60,10 @@ const StoryScreen = ({ route }) => {
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => {
-            navigation.goBack();
-          }}
-        >
+            setShowSearchBar(false),
+              setSearchTitle(""),
+              navigation.navigate("AllStory", { tome: tome });
+          }}>
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -82,8 +80,7 @@ const StoryScreen = ({ route }) => {
             fontWeight: "bold",
             fontSize: 26,
             fontFamily: "casablanca",
-          }}
-        >
+          }}>
           {bookData.title}
         </Text>
         <Text
@@ -92,8 +89,7 @@ const StoryScreen = ({ route }) => {
             fontWeight: "bold",
             fontSize: 18,
             fontFamily: "casablanca",
-          }}
-        >
+          }}>
           {bookData.author}
         </Text>
         <Text
@@ -101,8 +97,7 @@ const StoryScreen = ({ route }) => {
             color: "rgb(226, 218, 210)",
             fontSize: 15,
             fontFamily: "casablanca",
-          }}
-        >
+          }}>
           {bookData.duration}min
         </Text>
       </View>
@@ -110,8 +105,7 @@ const StoryScreen = ({ route }) => {
         style={styles.synopsis}
         contentContainerStyle={{
           flexGrow: 1,
-        }}
-      >
+        }}>
         <Text style={styles.text}>{bookData.description}</Text>
       </ScrollView>
       <TouchableOpacity
@@ -119,10 +113,9 @@ const StoryScreen = ({ route }) => {
           // foo();
           // navigation.navigate("TestUser");
           // navigation.navigate("TestAdmin");
-          navigation.navigate("CountDown", { bookData: bookData });
+          navigation.navigate("CountDown", { bookData: bookData, tome: tome });
         }}
-        style={styles.playContainer}
-      >
+        style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
     </SafeAreaView>

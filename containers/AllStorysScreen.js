@@ -12,6 +12,8 @@ import {
   ActivityIndicator,
   Dimensions,
   Animated,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -27,9 +29,14 @@ import SearchResult from "../components/SearchResultScreen";
 // Import icones
 import { Ionicons, Entypo } from "@expo/vector-icons";
 
-const AllStoryScreen = ({ navigation, route }) => {
-  const [showSearchBar, setShowSearchBar] = useState(false);
-
+const AllStoryScreen = ({
+  navigation,
+  route,
+  searchTitle,
+  setSearchTitle,
+  setShowSearchBar,
+  showSearchBar,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // state array books by ageCategory :
@@ -47,7 +54,6 @@ const AllStoryScreen = ({ navigation, route }) => {
   const [booksAgeList, setBooksAgeList] = useState();
 
   // search state
-  const [searchTitle, setSearchTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   // animation
@@ -69,21 +75,21 @@ const AllStoryScreen = ({ navigation, route }) => {
 
   const interpolateGrow = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0%", "90%"],
+    outputRange: ["15%", "90%"],
   });
 
   const interpolateShrink = animationShrink.interpolate({
     inputRange: [0, 1],
-    outputRange: ["90%", "15%"],
+    outputRange: ["80%", "15%"],
   });
 
   useEffect(() => {
     if (showSearchBar) {
-      animation.setValue(0);
       growBar();
-    } else if (!showSearchBar) {
       animationShrink.setValue(0);
+    } else if (!showSearchBar) {
       shrinkBar();
+      animation.setValue(0);
     }
   }, [showSearchBar]);
 
@@ -119,10 +125,14 @@ const AllStoryScreen = ({ navigation, route }) => {
         console.log(error.message);
       }
       setShowSearchBar(false);
+      animationShrink.setValue(1);
+      setSearchTitle("");
       setIsLoading(false);
     };
-
+    console.log("ici");
     getData();
+    // animation.setValue(1);
+    // animationShrink.setValue(1);
   }, []);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -163,164 +173,172 @@ const AllStoryScreen = ({ navigation, route }) => {
       />
     </View>
   ) : (
-    (animation.setValue(1),
-    animationShrink.setValue(1),
-    (
-      <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: "10%",
-            padding: 10,
+    <View style={styles.container}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: 10,
+          // borderColor: "red",
+          // borderWidth: 3,
+          height: Dimensions.get("screen").height / 9,
+        }}>
+        <TouchableOpacity
+          style={
+            showSearchBar
+              ? { width: "1%" }
+              : {
+                  backgroundColor: "rgb(226, 218, 210)",
+                  borderRadius: 50,
+                  padding: 15,
+                  color: "rgb(165, 81, 69)",
+                }
+          }
+          onPress={() => {
+            navigation.navigate("Affiche");
           }}>
+          <Ionicons
+            name="arrow-back-outline"
+            size={16}
+            color={"rgb(165, 81, 69)"}
+          />
+        </TouchableOpacity>
+        <Animated.View
+          style={[
+            showSearchBar ? styles.showModal : styles.hiddenModal,
+            showSearchBar
+              ? { width: interpolateGrow }
+              : { width: interpolateShrink },
+          ]}>
           <TouchableOpacity
-            style={
-              showSearchBar
-                ? { width: "1%" }
-                : {
-                    backgroundColor: "rgb(226, 218, 210)",
-                    borderRadius: 50,
-                    padding: 15,
-                    color: "rgb(165, 81, 69)",
-                  }
-            }
             onPress={() => {
-              navigation.navigate("Affiche");
+              setShowSearchBar(true);
             }}>
-            <Ionicons
-              name="arrow-back-outline"
-              size={16}
-              color={"rgb(165, 81, 69)"}
-            />
-          </TouchableOpacity>
-          <Animated.View
-            style={[
-              showSearchBar ? styles.showModal : styles.hiddenModal,
-              showSearchBar
-                ? { width: interpolateGrow }
-                : { width: interpolateShrink },
-            ]}>
-            <TouchableOpacity
-              onPress={() => {
-                !showSearchBar && setShowSearchBar(!showSearchBar);
-              }}>
-              <View style={styles.viewSearch}>
-                <Entypo
-                  style={styles.icons}
-                  name="magnifying-glass"
-                  size={24}
-                  color="black"
-                />
-
-                <TextInput
-                  style={
-                    showSearchBar
-                      ? {
-                          marginLeft: 10,
-                          color: "rgb(226, 218, 210)",
-                        }
-                      : { display: "none" }
-                  }
-                  placeholder="Titre de l'oeuvre"
-                  onChangeText={(v) => {
-                    setSearchTitle(v);
-                  }}
-                  placeholderTextColor={"rgb(226, 218, 210)"}
-                />
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
-        </View>
-
-        {route.params && !searchTitle && (
-          <TouchableOpacity
-            style={styles.selected}
-            activeOpacity={1}
-            onPress={() => {
-              setShowSearchBar(!showSearchBar);
-              setSearchTitle("");
-            }}>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{ uri: tome.image }}
-                resizeMode="contain"
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "android" ? "position" : "padding"}
+              contentContainerStyle={styles.viewSearch}
+              style={styles.viewSearch}>
+              <Entypo
+                style={styles.icons}
+                name="magnifying-glass"
+                size={24}
+                color="black"
               />
-            </View>
 
-            <View style={styles.description}>
-              <Text style={styles.textDescription}>{tome.title}</Text>
-              <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
-            </View>
+              <TextInput
+                style={
+                  showSearchBar
+                    ? {
+                        marginLeft: 10,
+                        color: "rgb(226, 218, 210)",
+                      }
+                    : { display: "none" }
+                }
+                placeholder="Titre de l'oeuvre"
+                onChangeText={(v) => {
+                  setSearchTitle(v);
+                }}
+                placeholderTextColor={"rgb(226, 218, 210)"}
+                value={searchTitle}
+              />
+            </KeyboardAvoidingView>
           </TouchableOpacity>
-        )}
+        </Animated.View>
+      </View>
 
-        <ScrollView
-          onStartShouldSetResponder={() => {
+      {route.params && !searchTitle && (
+        <TouchableOpacity
+          style={styles.selected}
+          activeOpacity={1}
+          onPress={() => {
             setShowSearchBar(false);
-          }}
-          contentContainerStyle={{ flexGrow: 1 }}>
-          {searchTitle ? (
-            <View style={styles.carousselView}>
-              <SearchResult
-                title={searchTitle}
+            setSearchTitle("");
+          }}>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={{ uri: tome.image }}
+              resizeMode="contain"
+            />
+          </View>
+
+          <View style={styles.description}>
+            <Text style={styles.textDescription}>{tome.title}</Text>
+            <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+
+      <ScrollView
+        onStartShouldSetResponder={() => {
+          setShowSearchBar(false);
+        }}
+        contentContainerStyle={{ flexGrow: 1 }}>
+        {searchTitle ? (
+          <View style={styles.carousselView}>
+            <SearchResult
+              title={searchTitle}
+              navigation={navigation}
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
+              setShowSearchBar={setShowSearchBar}
+              tome={tome}
+              setSearchTitle={setSearchTitle}
+            />
+          </View>
+        ) : (
+          dataBooksAge1 &&
+          dataBooksAge3 &&
+          dataBooksAge5 &&
+          (press ? (
+            <View>
+              <ListStory
+                setPress={setPress}
+                booksAgeList={booksAgeList}
                 navigation={navigation}
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
                 setShowSearchBar={setShowSearchBar}
+                tome={tome}
               />
             </View>
           ) : (
-            dataBooksAge1 &&
-            dataBooksAge3 &&
-            dataBooksAge5 &&
-            (press ? (
-              <View>
-                <ListStory
-                  setPress={setPress}
-                  booksAgeList={booksAgeList}
-                  navigation={navigation}
-                  setShowSearchBar={setShowSearchBar}
-                />
-              </View>
-            ) : (
-              <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <Caroussel
-                  setPress={setPress}
-                  title="Adaptés aux 1-3 ans"
-                  dataBooksAge={dataBooksAge1}
-                  setBooksAgeList={setBooksAgeList}
-                  navigation={navigation}
-                  setShowSearchBar={setShowSearchBar}
-                />
-                <Caroussel
-                  setPress={setPress}
-                  title="Adaptés aux 3-5 ans"
-                  dataBooksAge={dataBooksAge3}
-                  booksAgeList={booksAgeList}
-                  setBooksAgeList={setBooksAgeList}
-                  navigation={navigation}
-                  setSearchResults={setSearchResults}
-                  setShowSearchBar={setShowSearchBar}
-                />
-                <Caroussel
-                  setPress={setPress}
-                  title="Adaptés aux 5-7 ans"
-                  dataBooksAge={dataBooksAge5}
-                  booksAgeList={booksAgeList}
-                  setBooksAgeList={setBooksAgeList}
-                  navigation={navigation}
-                  setSearchResults={setSearchResults}
-                  setShowSearchBar={setShowSearchBar}
-                />
-              </ScrollView>
-            ))
-          )}
-        </ScrollView>
-      </View>
-    ))
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+              <Caroussel
+                setPress={setPress}
+                title="Adaptés aux 1-3 ans"
+                dataBooksAge={dataBooksAge1}
+                setBooksAgeList={setBooksAgeList}
+                navigation={navigation}
+                setShowSearchBar={setShowSearchBar}
+                tome={tome}
+              />
+              <Caroussel
+                setPress={setPress}
+                title="Adaptés aux 3-5 ans"
+                dataBooksAge={dataBooksAge3}
+                booksAgeList={booksAgeList}
+                setBooksAgeList={setBooksAgeList}
+                navigation={navigation}
+                setSearchResults={setSearchResults}
+                setShowSearchBar={setShowSearchBar}
+                tome={tome}
+              />
+              <Caroussel
+                setPress={setPress}
+                title="Adaptés aux 5-7 ans"
+                dataBooksAge={dataBooksAge5}
+                booksAgeList={booksAgeList}
+                setBooksAgeList={setBooksAgeList}
+                navigation={navigation}
+                setSearchResults={setSearchResults}
+                setShowSearchBar={setShowSearchBar}
+                tome={tome}
+              />
+            </ScrollView>
+          ))
+        )}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -330,7 +348,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(165, 81, 69)",
     flex: 1,
   },
-  containerModalOff: { paddingTop: 20, borderColor: "blue", borderWidth: 4 },
+  // containerModalOff: { paddingTop: 20, borderColor: "blue", borderWidth: 4 },
   header: {
     paddingHorizontal: 20,
     flexDirection: "row",
@@ -345,18 +363,13 @@ const styles = StyleSheet.create({
   },
 
   viewSearch: {
-    flexDirection: "row",
-
-    // borderColor: "yellow",
-    // borderWidth: 3,
-    // width: "100%",
-  },
-  searchModal: {
-    alignItems: "center",
-    // marginVertical: 20,
-  },
-  showModal: {
     height: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  showModal: {
+    height: "70%",
     alignItems: "center",
     marginVertical: 10,
     backgroundColor: "rgba(226, 218, 210,0.5)",
@@ -367,7 +380,7 @@ const styles = StyleSheet.create({
     // borderWidth: 3,
   },
   hiddenModal: {
-    height: "100%",
+    height: "70%",
     alignItems: "center",
     // justifyContent: "center",
     marginVertical: 10,
