@@ -130,7 +130,8 @@ const AllStoryScreen = ({ navigation, route }) => {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "rgb(165, 81, 69)",
-      }}>
+      }}
+    >
       <ActivityIndicator size={"large"} />
     </View>
   ) : (
@@ -178,12 +179,14 @@ const AllStoryScreen = ({ navigation, route }) => {
                 !showSearchBar && setShowSearchBar(!showSearchBar);
               }}>
               <View style={styles.viewSearch}>
+
                 <Entypo
                   style={styles.icons}
                   name="magnifying-glass"
                   size={24}
                   color="black"
                 />
+
                 <TextInput
                   style={
                     showSearchBar
@@ -200,6 +203,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                   placeholderTextColor={"rgb(226, 218, 210)"}
                 />
               </View>
+
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -220,12 +224,14 @@ const AllStoryScreen = ({ navigation, route }) => {
               />
             </View>
 
+
             <View style={styles.description}>
               <Text style={styles.textDescription}>{tome.title}</Text>
               <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
             </View>
           </TouchableOpacity>
         )}
+
 
         <ScrollView
           onStartShouldSetResponder={() => {
@@ -236,6 +242,7 @@ const AllStoryScreen = ({ navigation, route }) => {
             <View style={styles.carousselView}>
               <SearchResult
                 title={searchTitle}
+
                 navigation={navigation}
                 searchResults={searchResults}
                 setSearchResults={setSearchResults}
@@ -407,6 +414,7 @@ const styles = StyleSheet.create({
     color: "rgb(226, 218, 210)",
     fontSize: 20,
     marginVertical: 5,
+    fontFamily: "casablanca",
   },
   carousselView: {
     // borderColor: "blue",

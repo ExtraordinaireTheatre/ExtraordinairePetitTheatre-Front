@@ -45,7 +45,6 @@ const CountDownScreen = ({ navigation, route }) => {
 
       // navigation.navigate("Curtain", { bookData: route.params.bookData });
       navigation.navigate("TestUser", { bookData: route.params.bookData });
-
     }
   }, [count]);
 
@@ -56,7 +55,8 @@ const CountDownScreen = ({ navigation, route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}>
+          }}
+        >
           <Entypo name="cross" size={24} color="rgb(165, 81, 69)" />
         </TouchableOpacity>
       </View>
@@ -99,9 +99,10 @@ const styles = StyleSheet.create({
     color: "rgb(165, 81, 69)",
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     textTransform: "uppercase",
     color: "rgb(226, 218, 210)",
+    fontFamily: "casablanca",
   },
   main: {
     alignItems: "center",
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: "rgb(226, 218, 210)",
     marginTop: 30,
+    fontFamily: "casablanca",
   },
 });
 
