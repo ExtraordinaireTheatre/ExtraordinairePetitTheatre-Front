@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import LottieView from 'lottie-react-native';
 import {
   SafeAreaView,
   ScrollView,
@@ -21,6 +22,8 @@ import axios from "axios";
 const AfficheScreen = ({ navigation, portrait }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
+  const animation = useRef(null);
+  const [mask, setMask] = useState(true);
   useEffect(() => {
     portrait;
     const getAffiche = async () => {
@@ -35,18 +38,40 @@ const AfficheScreen = ({ navigation, portrait }) => {
         console.log(error.message);
       }
       setIsLoading(false);
+      // setMask(false)
     };
     getAffiche();
   }, []);
-  return isLoading ? (
-    <View
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        flex: 1,
-        backgroundColor: "rgb(165, 81, 69)",
-      }}>
-      <ActivityIndicator size={"large"} />
+
+  const [count, setCount] = useState(3);
+  useEffect(() => {
+    const countDown = setInterval(() => {
+      setCount((prevState) =>
+        prevState > 0 ? prevState - 1 : (prevState = 0)
+      );
+    }, 1000);
+    return () => {
+      clearInterval(countDown);
+    };
+  }, []);
+  return mask ? (
+    <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
+       <LottieView
+        autoPlay={true}
+        resizeMode='contain'
+        loop={count ? true : false}
+        ref={animation}
+        style={{
+          height:200,
+          width:200,
+          backgroundColor: 'rgb(165, 81, 69)',
+        }}
+        source={require('../assets/Mask.json')}
+        onAnimationFinish={()=>{
+            setMask(false);
+        }}
+    
+      />
     </View>
   ) : (
     <SafeAreaView style={styles.container}>
@@ -108,7 +133,9 @@ const AfficheScreen = ({ navigation, portrait }) => {
         </View>
 
         <View style={styles.containerEllipse}>
-          <TouchableOpacity style={styles.ellipse}>
+          <TouchableOpacity style={styles.ellipse} onPress={()=>{
+            navigation.navigate("DisplayTwoScreen");
+          }}>
             <MaterialCommunityIcons
               style={styles.iconeEllipse}
               name="ticket"

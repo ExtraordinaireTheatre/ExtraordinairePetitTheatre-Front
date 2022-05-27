@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Platform } from "react-native";
 
 //Import librairies navigation. Default Theme => stylyser toutes l'app avec une const Theme
@@ -13,7 +13,6 @@ import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
 import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
-// import DisplayScreen from "./containers/DisplayScreen";
 import CountDownScreen from "./containers/CountdownScreen";
 
 import TestUser from "./containers/TestUser";
@@ -24,7 +23,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   const setUser = async (token) => {
     token
       ? await AsyncStorage.setItem("userToken", token)
@@ -61,9 +60,11 @@ const App = () => {
           headerShown: false,
         }}>
         {!userToken ? (
+          <>
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
+          </>
         ) : (
           <>
             <Stack.Screen name="Affiche">
@@ -76,11 +77,6 @@ const App = () => {
             <Stack.Screen name="Settings">
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
-            {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
-
-            {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
-            <Stack.Screen name="TestUser" component={TestUser} />
-
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
             <Stack.Screen name="TestUser" component={TestUser} />
           </>
