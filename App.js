@@ -28,7 +28,7 @@ const App = () => {
   });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   const setUser = async (token) => {
     token
       ? await AsyncStorage.setItem("userToken", token)
@@ -66,13 +66,12 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}
-      >
+        }}>
         {!userToken ? (
           <>
-          <Stack.Screen name="Home">
-            {(props) => <HomeScreen {...props} setUser={setUser} />}
-          </Stack.Screen>
+            <Stack.Screen name="Home">
+              {(props) => <HomeScreen {...props} setUser={setUser} />}
+            </Stack.Screen>
           </>
         ) : (
           <>
@@ -93,8 +92,8 @@ const App = () => {
 
             {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
 
-
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
+            <Stack.Screen name="TestUser" component={TestUser} />
           </>
         )}
       </Stack.Navigator>

@@ -55,8 +55,7 @@ const CountDownScreen = ({ navigation, route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <Entypo name="cross" size={24} color="rgb(165, 81, 69)" />
         </TouchableOpacity>
       </View>

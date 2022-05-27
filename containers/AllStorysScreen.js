@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 import {
   ScrollView,
   View,
@@ -125,7 +125,6 @@ const AllStoryScreen = ({ navigation, route }) => {
     getData();
   }, []);
 
-
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const fadeIn = () => {
@@ -139,27 +138,29 @@ const AllStoryScreen = ({ navigation, route }) => {
   useEffect(() => {
     fadeIn();
   }, [fadeAnim]);
-  const animation = useRef(null);
+  const lottie = useRef(null);
   return isLoading ? (
-
-    <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
-       <LottieView
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "rgb(165, 81, 69)",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <LottieView
         autoPlay={true}
-        resizeMode='contain'
-        ref={animation}
+        resizeMode="contain"
+        ref={lottie}
         style={{
-          height:200,
-          width:200,
-          backgroundColor: 'rgb(165, 81, 69)',
+          height: 200,
+          width: 200,
+          backgroundColor: "rgb(165, 81, 69)",
         }}
-        source={require('../assets/Mask.json')}
-        onAnimationFinish={()=>{
-            setIsLoading(false);
+        source={require("../assets/Mask.json")}
+        onAnimationFinish={() => {
+          setIsLoading(false);
         }}
-    
       />
-
-
     </View>
   ) : (
     (animation.setValue(1),
@@ -302,6 +303,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                   setBooksAgeList={setBooksAgeList}
                   navigation={navigation}
                   setSearchResults={setSearchResults}
+                  setShowSearchBar={setShowSearchBar}
                 />
                 <Caroussel
                   setPress={setPress}
@@ -311,6 +313,7 @@ const AllStoryScreen = ({ navigation, route }) => {
                   setBooksAgeList={setBooksAgeList}
                   navigation={navigation}
                   setSearchResults={setSearchResults}
+                  setShowSearchBar={setShowSearchBar}
                 />
               </ScrollView>
             ))
