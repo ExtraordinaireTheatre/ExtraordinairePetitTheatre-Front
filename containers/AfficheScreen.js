@@ -74,8 +74,9 @@ const AfficheScreen = ({ navigation, portrait }) => {
         <Text
           style={{
             color: "rgb(226, 218, 210)",
-            fontSize: 20,
+            fontSize: 30,
             textTransform: "uppercase",
+            fontFamily: "casablanca",
           }}
         >
           à l'affiche
@@ -180,10 +181,12 @@ const styles = StyleSheet.create({
   titleCaroussel: {
     color: "rgb(226, 218, 210)",
     fontSize: 24,
+    fontFamily: "casablanca",
   },
   subTitleCaroussel: {
     color: "rgb(226, 218, 210)",
     fontSize: 22,
+    fontFamily: "casablanca",
   },
 });
 export default AfficheScreen;
