@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-  Button,
+  Dimensions,
 } from "react-native";
 
 import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -14,8 +14,10 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import axios from "axios";
-
 import Input from "./Input";
+
+const { height } = Dimensions.get("window");
+
 const SignupForm = ({ setLogin, setUser }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -59,7 +61,7 @@ const SignupForm = ({ setLogin, setUser }) => {
     <ActivityIndicator />
   ) : (
     <View style={styles.container}>
-      {errorMessage !== "" && <Text>{errorMessage}</Text>}
+      {errorMessage !== "" && <Text style={styles.error}>{errorMessage}</Text>}
       <Input
         placeholder="Nom d'utilisateur"
         value={username}
@@ -82,7 +84,8 @@ const SignupForm = ({ setLogin, setUser }) => {
       <View style={styles.newsletterContainer}>
         <BouncyCheckbox
           onPress={() => setNewsletter(!newsletter)}
-          style={{ paddingLeft: 5, fillColor: "rgb(226, 218, 210)" }}
+          fillColor="rgb(226, 218, 210)"
+          style={{ paddingLeft: 5 }}
         />
         <View style={styles.newsletter}>
           <Text style={styles.newsletterText}>
@@ -95,13 +98,15 @@ const SignupForm = ({ setLogin, setUser }) => {
         onPress={async () => {
           handleSubmit();
         }}
-        style={styles.signupBtn}>
+        style={styles.signupBtn}
+      >
         <Text style={styles.textBtn}>Créer le compte</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}>
+        }}
+      >
         <Text style={styles.text}>
           Vous avez déjà un compte ? Connectez-vous !
         </Text>
@@ -111,14 +116,17 @@ const SignupForm = ({ setLogin, setUser }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    height: 450,
+    height: height / 2,
     justifyContent: "space-around",
     alignItems: "center",
     paddingHorizontal: 6,
     width: "100%",
   },
+  error: {
+    textAlign: "center",
+  },
   signupBtn: {
-    paddingVertical: 6,
+    paddingVertical: 8,
     width: "90%",
     alignItems: "center",
     borderRadius: 15,
@@ -134,12 +142,11 @@ const styles = StyleSheet.create({
     color: "rgb(226, 218, 210)",
   },
   newsletterContainer: {
+    paddingVertical: 8,
     flexDirection: "row",
     width: "90%",
-    // backgroundColor: "red",
   },
   newsletter: {
-    // backgroundColor: "blue",
     width: "80%",
     alignItems: "flex-end",
   },
@@ -147,6 +154,7 @@ const styles = StyleSheet.create({
     color: "rgb(226, 218, 210)",
     fontSize: 12,
     paddingLeft: 10,
+    textAlign: "justify",
   },
 });
 export default SignupForm;

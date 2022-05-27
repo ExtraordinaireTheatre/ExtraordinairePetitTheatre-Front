@@ -1,11 +1,22 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Constants from "expo-constants";
 import { useRef, useEffect } from "react";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
+
 import LottieView from 'lottie-react-native';
+
+
+const { width, height } = Dimensions.get("window");
 
 
 const HomeScreen = ({ setUser }) => {
@@ -46,7 +57,7 @@ const HomeScreen = ({ setUser }) => {
       <View style={styles.header}>
         <Image
           style={styles.img}
-          source={require("../assets/HomePicture.jpg")}
+          source={require("../assets/img/titre.png")}
           resizeMode="contain"
         />
       </View>
@@ -90,10 +101,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 20,
-    flex: 1,
+    width: width,
+    height: height,
   },
   header: {
-    height: 280,
+    height: height / 2.5,
     width: "100%",
     justifyContent: "center",
   },
@@ -102,25 +114,26 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   homeBlock: {
-    marginTop: 170,
+    marginTop: height / 4,
     alignItems: "center",
-    justifyContent: "space-around",
-    height: 150,
+    justifyContent: "center",
+    height: height / 5,
   },
   homeText: {
     fontSize: 12,
     color: "rgb(226, 218, 210)",
+    paddingVertical: 10,
   },
   signupBtn: {
     backgroundColor: "rgb(226, 218, 210)",
     paddingVertical: 8,
-    width: "80%",
+    width: "90%",
     alignItems: "center",
     borderRadius: 15,
   },
   loginBtn: {
-    paddingVertical: 6,
-    width: "80%",
+    paddingVertical: 8,
+    width: "90%",
     alignItems: "center",
     borderRadius: 15,
     borderWidth: 1,

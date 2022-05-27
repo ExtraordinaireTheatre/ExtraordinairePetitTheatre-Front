@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Platform } from "react-native";
+import { useFonts } from "expo-font";
 
 //Import librairies navigation. Default Theme => stylyser toutes l'app avec une const Theme
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,10 +18,14 @@ import CountDownScreen from "./containers/CountdownScreen";
 
 import TestUser from "./containers/TestUser";
 import TestAdmin from "./containers/TestAdmin";
+import AnimationTest from "./containers/testScreen";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [loaded] = useFonts({
+    casablanca: require("./assets/fonts/casablanca-medium.ttf"),
+  });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -52,13 +57,17 @@ const App = () => {
 
   if (isLoading === true) {
     return null;
+  } else if (!loaded) {
+    return null;
   }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
+        }}
+      >
         {!userToken ? (
           <>
           <Stack.Screen name="Home">
@@ -67,6 +76,8 @@ const App = () => {
           </>
         ) : (
           <>
+            {/* <Stack.Screen name="Animation" component={AnimationTest} /> */}
+
             <Stack.Screen name="Affiche">
               {(props) => <AfficheScreen {...props} setUser={setUser} />}
             </Stack.Screen>
@@ -77,8 +88,13 @@ const App = () => {
             <Stack.Screen name="Settings">
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
+
+            {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
+
+            {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
+
+
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
-            <Stack.Screen name="TestUser" component={TestUser} />
           </>
         )}
       </Stack.Navigator>

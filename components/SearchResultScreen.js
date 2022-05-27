@@ -19,6 +19,7 @@ const SearchResult = ({
   setRecommandations,
   searchResults,
   setSearchResults,
+  setShowSearchBar,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -68,6 +69,7 @@ const SearchResult = ({
                   key={index}
                   activeOpacity={0.7}
                   onPress={() => {
+                    setShowSearchBar(false);
                     navigation.navigate("Story", { bookData: result });
                   }}>
                   <View style={styles.containerImageItemList}>

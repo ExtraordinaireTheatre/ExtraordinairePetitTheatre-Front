@@ -18,6 +18,7 @@ const Caroussel = ({
   setPress,
   setBooksAgeList,
   navigation,
+  setShowSearchBar,
 }) => {
   return dataBooksAge ? (
     <View style={styles.containerCaroussel}>
@@ -32,13 +33,15 @@ const Caroussel = ({
           onPress={() => {
             setPress((prevState) => !prevState);
             setBooksAgeList(dataBooksAge);
-          }}>
+          }}
+        >
           <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-            }}>
+            }}
+          >
             <Octicons
               style={styles.settingsIcon}
               name="dot-fill"
@@ -62,7 +65,8 @@ const Caroussel = ({
         contentContainerStyle={{
           alignItems: "center",
         }}
-        showsHorizontalScrollIndicator={false}>
+        showsHorizontalScrollIndicator={false}
+      >
         {dataBooksAge.map((book, index) => {
           return (
             <TouchableOpacity
@@ -70,13 +74,22 @@ const Caroussel = ({
               key={index}
               activeOpacity={0.8}
               onPress={() => {
+                setShowSearchBar(false);
                 navigation.navigate("Story", { bookData: book });
-              }}>
+              }}
+            >
               <View style={styles.imageCarousselContainer}>
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
               <View style={styles.itemDescription}>
-                <Text style={{ color: "rgb(226, 218, 210)" }} numberOfLines={2}>
+                <Text
+                  style={{
+                    color: "rgb(226, 218, 210)",
+                    fontFamily: "casablanca",
+                    fontSize: 15,
+                  }}
+                  numberOfLines={2}
+                >
                   {book.title}
                 </Text>
               </View>
@@ -104,6 +117,8 @@ const styles = StyleSheet.create({
   titleCaroussel: {
     color: "rgb(226, 218, 210)",
     marginLeft: 20,
+    fontFamily: "casablanca",
+    fontSize: 18,
   },
   caroussel: {
     marginLeft: 15,
