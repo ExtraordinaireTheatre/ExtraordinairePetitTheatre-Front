@@ -95,7 +95,16 @@ const AfficheScreen = ({ navigation, portrait }) => {
                 transform: [{ translateY: leftValue }],
               },
             ]}>
-            <Text style={styles.title}>à l'affiche</Text>
+            <Text
+              style={{
+                color: "rgb(226, 218, 210)",
+                fontSize: 30,
+                textTransform: "uppercase",
+                fontFamily: "casablanca",
+                fontFamily: "casablanca",
+              }}>
+              à l'affiche
+            </Text>
           </Animated.View>
         </View>
 
@@ -133,57 +142,6 @@ const AfficheScreen = ({ navigation, portrait }) => {
                 })}
             </ScrollView>
           </View>
-
-        </TouchableOpacity>
-      </View>
-      <View style={styles.titleContainer}>
-        <Text
-          style={{
-            color: "rgb(226, 218, 210)",
-            fontSize: 30,
-            textTransform: "uppercase",
-            fontFamily: "casablanca",
-          }}
-        >
-          à l'affiche
-        </Text>
-      </View>
-      <View style={styles.main}>
-        <View style={styles.carousselContainer}>
-          <ScrollView
-            horizontal={true}
-            style={styles.caroussel}
-            showsHorizontalScrollIndicator={false}
-          >
-            {tomesAffiche &&
-              tomesAffiche.map((tome, index) => {
-                return (
-                  <TouchableOpacity
-                    style={styles.itemCaroussel}
-                    key={index}
-                    activeOpacity={0.7}
-                    onPress={() => {
-                      navigation.navigate("AllStory", { tome: tome });
-                    }}
-                  >
-                    <View style={styles.viewImageCaroussel}>
-                      <Image
-                        style={styles.imageCaroussel}
-                        source={{ uri: tome.image }}
-                        resizeMode={"contain"}
-                      />
-                    </View>
-                    <View style={styles.carousselTitleContainer}>
-                      <Text style={styles.titleCaroussel}>{tome.title}</Text>
-                      <Text style={styles.subTitleCaroussel}>
-                        Tome {tome.tome}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-          </ScrollView>
-
         </View>
       </SafeAreaView>
     ))
@@ -195,6 +153,7 @@ const styles = StyleSheet.create({
     width: width,
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,
+    flex: 1,
   },
   header: {
     flexDirection: "row",
