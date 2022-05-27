@@ -79,6 +79,7 @@ const AllStoryScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if (showSearchBar) {
+      animation.setValue(0);
       growBar();
     } else if (!showSearchBar) {
       animationShrink.setValue(0);
@@ -140,6 +141,7 @@ const AllStoryScreen = ({ navigation, route }) => {
   }, [fadeAnim]);
   const animation = useRef(null);
   return isLoading ? (
+
     <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
        <LottieView
         autoPlay={true}
@@ -157,9 +159,10 @@ const AllStoryScreen = ({ navigation, route }) => {
     
       />
 
+
     </View>
   ) : (
-    (animation.setValue(0),
+    (animation.setValue(1),
     animationShrink.setValue(1),
     (
       <View style={styles.container}>
@@ -203,7 +206,6 @@ const AllStoryScreen = ({ navigation, route }) => {
                 !showSearchBar && setShowSearchBar(!showSearchBar);
               }}>
               <View style={styles.viewSearch}>
-
                 <Entypo
                   style={styles.icons}
                   name="magnifying-glass"
@@ -227,7 +229,6 @@ const AllStoryScreen = ({ navigation, route }) => {
                   placeholderTextColor={"rgb(226, 218, 210)"}
                 />
               </View>
-
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -248,14 +249,12 @@ const AllStoryScreen = ({ navigation, route }) => {
               />
             </View>
 
-
             <View style={styles.description}>
               <Text style={styles.textDescription}>{tome.title}</Text>
               <Text style={styles.textDescription}>Tome : {tome.tome}</Text>
             </View>
           </TouchableOpacity>
         )}
-
 
         <ScrollView
           onStartShouldSetResponder={() => {
@@ -266,7 +265,6 @@ const AllStoryScreen = ({ navigation, route }) => {
             <View style={styles.carousselView}>
               <SearchResult
                 title={searchTitle}
-
                 navigation={navigation}
                 searchResults={searchResults}
                 setSearchResults={setSearchResults}
