@@ -19,7 +19,7 @@ import { Magnetometer } from "expo-sensors";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as NavigationBar from "expo-navigation-bar";
 import StoryScreen from "./StoryScreen";
-// import LottieView from 'lottie-react-native';
+
 
 import { Ionicons } from "@expo/vector-icons";
 

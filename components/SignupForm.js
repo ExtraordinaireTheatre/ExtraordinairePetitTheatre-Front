@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Input from "./Input";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const SignupForm = ({ setLogin, setUser }) => {
   const [username, setUsername] = useState("");
@@ -61,7 +61,7 @@ const SignupForm = ({ setLogin, setUser }) => {
     <ActivityIndicator />
   ) : (
     <View style={styles.container}>
-      {errorMessage !== "" && <Text>{errorMessage}</Text>}
+      {errorMessage !== "" && <Text style={styles.error}>{errorMessage}</Text>}
       <Input
         placeholder="Nom d'utilisateur"
         value={username}
@@ -121,6 +121,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 6,
     width: "100%",
+  },
+  error: {
+    textAlign: "center",
   },
   signupBtn: {
     paddingVertical: 8,
