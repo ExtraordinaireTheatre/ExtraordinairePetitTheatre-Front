@@ -18,6 +18,7 @@ const Caroussel = ({
   setPress,
   setBooksAgeList,
   navigation,
+  setShowSearchBar,
 }) => {
   return dataBooksAge ? (
     <View style={styles.containerCaroussel}>
@@ -70,6 +71,7 @@ const Caroussel = ({
               key={index}
               activeOpacity={0.8}
               onPress={() => {
+                setShowSearchBar(false);
                 navigation.navigate("Story", { bookData: book });
               }}>
               <View style={styles.imageCarousselContainer}>
