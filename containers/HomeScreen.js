@@ -22,7 +22,7 @@ const HomeScreen = ({ setUser }) => {
       <View style={styles.header}>
         <Image
           style={styles.img}
-          source={require("../assets/titre.png")}
+          source={require("../assets/img/titre.png")}
           resizeMode="contain"
         />
       </View>
