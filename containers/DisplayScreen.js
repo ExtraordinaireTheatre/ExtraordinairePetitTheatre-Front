@@ -148,22 +148,13 @@ const DisplayScreen = ({ navigation, route }) => {
       )}
 
       <Video
-        // onFullscreenUpdate={() => {
-        //   if (i === timeCode.length - 1) {
-        //     navigation.navigate("Story", { bookData: route.params.bookData });
-        //     portrait();
-        //   }
-        // }}
         ref={video}
         style={styles.video}
         source={{
           uri: "https://res.cloudinary.com/dpcwqnqtf/video/upload/v1653117283/Video/Cendrillon_video.mp4",
         }}
-        // shouldPlay={false}
         positionMillis={0}
         useNativeControls
-        // resizeMode="cover"
-        // isLooping={false}
         onPlaybackStatusUpdate={(status) => {
           setTime(status.positionMillis);
 

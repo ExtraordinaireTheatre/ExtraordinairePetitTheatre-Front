@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Platform } from "react-native";
 import { useFonts } from "expo-font";
 
@@ -14,7 +14,6 @@ import HomeScreen from "./containers/HomeScreen";
 import StoryScreen from "./containers/StoryScreen";
 import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
-// import DisplayScreen from "./containers/DisplayScreen";
 import CountDownScreen from "./containers/CountdownScreen";
 
 import TestUser from "./containers/TestUser";
@@ -29,7 +28,7 @@ const App = () => {
   });
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   const setUser = async (token) => {
     token
       ? await AsyncStorage.setItem("userToken", token)
@@ -70,9 +69,11 @@ const App = () => {
         }}
       >
         {!userToken ? (
+          <>
           <Stack.Screen name="Home">
             {(props) => <HomeScreen {...props} setUser={setUser} />}
           </Stack.Screen>
+          </>
         ) : (
           <>
             {/* <Stack.Screen name="Animation" component={AnimationTest} /> */}
@@ -87,9 +88,11 @@ const App = () => {
             <Stack.Screen name="Settings">
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
             </Stack.Screen>
+
             {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
 
             {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
+
 
             <Stack.Screen name="TestAdmin" component={TestAdmin} />
           </>

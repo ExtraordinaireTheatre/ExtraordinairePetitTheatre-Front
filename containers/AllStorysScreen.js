@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
+import LottieView from 'lottie-react-native';
 import {
   ScrollView,
   View,
@@ -123,16 +124,39 @@ const AllStoryScreen = ({ navigation, route }) => {
     getData();
   }, []);
 
+
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 1000,
+    }).start();
+  };
+
+  useEffect(() => {
+    fadeIn();
+  }, [fadeAnim]);
+  const animation = useRef(null);
   return isLoading ? (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "rgb(165, 81, 69)",
-      }}
-    >
-      <ActivityIndicator size={"large"} />
+    <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
+       <LottieView
+        autoPlay={true}
+        resizeMode='contain'
+        ref={animation}
+        style={{
+          height:200,
+          width:200,
+          backgroundColor: 'rgb(165, 81, 69)',
+        }}
+        source={require('../assets/Mask.json')}
+        onAnimationFinish={()=>{
+            setIsLoading(false);
+        }}
+    
+      />
+
     </View>
   ) : (
     (animation.setValue(0),
