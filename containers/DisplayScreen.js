@@ -127,7 +127,8 @@ const DisplayScreen = ({ navigation, route }) => {
             onPress={() => {
               navigation.navigate("Story", { bookData: route.params.bookData });
               portrait();
-            }}>
+            }}
+          >
             <Ionicons
               name="arrow-back-outline"
               size={16}
@@ -173,7 +174,8 @@ const DisplayScreen = ({ navigation, route }) => {
               textAlign: "center",
               marginTop: 50,
               color: "rgb(226, 218, 210)",
-            }}>
+            }}
+          >
             {time}
           </Text>
           <Button
@@ -210,8 +212,6 @@ const styles = StyleSheet.create({
   ViewButtons: {
     height: "50%",
     paddingTop: 40,
-    // borderColor: "yellow",
-    // borderWidth: 4,
     alignItems: "center",
     justifyContent: "space-around",
   },

@@ -98,7 +98,8 @@ const LoginForm = ({ setLogin, setUser }) => {
           <TouchableOpacity
             onPress={() => {
               promptAsync();
-            }}>
+            }}
+          >
             <Text style={styles.ggLoginText}>Se connecter avec Google</Text>
           </TouchableOpacity>
         </View>
@@ -132,13 +133,15 @@ const LoginForm = ({ setLogin, setUser }) => {
           style={styles.loginBtn}
           onPress={async () => {
             handleSubmit();
-          }}>
+          }}
+        >
           <Text style={styles.textBtn}>Se connecter</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             setLogin((prevState) => !prevState);
-          }}>
+          }}
+        >
           <Text style={styles.text}>
             Vous n'avez pas encore de compte ? Inscrivez-vous !
           </Text>
@@ -223,7 +226,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     color: "rgb(226, 218, 210)",
-    // marginTop: 10,
   },
 });
 export default LoginForm;
