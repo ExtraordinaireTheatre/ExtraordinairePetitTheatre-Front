@@ -156,8 +156,7 @@ const AllStoryScreen = ({
         backgroundColor: "rgb(165, 81, 69)",
         justifyContent: "center",
         alignItems: "center",
-      }}
-    >
+      }}>
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -174,11 +173,6 @@ const AllStoryScreen = ({
       />
     </View>
   ) : (
-
-    (animation.setValue(1),
-    animationShrink.setValue(1),
-    (
-
     <View style={styles.container}>
       <View
         style={{
@@ -217,75 +211,8 @@ const AllStoryScreen = ({
               ? { width: interpolateGrow }
               : { width: interpolateShrink },
           ]}>
-
           <TouchableOpacity
             onPress={() => {
-
-              navigation.navigate("Affiche");
-            }}
-          >
-            <Ionicons
-              name="arrow-back-outline"
-              size={16}
-              color={"rgb(165, 81, 69)"}
-            />
-          </TouchableOpacity>
-          <Animated.View
-            style={[
-              showSearchBar ? styles.showModal : styles.hiddenModal,
-              showSearchBar
-                ? { width: interpolateGrow }
-                : { width: interpolateShrink },
-            ]}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                !showSearchBar && setShowSearchBar(!showSearchBar);
-              }}
-            >
-              <View style={styles.viewSearch}>
-                <Entypo
-                  style={styles.icons}
-                  name="magnifying-glass"
-                  size={24}
-                  color="black"
-                />
-
-                <TextInput
-                  style={
-                    showSearchBar
-                      ? {
-                          marginLeft: 10,
-                          color: "rgb(226, 218, 210)",
-                        }
-                      : { display: "none" }
-                  }
-                  placeholder="Titre de l'oeuvre"
-                  onChangeText={(v) => {
-                    setSearchTitle(v);
-                  }}
-                  placeholderTextColor={"rgb(226, 218, 210)"}
-                />
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
-        </View>
-
-        {route.params && !searchTitle && (
-          <TouchableOpacity
-            style={styles.selected}
-            activeOpacity={1}
-            onPress={() => {
-              setShowSearchBar(!showSearchBar);
-              setSearchTitle("");
-            }}
-          >
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{ uri: tome.image }}
-                resizeMode="contain"
-
               setShowSearchBar(true);
             }}>
             <KeyboardAvoidingView
@@ -297,7 +224,6 @@ const AllStoryScreen = ({
                 name="magnifying-glass"
                 size={24}
                 color="black"
-
               />
 
               <TextInput
@@ -327,15 +253,6 @@ const AllStoryScreen = ({
           activeOpacity={1}
           onPress={() => {
             setShowSearchBar(false);
-
-          }}
-          contentContainerStyle={{ flexGrow: 1 }}
-        >
-          {searchTitle ? (
-            <View style={styles.carousselView}>
-              <SearchResult
-                title={searchTitle}
-
             setSearchTitle("");
           }}>
           <View style={styles.imageContainer}>
@@ -379,7 +296,6 @@ const AllStoryScreen = ({
               <ListStory
                 setPress={setPress}
                 booksAgeList={booksAgeList}
-
                 navigation={navigation}
                 setShowSearchBar={setShowSearchBar}
                 tome={tome}

@@ -27,7 +27,6 @@ const App = () => {
   const [loaded] = useFonts({
     casablanca: require("./assets/fonts/casablanca-medium.ttf"),
   });
-
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -80,8 +79,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}
-      >
+        }}>
         {!userToken ? (
           <>
             <Stack.Screen name="Home">
