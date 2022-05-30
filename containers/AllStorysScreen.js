@@ -156,8 +156,7 @@ const AllStoryScreen = ({
         backgroundColor: "rgb(165, 81, 69)",
         justifyContent: "center",
         alignItems: "center",
-      }}
-    >
+      }}>
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -183,8 +182,7 @@ const AllStoryScreen = ({
           paddingHorizontal: 10,
 
           height: Dimensions.get("screen").height / 9,
-        }}
-      >
+        }}>
         <TouchableOpacity
           style={
             showSearchBar
@@ -198,8 +196,7 @@ const AllStoryScreen = ({
           }
           onPress={() => {
             navigation.navigate("Affiche");
-          }}
-        >
+          }}>
           <Ionicons
             name="arrow-back-outline"
             size={22}
@@ -212,18 +209,15 @@ const AllStoryScreen = ({
             showSearchBar
               ? { width: interpolateGrow }
               : { width: interpolateShrink },
-          ]}
-        >
+          ]}>
           <TouchableOpacity
             onPress={() => {
               setShowSearchBar(true);
-            }}
-          >
+            }}>
             <KeyboardAvoidingView
               behavior={Platform.OS === "android" ? "position" : "padding"}
               contentContainerStyle={styles.viewSearch}
-              style={styles.viewSearch}
-            >
+              style={styles.viewSearch}>
               <Entypo
                 style={styles.icons}
                 name="magnifying-glass"
@@ -259,8 +253,7 @@ const AllStoryScreen = ({
           onPress={() => {
             setShowSearchBar(false);
             setSearchTitle("");
-          }}
-        >
+          }}>
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
@@ -280,8 +273,7 @@ const AllStoryScreen = ({
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
         }}
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
+        contentContainerStyle={{ flexGrow: 1 }}>
         {searchTitle ? (
           <View style={styles.carousselView}>
             <SearchResult
@@ -362,12 +354,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  goBack: {
-    backgroundColor: "rgb(226, 218, 210)",
-    borderRadius: 50,
-    padding: 15,
-    color: "rgb(165, 81, 69)",
-  },
 
   viewSearch: {
     height: "70%",
@@ -392,36 +378,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     flexDirection: "row",
   },
-  inputSearch: {
-    marginLeft: 10,
-    color: "rgb(226, 218, 210)",
-  },
-  recommandationsContainer: {
-    alignItems: "center",
-    marginTop: 5,
-    backgroundColor: "rgb(226, 218, 210)",
-    width: "80%",
-    borderRadius: 10,
-  },
-  recommandationsBlock: {
-    borderBottomColor: "rgb(165, 81, 69)",
-    borderBottomWidth: 1,
-    width: "100%",
-    alignItems: "center",
-    padding: 5,
-  },
-  recommandationsText: {
-    color: "rgb(165, 81, 69)",
-    fontWeight: "700",
-  },
-  buttonCircle: {
-    padding: 10,
-    borderRadius: 50,
-    backgroundColor: "rgba(226, 218, 210, 0.5)",
-    height: "100%",
-    width: "100%",
-    justifyContent: "center",
-  },
+
   icons: {
     color: "rgb(226, 218, 210)",
   },
@@ -455,10 +412,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 5,
     fontFamily: "casablanca",
-  },
-  carousselView: {
-    // borderColor: "blue",
-    // borderWidth: 2,
   },
 });
 

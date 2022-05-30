@@ -33,10 +33,10 @@ const TestUser = ({ navigation, route }) => {
   // const animation = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
-  const { bookData} = route.params;
+  const { bookData } = route.params;
 
   const timeCode = [...bookData.timeCode];
-  
+
   const [i, setI] = useState(0);
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
@@ -104,7 +104,7 @@ const TestUser = ({ navigation, route }) => {
       tome: route.params.tome,
     });
   };
-  useEffect(()=>{
+  useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
     // navigation.goBack();
     return () =>
@@ -139,7 +139,7 @@ const TestUser = ({ navigation, route }) => {
       <Video
         ref={video}
         style={styles.video}
-        source={{uri : bookData.video}}
+        source={{ uri: bookData.video }}
         // {{ uri: "https://res.cloudinary.com/dpcwqnqtf/video/upload/v1653117283/Video/Cendrillon_video.mp4",}}
         shouldPlay={true}
         positionMillis={0}
@@ -183,15 +183,11 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "#000000",
-    // borderWidth:4,
-    // borderColor:'red',
     flex: 1,
   },
   video: {
     height: "100%",
     width: "100%",
-    // borderWidth:4,
-    // borderColor:'blue',
     position: "relative",
   },
   goBack: {
@@ -200,25 +196,6 @@ const styles = StyleSheet.create({
     left: 10,
     color: "white",
   },
-  //   ViewButtons: {
-  //     height: "50%",
-  //     paddingTop: 40,
-  //     // borderColor: "yellow",
-  //     // borderWidth: 4,
-  //     alignItems: "center",
-  //     justifyContent: "space-around",
-  //   },
-  //   button: {
-  //     marginTop: 150,
-  //   },
-  //   goBack: {
-  //     backgroundColor: "rgb(226, 218, 210)",
-  //     borderWidth: 1,
-  //     borderRadius: 50,
-  //     padding: 15,
-  //     color: "rgb(165, 81, 69)",
-  //     borderWidth: 0,
-  //   },
 });
 
 export default TestUser;
