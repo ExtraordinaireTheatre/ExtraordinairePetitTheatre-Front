@@ -70,6 +70,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          gestureEnabled: false
         }}>
         {!userToken ? (
           <>
