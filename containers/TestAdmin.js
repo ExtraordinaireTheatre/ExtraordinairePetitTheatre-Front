@@ -8,6 +8,7 @@ import {
   Button,
   Platform,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
@@ -65,6 +66,21 @@ const TestAdmin = ({ navigation, route }) => {
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
   };
+  const backAction = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP
+    );
+    navigation.navigate("Story", {
+      bookData: route.params.bookData,
+      tome: route.params.tome,
+    });
+  };
+  useEffect(()=>{
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    // navigation.goBack();
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
