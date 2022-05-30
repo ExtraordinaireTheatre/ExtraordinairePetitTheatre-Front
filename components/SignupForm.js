@@ -16,6 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import Input from "./Input";
 
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+
 const { height } = Dimensions.get("window");
 
 const SignupForm = ({ setLogin, setUser }) => {
@@ -29,22 +32,54 @@ const SignupForm = ({ setLogin, setUser }) => {
 
   const navigation = useNavigation();
 
+  async function registerForPushNotificationsAsync() {
+    return expoToken;
+  }
+
   const handleSubmit = async () => {
     setIsLoading(true);
     setErrorMessage("");
     if (username && email && password && confirmPassword && newsletter) {
       if (password === confirmPassword) {
         try {
+          let expoToken;
+          if (Device.isDevice) {
+            const { status: existingStatus } =
+              await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+            if (existingStatus !== "granted") {
+              const { status } = await Notifications.requestPermissionsAsync();
+              finalStatus = status;
+            }
+            if (finalStatus !== "granted") {
+              alert("Failed to get push expoToken for push notification!");
+              return;
+            }
+            expoToken = (await Notifications.getExpoPushTokenAsync()).data;
+          } else {
+            alert("Must use physical device for Push Notifications");
+          }
+
+          if (Platform.OS === "android") {
+            Notifications.setNotificationChannelAsync("default", {
+              name: "default",
+              importance: Notifications.AndroidImportance.MAX,
+              vibrationPattern: [0, 250, 250, 250],
+              lightColor: "#FF231F7C",
+            });
+          }
+          console.log(expoToken);
           const response = await axios.post(
-            "https://backoffice-forest-admin-sr.herokuapp.com/user/signup",
+            "http://backoffice-forest-admin-sr.herokuapp.com/user/signup",
             {
               username,
               email,
               password,
               newsletter,
+              expoToken,
             }
           );
-          // console.log(response.data);
+          console.log(response.data);
           setUser(response.data.token);
         } catch (error) {
           console.log(error);
@@ -98,15 +133,13 @@ const SignupForm = ({ setLogin, setUser }) => {
         onPress={async () => {
           handleSubmit();
         }}
-        style={styles.signupBtn}
-      >
+        style={styles.signupBtn}>
         <Text style={styles.textBtn}>Créer le compte</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}
-      >
+        }}>
         <Text style={styles.text}>
           Vous avez déjà un compte ? Connectez-vous !
         </Text>

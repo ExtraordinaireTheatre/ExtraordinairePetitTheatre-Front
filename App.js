@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as NavigationBar from "expo-navigation-bar";
+import * as Notifications from "expo-notifications";
 
 // Import containers Screen
 import SettingsScreen from "./containers/SettingsScreen";
@@ -29,6 +30,10 @@ const App = () => {
 
   const [userToken, setUserToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // state search bar
+  const [searchTitle, setSearchTitle] = useState("");
+  const [showSearchBar, setShowSearchBar] = useState(true);
 
   const setUser = async (token) => {
     token
@@ -56,6 +61,14 @@ const App = () => {
     colorBottomBar();
   }, []);
 
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+
   if (isLoading === true) {
     return null;
   } else if (!loaded) {
@@ -80,10 +93,41 @@ const App = () => {
             {/* <Stack.Screen name="Animation" component={AnimationTest} /> */}
 
             <Stack.Screen name="Affiche">
-              {(props) => <AfficheScreen {...props} setUser={setUser} />}
+              {(props) => (
+                <AfficheScreen
+                  {...props}
+                  setUser={setUser}
+                  setShowSearchBar={setShowSearchBar}
+                  setSearchTitle={setSearchTitle}
+                />
+              )}
             </Stack.Screen>
-            <Stack.Screen name="AllStory" component={AllStoryScreen} />
-            <Stack.Screen name="Story" component={StoryScreen} />
+
+            <Stack.Screen name="AllStory">
+              {(props) => (
+                <AllStoryScreen
+                  {...props}
+                  setUser={setUser}
+                  searchTitle={searchTitle}
+                  setSearchTitle={setSearchTitle}
+                  showSearchBar={showSearchBar}
+                  setShowSearchBar={setShowSearchBar}
+                />
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen name="Story">
+              {(props) => (
+                <StoryScreen
+                  {...props}
+                  setUser={setUser}
+                  searchTitle={searchTitle}
+                  setSearchTitle={setSearchTitle}
+                  setShowSearchBar={setShowSearchBar}
+                />
+              )}
+            </Stack.Screen>
+
             <Stack.Screen name="CountDown" component={CountDownScreen} />
 
             <Stack.Screen name="Settings">

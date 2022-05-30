@@ -13,6 +13,8 @@ import {
 
 import axios from "axios";
 
+import { MaterialIcons } from "@expo/vector-icons";
+
 const SearchResult = ({
   title,
   navigation,
@@ -20,6 +22,8 @@ const SearchResult = ({
   searchResults,
   setSearchResults,
   setShowSearchBar,
+  tome,
+  setSearchTitle,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -50,45 +54,81 @@ const SearchResult = ({
           <ActivityIndicator size={"large"} />
         </View>
       ) : (
-        <ScrollView
-          contentContainerStyle={{
-            // flexGrow: 1,
-            height: Dimensions.get("screen").height,
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-around",
-            marginTop: 10,
-            paddingHorizontal: 10,
-          }}>
-          {searchResults &&
-            searchResults.map((result, index) => {
-              return (
-                <TouchableOpacity
-                  style={styles.listItem}
-                  key={index}
-                  activeOpacity={0.7}
-                  onPress={() => {
-                    setShowSearchBar(false);
-                    navigation.navigate("Story", { bookData: result });
-                  }}>
-                  <View style={styles.containerImageItemList}>
-                    <Image
-                      style={styles.imageItem}
-                      source={{ uri: result.image }}
-                    />
-                  </View>
-                  <View style={styles.itemListDescription}>
-                    <Text
-                      style={{ color: "rgb(165, 81, 69)" }}
-                      numberOfLines={2}>
-                      {result.title}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
-        </ScrollView>
+        <View>
+          <View style={{ width: "100%", alignItems: "flex-end" }}>
+            <TouchableOpacity
+              style={{
+                width: "30%",
+                paddingHorizontal: 30,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              onPress={() => {
+                setShowSearchBar(false);
+                setSearchTitle("");
+              }}>
+              <Text
+                style={{
+                  fontFamily: "casablanca",
+                  fontSize: 18,
+                  color: "rgb(226, 218, 210)",
+                }}>
+                Retour
+              </Text>
+              <MaterialIcons
+                name="navigate-next"
+                size={24}
+                color="rgb(226, 218, 210)"
+              />
+            </TouchableOpacity>
+          </View>
+          <ScrollView
+            contentContainerStyle={{
+              // flexGrow: 1,
+              height: Dimensions.get("screen").height,
+              flexDirection: "row",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "space-around",
+              marginTop: 10,
+              paddingHorizontal: 10,
+            }}>
+            {searchResults &&
+              searchResults.map((result, index) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.listItem}
+                    key={index}
+                    activeOpacity={0.7}
+                    onPress={() => {
+                      // setShowSearchBar(false);
+                      navigation.navigate("Story", {
+                        bookData: result,
+                        tome: tome,
+                      });
+                    }}>
+                    <View style={styles.containerImageItemList}>
+                      <Image
+                        style={styles.imageItem}
+                        source={{ uri: result.image }}
+                      />
+                    </View>
+                    <View style={styles.itemListDescription}>
+                      <Text
+                        style={{
+                          color: "rgb(165, 81, 69)",
+                          fontFamily: "casablanca",
+                          fontSize: 18,
+                        }}
+                        numberOfLines={2}>
+                        {result.title}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+          </ScrollView>
+        </View>
       )}
     </View>
   );
@@ -119,7 +159,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     width: "100%",
-
     flex: 6,
   },
   imageItem: {

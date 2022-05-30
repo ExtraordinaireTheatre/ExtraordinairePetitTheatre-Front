@@ -8,11 +8,12 @@ import {
   Button,
   Platform,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import { Video } from "expo-av";
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 
 import { Magnetometer } from "expo-sensors";
 
@@ -20,11 +21,10 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import * as NavigationBar from "expo-navigation-bar";
 import StoryScreen from "./StoryScreen";
 
-
 import { Ionicons } from "@expo/vector-icons";
 
 import { AntDesign } from "@expo/vector-icons";
-    
+
 // const width = Dimensions.get("window").height;
 // const height = Dimensions.get("window").width;
 
@@ -72,24 +72,25 @@ const TestUser = ({ navigation, route }) => {
 
       if (data.z > 700) {
         // alert("COUCOU");
-        setStepForward(true)
+        setStepForward(true);
         setCode(timeCode[i + 1][2] * 1000);
         setReset(timeCode[i + 1][1] * 1000);
 
-        {i + 1 === timeCode.length  ? setI(timeCode.length) : setI(i + 1);}
-
+        {
+          i + 1 === timeCode.length ? setI(timeCode.length) : setI(i + 1);
+        }
       }
     };
     magnetFunction();
     return () => {
       Magnetometer.removeAllListeners();
-      setStepForward(false)
+      setStepForward(false);
     };
   }, [data]);
   // HIDE BOTTOM BAR ON ANDROID DEVICE
   useEffect(() => {
     const navigationBar = async () => {
-      await NavigationBar.setVisibilityAsync('hidden');
+      await NavigationBar.setVisibilityAsync("hidden");
     };
     {
       Platform.OS === "android" && navigationBar();
@@ -101,34 +102,48 @@ const TestUser = ({ navigation, route }) => {
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
   };
-  const handleFinish = () =>{
+  const handleFinish = () => {
     setFinish(true);
-  }
-  return (!finish ? (
+  };
+  const backAction = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP
+    );
+    navigation.navigate("Story", {
+      bookData: route.params.bookData,
+      tome: route.params.tome,
+    });
+  };
+  useEffect(()=>{
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    // navigation.goBack();
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
+  return !finish ? (
     <View style={styles.animationContainer}>
-      <StatusBar hidden={true}/>
+      <StatusBar hidden={true} />
       <LottieView
-    
         autoPlay
-        resizeMode='cover'
+        resizeMode="cover"
         loop={false}
         ref={animation}
         style={{
-          flex:1,
-          backgroundColor: '#000000',
+          flex: 1,
+          backgroundColor: "#000000",
         }}
         // Find more Lottie files at https://lottiefiles.com/featured
-        source={require('../assets/Curtain.json')}
-        onAnimationFinish={()=>{ handleFinish();
-            // navigation.navigate("TestUser", { bookData: route.params.bookData });
-            // <Text style={{backgroundColor:'white'}}>fin de l'animation</Text>
+        source={require("../assets/Curtain.json")}
+        onAnimationFinish={() => {
+          handleFinish();
+          // navigation.navigate("TestUser", { bookData: route.params.bookData });
+          // <Text style={{backgroundColor:'white'}}>fin de l'animation</Text>
         }}
-        
       />
-      </View>)
-  :
-    (<View style={styles.container}>
-
+    </View>
+  ) : (
+    <View style={styles.container}>
       <StatusBar hidden={true} />
 
       <Video
@@ -154,38 +169,34 @@ const TestUser = ({ navigation, route }) => {
         style={styles.goBack}
         onPress={() => {
           back();
-          navigation.navigate("Story", { bookData: route.params.bookData });
+          navigation.navigate("Story", {
+            bookData: route.params.bookData,
+            tome: route.params.tome,
+          });
         }}>
         <Ionicons name="arrow-back-outline" size={22} color="white" />
       </TouchableOpacity>
 
-      <View style={stepForward && { position:'absolute', top:10, right:10}}>
-        <AntDesign
-          name="stepforward"
-          size={22}
-          color='white'
-        />
+      <View style={stepForward && { position: "absolute", top: 10, right: 10 }}>
+        <AntDesign name="stepforward" size={22} color="white" />
       </View>
-        
-    </View>)
-    )
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   animationContainer: {
-    backgroundColor: '#000000',
+    backgroundColor: "#000000",
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
   },
   container: {
-
-      backgroundColor:'#000000',
-      // borderWidth:4,
-      // borderColor:'red',
-      flex:1,
-
+    backgroundColor: "#000000",
+    // borderWidth:4,
+    // borderColor:'red',
+    flex: 1,
   },
   video: {
     height: "100%",
