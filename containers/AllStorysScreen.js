@@ -146,7 +146,8 @@ const AllStoryScreen = ({ navigation, route }) => {
         backgroundColor: "rgb(165, 81, 69)",
         justifyContent: "center",
         alignItems: "center",
-      }}>
+      }}
+    >
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -174,7 +175,8 @@ const AllStoryScreen = ({ navigation, route }) => {
             justifyContent: "space-between",
             height: "10%",
             padding: 10,
-          }}>
+          }}
+        >
           <TouchableOpacity
             style={
               showSearchBar
@@ -188,7 +190,8 @@ const AllStoryScreen = ({ navigation, route }) => {
             }
             onPress={() => {
               navigation.navigate("Affiche");
-            }}>
+            }}
+          >
             <Ionicons
               name="arrow-back-outline"
               size={16}
@@ -201,11 +204,13 @@ const AllStoryScreen = ({ navigation, route }) => {
               showSearchBar
                 ? { width: interpolateGrow }
                 : { width: interpolateShrink },
-            ]}>
+            ]}
+          >
             <TouchableOpacity
               onPress={() => {
                 !showSearchBar && setShowSearchBar(!showSearchBar);
-              }}>
+              }}
+            >
               <View style={styles.viewSearch}>
                 <Entypo
                   style={styles.icons}
@@ -241,7 +246,8 @@ const AllStoryScreen = ({ navigation, route }) => {
             onPress={() => {
               setShowSearchBar(!showSearchBar);
               setSearchTitle("");
-            }}>
+            }}
+          >
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
@@ -261,7 +267,8 @@ const AllStoryScreen = ({ navigation, route }) => {
           onStartShouldSetResponder={() => {
             setShowSearchBar(false);
           }}
-          contentContainerStyle={{ flexGrow: 1 }}>
+          contentContainerStyle={{ flexGrow: 1 }}
+        >
           {searchTitle ? (
             <View style={styles.carousselView}>
               <SearchResult
