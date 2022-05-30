@@ -39,6 +39,7 @@ const LoginForm = ({ setLogin, setUser }) => {
 
         console.log(response.data);
         setUser(response.data.token);
+        setUserInfo(response.data);
       } catch (error) {
         setErrorMessage("Votre adresse email ou mot de passe est incorrect");
       }

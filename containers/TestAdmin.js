@@ -32,7 +32,7 @@ const TestAdmin = ({ navigation, route }) => {
   // NavigationBarVisibility='hidden';
   const bookData = route.params.bookData;
   const timeCode = [...bookData.timeCode];
-  
+
   const [i, setI] = useState(0);
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
@@ -63,7 +63,7 @@ const TestAdmin = ({ navigation, route }) => {
       tome: route.params.tome,
     });
   };
-  useEffect(()=>{
+  useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
     // navigation.goBack();
     return () =>
@@ -76,7 +76,7 @@ const TestAdmin = ({ navigation, route }) => {
       <Video
         ref={video}
         style={styles.video}
-        source={{uri : bookData.video}}
+        source={{ uri: bookData.video }}
         shouldPlay={true}
         positionMillis={0}
         useNativeControls={false}
@@ -135,8 +135,6 @@ const TestAdmin = ({ navigation, route }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    //   borderWidth:4,
-    //   borderColor:'yellow',
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -144,8 +142,6 @@ const styles = StyleSheet.create({
   video: {
     height: "100%",
     width: "90%",
-    //   borderWidth:4,
-    //   borderColor:'green',
     position: "relative",
   },
   goBack: {

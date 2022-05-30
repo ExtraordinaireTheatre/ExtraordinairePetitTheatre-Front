@@ -21,7 +21,7 @@ import * as Notifications from "expo-notifications";
 
 const { height } = Dimensions.get("window");
 
-const SignupForm = ({ setLogin, setUser }) => {
+const SignupForm = ({ setLogin, setUser, setUserInfo }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,10 +31,6 @@ const SignupForm = ({ setLogin, setUser }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
-
-  async function registerForPushNotificationsAsync() {
-    return expoToken;
-  }
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -81,6 +77,7 @@ const SignupForm = ({ setLogin, setUser }) => {
           );
           console.log(response.data);
           setUser(response.data.token);
+          setUserInfo(response.data);
         } catch (error) {
           console.log(error);
         }

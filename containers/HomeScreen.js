@@ -13,13 +13,11 @@ import { useRef, useEffect } from "react";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
 
-import LottieView from 'lottie-react-native';
-
+import LottieView from "lottie-react-native";
 
 const { width, height } = Dimensions.get("window");
 
-
-const HomeScreen = ({ setUser }) => {
+const HomeScreen = ({ setUser, setUserInfo }) => {
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(true);
   const animation = useRef(null);
@@ -35,25 +33,32 @@ const HomeScreen = ({ setUser }) => {
       clearInterval(countDown);
     };
   }, []);
-  return (mask ?   <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
-    <LottieView
-     autoPlay={true}
-     resizeMode='contain'
-     loop={count ? true : false}
-     ref={animation}
-     style={{
-      height:200,
-      width:200,
-       backgroundColor: 'rgb(165, 81, 69)',
-     }}
-     source={require('../assets/Mask.json')}
-     onAnimationFinish={()=>{
-         setMask(false);
-     }}
- 
-   />
-  </View>
-    :<KeyboardAwareScrollView style={styles.container}>
+  return mask ? (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "rgb(165, 81, 69)",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+      <LottieView
+        autoPlay={true}
+        resizeMode="contain"
+        loop={count ? true : false}
+        ref={animation}
+        style={{
+          height: 200,
+          width: 200,
+          backgroundColor: "rgb(165, 81, 69)",
+        }}
+        source={require("../assets/Mask.json")}
+        onAnimationFinish={() => {
+          setMask(false);
+        }}
+      />
+    </View>
+  ) : (
+    <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
           style={styles.img}
@@ -69,8 +74,7 @@ const HomeScreen = ({ setUser }) => {
             onPress={() => {
               setModal(true);
               setLogin(false);
-            }}
-          >
+            }}>
             <Text style={styles.textSignupBtn}>S'inscrire</Text>
           </TouchableOpacity>
           <Text style={styles.homeText}>J'ai mes habitudes !</Text>
@@ -79,17 +83,24 @@ const HomeScreen = ({ setUser }) => {
             onPress={() => {
               setModal(true);
               setLogin(true);
-            }}
-          >
+            }}>
             <Text style={styles.textLoginBtn}>Se connecter</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <>
           {login ? (
-            <LoginForm setLogin={setLogin} setUser={setUser} />
+            <LoginForm
+              setLogin={setLogin}
+              setUser={setUser}
+              setUserInfo={setUserInfo}
+            />
           ) : (
-            <SignupForm setLogin={setLogin} setUser={setUser} />
+            <SignupForm
+              setLogin={setLogin}
+              setUser={setUser}
+              setUserInfo={setUserInfo}
+            />
           )}
         </>
       )}

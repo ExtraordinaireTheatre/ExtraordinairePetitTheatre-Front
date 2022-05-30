@@ -19,7 +19,6 @@ import CountDownScreen from "./containers/CountdownScreen";
 
 import TestUser from "./containers/TestUser";
 import TestAdmin from "./containers/TestAdmin";
-import AnimationTest from "./containers/testScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +33,9 @@ const App = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(true);
 
+  // state User information
+  const [userInfo, setUserInfo] = useState();
+
   const setUser = async (token) => {
     token
       ? await AsyncStorage.setItem("userToken", token)
@@ -44,7 +46,6 @@ const App = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const userToken = await AsyncStorage.getItem("userToken");
-
       setUserToken(userToken);
       setIsLoading(false);
     };
@@ -84,7 +85,13 @@ const App = () => {
         {!userToken ? (
           <>
             <Stack.Screen name="Home">
-              {(props) => <HomeScreen {...props} setUser={setUser} />}
+              {(props) => (
+                <HomeScreen
+                  {...props}
+                  setUser={setUser}
+                  setUserInfo={setUserInfo}
+                />
+              )}
             </Stack.Screen>
           </>
         ) : (
@@ -127,7 +134,9 @@ const App = () => {
               )}
             </Stack.Screen>
 
-            <Stack.Screen name="CountDown" component={CountDownScreen} />
+            <Stack.Screen name="CountDown">
+              {(props) => <CountDownScreen {...props} userInfo={userInfo} />}
+            </Stack.Screen>
 
             <Stack.Screen name="Settings">
               {(props) => <SettingsScreen {...props} setUser={setUser} />}
