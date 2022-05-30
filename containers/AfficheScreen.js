@@ -44,6 +44,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
 
   useEffect(() => {
     portrait;
+    console.log("dans bon useEffect");
     const getAffiche = async () => {
       setIsLoading(true);
 
@@ -52,6 +53,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
           "https://backoffice-forest-admin-sr.herokuapp.com/tome"
         );
         setTomeAffiche(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error.message);
       }

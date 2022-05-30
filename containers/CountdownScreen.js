@@ -29,11 +29,6 @@ const CountDownScreen = ({ navigation, route }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (count === 0) {
-  //     navigation.navigate("Display", { bookData: route.params.bookData });
-  //   }
-  // }, [count]);
   const foo = async () => {
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
