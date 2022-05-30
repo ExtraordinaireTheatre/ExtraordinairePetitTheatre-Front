@@ -156,7 +156,8 @@ const AllStoryScreen = ({
         backgroundColor: "rgb(165, 81, 69)",
         justifyContent: "center",
         alignItems: "center",
-      }}>
+      }}
+    >
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -179,11 +180,11 @@ const AllStoryScreen = ({
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: 10,
-          // borderColor: "red",
-          // borderWidth: 3,
+          paddingHorizontal: 10,
+
           height: Dimensions.get("screen").height / 9,
-        }}>
+        }}
+      >
         <TouchableOpacity
           style={
             showSearchBar
@@ -197,10 +198,11 @@ const AllStoryScreen = ({
           }
           onPress={() => {
             navigation.navigate("Affiche");
-          }}>
+          }}
+        >
           <Ionicons
             name="arrow-back-outline"
-            size={16}
+            size={22}
             color={"rgb(165, 81, 69)"}
           />
         </TouchableOpacity>
@@ -210,15 +212,18 @@ const AllStoryScreen = ({
             showSearchBar
               ? { width: interpolateGrow }
               : { width: interpolateShrink },
-          ]}>
+          ]}
+        >
           <TouchableOpacity
             onPress={() => {
               setShowSearchBar(true);
-            }}>
+            }}
+          >
             <KeyboardAvoidingView
               behavior={Platform.OS === "android" ? "position" : "padding"}
               contentContainerStyle={styles.viewSearch}
-              style={styles.viewSearch}>
+              style={styles.viewSearch}
+            >
               <Entypo
                 style={styles.icons}
                 name="magnifying-glass"
@@ -254,7 +259,8 @@ const AllStoryScreen = ({
           onPress={() => {
             setShowSearchBar(false);
             setSearchTitle("");
-          }}>
+          }}
+        >
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
@@ -274,7 +280,8 @@ const AllStoryScreen = ({
         onStartShouldSetResponder={() => {
           setShowSearchBar(false);
         }}
-        contentContainerStyle={{ flexGrow: 1 }}>
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         {searchTitle ? (
           <View style={styles.carousselView}>
             <SearchResult
@@ -363,31 +370,26 @@ const styles = StyleSheet.create({
   },
 
   viewSearch: {
-    height: "100%",
+    height: "70%",
     flexDirection: "row",
     alignItems: "center",
   },
 
   showModal: {
-    height: "70%",
+    height: "60%",
     alignItems: "center",
     marginVertical: 10,
     backgroundColor: "rgba(226, 218, 210,0.5)",
     borderRadius: 50,
     paddingLeft: 5,
     flexDirection: "row",
-    // borderColor: "blue",
-    // borderWidth: 3,
   },
   hiddenModal: {
-    height: "70%",
+    height: "60%",
     alignItems: "center",
-    // justifyContent: "center",
-    marginVertical: 10,
+    justifyContent: "center",
     backgroundColor: "rgba(226, 218, 210,0.5)",
     borderRadius: 50,
-    paddingLeft: 13,
-    // paddingLeft: 5,
     flexDirection: "row",
   },
   inputSearch: {
