@@ -63,11 +63,12 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             setShowSearchBar(false),
               setSearchTitle(""),
               navigation.navigate("AllStory", { tome: tome });
-          }}>
+          }}
+        >
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
-              size={16}
+              size={22}
               color="rgb(165, 81, 69)"
             />
           </View>
@@ -80,7 +81,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             fontWeight: "bold",
             fontSize: 26,
             fontFamily: "casablanca",
-          }}>
+          }}
+        >
           {bookData.title}
         </Text>
         <Text
@@ -89,7 +91,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             fontWeight: "bold",
             fontSize: 18,
             fontFamily: "casablanca",
-          }}>
+          }}
+        >
           {bookData.author}
         </Text>
         <Text
@@ -97,7 +100,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             color: "rgb(226, 218, 210)",
             fontSize: 15,
             fontFamily: "casablanca",
-          }}>
+          }}
+        >
           {bookData.duration}min
         </Text>
       </View>
@@ -105,7 +109,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
         style={styles.synopsis}
         contentContainerStyle={{
           flexGrow: 1,
-        }}>
+        }}
+      >
         <Text style={styles.text}>{bookData.description}</Text>
       </ScrollView>
       <TouchableOpacity
@@ -115,7 +120,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
           // navigation.navigate("TestAdmin");
           navigation.navigate("CountDown", { bookData: bookData, tome: tome });
         }}
-        style={styles.playContainer}>
+        style={styles.playContainer}
+      >
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
       </TouchableOpacity>
     </SafeAreaView>
@@ -126,7 +132,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(165, 81, 69)",
-    // paddingTop: Constants.statusBarHeight,
   },
   imageContainer: {
     height: "40%",
@@ -144,7 +149,7 @@ const styles = StyleSheet.create({
   },
   goBack: {
     position: "absolute",
-    left: 20,
+    left: 15,
     top: 10,
   },
   img: {

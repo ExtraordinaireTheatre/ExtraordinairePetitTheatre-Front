@@ -10,10 +10,11 @@ import {
   Platform,
   Button,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 
 import { Entypo } from "@expo/vector-icons";
-
+const { width, height } = Dimensions.get("window");
 const CountDownScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(3);
 
@@ -54,13 +55,14 @@ const CountDownScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ alignItems: "flex-end" }}>
+      <View style={{ alignItems: "flex-end", paddingHorizontal: 10 }}>
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => {
             navigation.navigate("Story", { bookData: bookData, tome: tome });
-          }}>
-          <Entypo name="cross" size={24} color="rgb(165, 81, 69)" />
+          }}
+        >
+          <Entypo name="cross" size={22} color="rgb(165, 81, 69)" />
         </TouchableOpacity>
       </View>
 
