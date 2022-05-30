@@ -112,8 +112,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             loop={true}
             ref={animation}
             style={{
-             height:180,
-             width:150,
+             height:150,
+             width:120,
             }}
             source={require('../assets/grue-white.json')}
             // onAnimationFinish={()=>{
