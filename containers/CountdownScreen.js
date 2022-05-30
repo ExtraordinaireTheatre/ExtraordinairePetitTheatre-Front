@@ -115,8 +115,6 @@ const styles = StyleSheet.create({
   },
   textView: {
     alignItems: "center",
-    // borderColor: "yellow",
-    // borderWidth: 5,
     marginTop: 30,
   },
   lastText: {

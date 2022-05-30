@@ -24,7 +24,8 @@ const ListStory = ({
             flexDirection: "row",
             justifyContent: "space-around",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Octicons
             style={styles.icons}
             name="dot-fill"
@@ -39,7 +40,8 @@ const ListStory = ({
           style={styles.toCarousselButton}
           onPress={() => {
             setPress((prevState) => !prevState);
-          }}>
+          }}
+        >
           <Text style={styles.toCarousselText}>Revenir</Text>
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
@@ -56,7 +58,8 @@ const ListStory = ({
             height: 500,
             // borderColor: "yellow",
             // borderWidth: 5,
-          }}>
+          }}
+        >
           {booksAgeList.map((book, index) => {
             return (
               <TouchableOpacity
@@ -66,7 +69,8 @@ const ListStory = ({
                 onPress={() => {
                   setShowSearchBar(false);
                   navigation.navigate("Story", { bookData: book, tome: tome });
-                }}>
+                }}
+              >
                 <View style={styles.containerImageItemList}>
                   <Image
                     style={styles.imageItem}
@@ -81,7 +85,8 @@ const ListStory = ({
                       fontFamily: "casablanca",
                       fontSize: 18,
                     }}
-                    numberOfLines={1}>
+                    numberOfLines={1}
+                  >
                     {book.title}
                   </Text>
                 </View>
@@ -121,17 +126,12 @@ const styles = StyleSheet.create({
     margin: 10,
     height: "33%",
     width: "44%",
-
-    // borderColor: "blue",
-    // borderWidth: 5,
   },
 
   containerImageItemList: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     flex: 4,
-    // borderColor: "red",
-    // borderWidth: 5,
   },
   imageItem: {
     borderTopLeftRadius: 20,

@@ -50,7 +50,8 @@ const SearchResult = ({
     <View contentContainerStyle={{ flex: 1 }}>
       {loading ? (
         <View
-          style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+          style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
+        >
           <ActivityIndicator size={"large"} />
         </View>
       ) : (
@@ -66,13 +67,15 @@ const SearchResult = ({
               onPress={() => {
                 setShowSearchBar(false);
                 setSearchTitle("");
-              }}>
+              }}
+            >
               <Text
                 style={{
                   fontFamily: "casablanca",
                   fontSize: 18,
                   color: "rgb(226, 218, 210)",
-                }}>
+                }}
+              >
                 Retour
               </Text>
               <MaterialIcons
@@ -92,7 +95,8 @@ const SearchResult = ({
               justifyContent: "space-around",
               marginTop: 10,
               paddingHorizontal: 10,
-            }}>
+            }}
+          >
             {searchResults &&
               searchResults.map((result, index) => {
                 return (
@@ -106,7 +110,8 @@ const SearchResult = ({
                         bookData: result,
                         tome: tome,
                       });
-                    }}>
+                    }}
+                  >
                     <View style={styles.containerImageItemList}>
                       <Image
                         style={styles.imageItem}
@@ -120,7 +125,8 @@ const SearchResult = ({
                           fontFamily: "casablanca",
                           fontSize: 18,
                         }}
-                        numberOfLines={2}>
+                        numberOfLines={2}
+                      >
                         {result.title}
                       </Text>
                     </View>
@@ -149,8 +155,6 @@ const styles = StyleSheet.create({
     margin: 10,
     height: "20%",
     width: "42%",
-    // borderColor: "blue",
-    // borderWidth: 5,
     alignItems: "center",
     justifyContent: "center",
   },
