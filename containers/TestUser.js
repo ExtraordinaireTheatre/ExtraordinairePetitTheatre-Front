@@ -110,7 +110,18 @@ const TestUser = ({ navigation, route }) => {
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
-
+  // useEffect(() => {
+  //   const gestureEndListener = () => {
+  //     console.log('iOS back gesture ended');
+  //   };
+  
+  //   // You can also use the 'gestureStart' or 'gestureCancel' events
+  //   navigation.addListener('gestureEnd', gestureEndListener);
+  
+  //   return () => {
+  //     navigation.removeListener('gestureEnd', gestureEndListener);
+  //   };
+  // }, []);
   return !finish ? (
     <View style={styles.animationContainer}>
       <StatusBar hidden={true} />
