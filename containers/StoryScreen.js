@@ -23,29 +23,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
   // bookData single book
   const { bookData, tome } = route.params;
   const [isLoading, setIsLoading] = useState(true);
-  // const foo = async () => {
-  //   await ScreenOrientation.lockAsync(
-  //     ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
-  //       );
-  //       setData(response.data);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-  // return isLoading ? (
-  //   <ActivityIndicator />
-  // ) : (
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={true} />
@@ -108,7 +86,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
         }}>
         <Text style={styles.text}>{bookData.description}</Text>
       </ScrollView>
-      <TouchableOpacity
+      {bookData.video ? 
+      (<TouchableOpacity
         onPress={() => {
           // foo();
           // navigation.navigate("TestUser");
@@ -117,7 +96,9 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
         }}
         style={styles.playContainer}>
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
-      </TouchableOpacity>
+      </TouchableOpacity>): 
+      (<Text>Encore un peu de patience, ce conte sera bientot à l'affiche</Text>)}
+      
     </SafeAreaView>
   );
   // );
