@@ -33,8 +33,7 @@ const SettingsScreen = ({ navigation, setUser }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <Ionicons
             name="arrow-back-outline"
             size={16}
@@ -247,9 +246,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   settingsText: {
-    fontSize: 16,
+    fontSize: 19,
     marginLeft: 25,
     color: "rgb(226, 218, 210)",
+    fontFamily: "casablanca",
   },
   settingsIcon: {
     color: "rgb(226, 218, 210)",

@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as NavigationBar from "expo-navigation-bar";
+import * as Notifications from "expo-notifications";
 
 // Import containers Screen
 import SettingsScreen from "./containers/SettingsScreen";
@@ -58,6 +59,14 @@ const App = () => {
     };
     colorBottomBar();
   }, []);
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
 
   if (isLoading === true) {
     return null;
