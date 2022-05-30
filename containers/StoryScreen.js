@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
+import LottieView from 'lottie-react-native';
 
 // import * as ScreenOrientation from "expo-screen-orientation";
 import {
@@ -17,35 +18,14 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
   const navigation = useNavigation();
+  const animation = useRef(null);
   // const [data, setData] = useState();
   const [seeMore, setSeeMore] = useState(false);
 
   // bookData single book
   const { bookData, tome } = route.params;
   const [isLoading, setIsLoading] = useState(true);
-  // const foo = async () => {
-  //   await ScreenOrientation.lockAsync(
-  //     ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://backoffice-forest-admin-sr.herokuapp.com/books/${bookData._id}`
-  //       );
-  //       setData(response.data);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-  // return isLoading ? (
-  //   <ActivityIndicator />
-  // ) : (
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={true} />
@@ -113,7 +93,8 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
       >
         <Text style={styles.text}>{bookData.description}</Text>
       </ScrollView>
-      <TouchableOpacity
+      {bookData.video ? 
+      (<TouchableOpacity
         onPress={() => {
           // foo();
           // navigation.navigate("TestUser");
@@ -123,7 +104,27 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
         style={styles.playContainer}
       >
         <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
-      </TouchableOpacity>
+      </TouchableOpacity>): 
+      (<View style={{alignItems:'center', marginBottom:20,justifyContent:'center'}}>
+        <LottieView
+            autoPlay={true}
+            resizeMode='contain'
+            loop={true}
+            ref={animation}
+            style={{
+             height:180,
+             width:150,
+            }}
+            source={require('../assets/grue-white.json')}
+            // onAnimationFinish={()=>{
+            //     setMask(false);
+            // }}
+ 
+        />
+        {/* <Text style={{color:'white', fontFamily:'casablanca', fontSize:30}}>Encore un peu de patience</Text>
+        <Text style={{color:'white', fontFamily:'casablanca', fontSize:30}}>Ce conte sera bientot à l'affiche</Text> */}
+      </View>)}
+      
     </SafeAreaView>
   );
   // );
