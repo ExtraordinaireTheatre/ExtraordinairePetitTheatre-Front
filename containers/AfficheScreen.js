@@ -79,8 +79,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
         backgroundColor: "rgb(165, 81, 69)",
         justifyContent: "center",
         alignItems: "center",
-      }}
-    >
+      }}>
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -105,8 +104,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Settings");
-            }}
-          >
+            }}>
             <View style={styles.buttonCircle}>
               <MaterialIcons
                 style={styles.settingsIcon}
@@ -128,15 +126,13 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
 
                 transform: [{ translateY: leftValue }],
               },
-            ]}
-          >
+            ]}>
             <View style={styles.containerEllipse}>
               <TouchableOpacity
                 style={styles.ellipse}
                 onPress={() => {
                   navigation.navigate("DisplayTwoScreen");
-                }}
-              >
+                }}>
                 <MaterialCommunityIcons
                   style={styles.iconeEllipse}
                   name="ticket"
@@ -153,8 +149,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
                 textTransform: "uppercase",
                 fontFamily: "casablanca",
                 fontFamily: "casablanca",
-              }}
-            >
+              }}>
               à l'affiche
             </Text>
           </Animated.View>
@@ -165,8 +160,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
             <ScrollView
               horizontal={true}
               style={styles.caroussel}
-              showsHorizontalScrollIndicator={false}
-            >
+              showsHorizontalScrollIndicator={false}>
               {tomesAffiche &&
                 tomesAffiche.map((tome, index) => {
                   return (
@@ -176,8 +170,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
                       activeOpacity={0.7}
                       onPress={() => {
                         navigation.navigate("AllStory", { tome: tome });
-                      }}
-                    >
+                      }}>
                       <View style={styles.viewImageCaroussel}>
                         <Image
                           style={styles.imageCaroussel}
@@ -258,8 +251,6 @@ const styles = StyleSheet.create({
   imageCaroussel: {
     height: "100%",
     width: "100%",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
   },
   carousselTitleContainer: {
     marginTop: 20,
