@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
   },
   error: {
     textAlign: "center",
+    fontSize: 13,
   },
   signupBtn: {
     paddingVertical: 8,
@@ -165,6 +166,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "rgb(226, 218, 210)",
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.3,
   },
   textBtn: {
     color: "rgb(226, 218, 210)",
