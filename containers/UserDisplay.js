@@ -25,10 +25,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { AntDesign } from "@expo/vector-icons";
 
-// const width = Dimensions.get("window").height;
-// const height = Dimensions.get("window").width;
-
-const TestUser = ({ navigation, route }) => {
+const UserDisplay = ({ navigation, route }) => {
   const video = useRef(null);
   // const animation = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -114,10 +111,10 @@ const TestUser = ({ navigation, route }) => {
   //   const gestureEndListener = () => {
   //     console.log('iOS back gesture ended');
   //   };
-  
+
   //   // You can also use the 'gestureStart' or 'gestureCancel' events
   //   navigation.addListener('gestureEnd', gestureEndListener);
-  
+
   //   return () => {
   //     navigation.removeListener('gestureEnd', gestureEndListener);
   //   };
@@ -138,7 +135,7 @@ const TestUser = ({ navigation, route }) => {
         source={require("../assets/Curtain.json")}
         onAnimationFinish={() => {
           handleFinish();
-          // navigation.navigate("TestUser", { bookData: route.params.bookData });
+          // navigation.navigate("UserDisplay", { bookData: route.params.bookData });
           // <Text style={{backgroundColor:'white'}}>fin de l'animation</Text>
         }}
       />
@@ -209,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TestUser;
+export default UserDisplay;

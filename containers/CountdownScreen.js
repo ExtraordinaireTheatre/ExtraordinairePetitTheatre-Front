@@ -15,10 +15,8 @@ import {
 
 import { Entypo } from "@expo/vector-icons";
 const { width, height } = Dimensions.get("window");
-const CountDownScreen = ({ navigation, route, userInfo }) => {
+const CountDownScreen = ({ navigation, route, userStatut }) => {
   const [count, setCount] = useState(3);
-
-  console.log(userInfo);
 
   const { bookData, tome } = route.params;
   useEffect(() => {
@@ -42,11 +40,17 @@ const CountDownScreen = ({ navigation, route, userInfo }) => {
     if (count === 0) {
       foo();
 
-      // navigation.navigate("Curtain", { bookData: route.params.bookData });
-      navigation.navigate("TestUser", {
-        bookData: bookData,
-        tome: tome,
-      });
+      if (userStatut === "admin") {
+        navigation.navigate("AdminDisplay", {
+          bookData: bookData,
+          tome: tome,
+        });
+      } else {
+        navigation.navigate("UserDisplay", {
+          bookData: bookData,
+          tome: tome,
+        });
+      }
     }
   }, [count]);
 

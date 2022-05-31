@@ -17,7 +17,7 @@ import LottieView from "lottie-react-native";
 
 const { width, height } = Dimensions.get("window");
 
-const HomeScreen = ({ setUser, setUserInfo }) => {
+const HomeScreen = ({ setUser, setStatut }) => {
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(true);
   const animation = useRef(null);
@@ -93,13 +93,13 @@ const HomeScreen = ({ setUser, setUserInfo }) => {
             <LoginForm
               setLogin={setLogin}
               setUser={setUser}
-              setUserInfo={setUserInfo}
+              setStatut={setStatut}
             />
           ) : (
             <SignupForm
               setLogin={setLogin}
               setUser={setUser}
-              setUserInfo={setUserInfo}
+              setStatut={setStatut}
             />
           )}
         </>

@@ -18,19 +18,15 @@ import { Magnetometer } from "expo-sensors";
 
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as NavigationBar from "expo-navigation-bar";
-import StoryScreen from "./StoryScreen";
 
 import { Ionicons } from "@expo/vector-icons";
 
-// const width = Dimensions.get("window").height;
-// const height = Dimensions.get("window").width;
-
-const TestAdmin = ({ navigation, route }) => {
+const AdminDisplay = ({ navigation, route }) => {
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
   // NavigationBarVisibility='hidden';
-  const bookData = route.params.bookData;
+  const { bookData, tome } = route.params;
   const timeCode = [...bookData.timeCode];
 
   const [i, setI] = useState(0);
@@ -94,9 +90,7 @@ const TestAdmin = ({ navigation, route }) => {
         style={styles.goBack}
         onPress={() => {
           back();
-          // goBack();
-          //   back();
-          navigation.navigate("Story", { bookData: bookData });
+          navigation.navigate("Story", { bookData: bookData, tome: tome });
         }}>
         <Ionicons name="arrow-back-outline" size={22} color="white" />
       </TouchableOpacity>
@@ -158,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TestAdmin;
+export default AdminDisplay;
