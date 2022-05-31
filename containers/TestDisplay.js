@@ -109,6 +109,9 @@ export default function TestDisplay({ navigation, route }) {
     return (
         <View style={styles.container}>
             <StatusBar hidden={true} />
+
+
+            
             <Video
                 ref={video}
                 style={styles.video}
