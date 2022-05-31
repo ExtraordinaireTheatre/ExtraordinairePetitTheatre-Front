@@ -24,7 +24,6 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
 
   // bookData single book
   const { bookData, tome } = route.params;
-  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,32 +53,9 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
-        <Text
-          style={{
-            color: "rgb(226, 218, 210)",
-            fontWeight: "bold",
-            fontSize: 26,
-            fontFamily: "casablanca",
-          }}>
-          {bookData.title}
-        </Text>
-        <Text
-          style={{
-            color: "rgb(226, 218, 210)",
-            fontWeight: "bold",
-            fontSize: 18,
-            fontFamily: "casablanca",
-          }}>
-          {bookData.author}
-        </Text>
-        <Text
-          style={{
-            color: "rgb(226, 218, 210)",
-            fontSize: 15,
-            fontFamily: "casablanca",
-          }}>
-          {bookData.duration}min
-        </Text>
+        <Text style={styles.title}>{bookData.title}</Text>
+        <Text style={styles.author}>{bookData.author}</Text>
+        <Text style={styles.duration}>{bookData.duration}sec</Text>
       </View>
       <ScrollView
         style={styles.synopsis}
@@ -91,9 +67,6 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
       {bookData.video ? (
         <TouchableOpacity
           onPress={() => {
-            // foo();
-            // navigation.navigate("TestUser");
-            // navigation.navigate("TestAdmin");
             navigation.navigate("CountDown", {
               bookData: bookData,
               tome: tome,
@@ -103,12 +76,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
           <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
         </TouchableOpacity>
       ) : (
-        <View
-          style={{
-            alignItems: "center",
-            marginBottom: 20,
-            justifyContent: "center",
-          }}>
+        <View style={styles.lottieContainer}>
           <LottieView
             autoPlay={true}
             resizeMode="contain"
@@ -161,6 +129,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginTop: 50,
+  },
+  title: {
+    color: "rgb(226, 218, 210)",
+    fontWeight: "bold",
+    fontSize: 26,
+    fontFamily: "casablanca",
+  },
+  author: {
+    color: "rgb(226, 218, 210)",
+    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: "casablanca",
+  },
+  duration: {
+    color: "rgb(226, 218, 210)",
+    fontSize: 15,
+    fontFamily: "casablanca",
+  },
+  lottieContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+    justifyContent: "center",
   },
   text: {
     marginTop: 30,
