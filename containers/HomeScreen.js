@@ -13,11 +13,9 @@ import { useRef, useEffect } from "react";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
 
-import LottieView from 'lottie-react-native';
-
+import LottieView from "lottie-react-native";
 
 const { width, height } = Dimensions.get("window");
-
 
 const HomeScreen = ({ setUser }) => {
   const [modal, setModal] = useState(false);
@@ -35,25 +33,26 @@ const HomeScreen = ({ setUser }) => {
       clearInterval(countDown);
     };
   }, []);
-  return (mask ?   <View style={{flex:1,backgroundColor: 'rgb(165, 81, 69)', justifyContent:'center', alignItems:'center'}}>
-    <LottieView
-     autoPlay={true}
-     resizeMode='contain'
-     loop={count ? true : false}
-     ref={animation}
-     style={{
-      height:200,
-      width:200,
-       backgroundColor: 'rgb(165, 81, 69)',
-     }}
-     source={require('../assets/Mask.json')}
-     onAnimationFinish={()=>{
-         setMask(false);
-     }}
- 
-   />
-  </View>
-    :<KeyboardAwareScrollView style={styles.container}>
+  return mask ? (
+    <View style={styles.lottieContainer}>
+      <LottieView
+        autoPlay={true}
+        resizeMode="contain"
+        loop={count ? true : false}
+        ref={animation}
+        style={{
+          height: 200,
+          width: 200,
+          backgroundColor: "rgb(165, 81, 69)",
+        }}
+        source={require("../assets/Mask.json")}
+        onAnimationFinish={() => {
+          setMask(false);
+        }}
+      />
+    </View>
+  ) : (
+    <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
           style={styles.img}
@@ -97,6 +96,12 @@ const HomeScreen = ({ setUser }) => {
   );
 };
 const styles = StyleSheet.create({
+  lottieContainer: {
+    flex: 1,
+    backgroundColor: "rgb(165, 81, 69)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,
