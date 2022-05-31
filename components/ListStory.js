@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ScrollView,
   View,
@@ -19,13 +18,7 @@ const ListStory = ({
   return (
     <View style={styles.listContainer}>
       <View style={styles.listTitleContainer}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
+        <View style={tagAgeContainer}>
           <Octicons
             style={styles.icons}
             name="dot-fill"
@@ -37,12 +30,12 @@ const ListStory = ({
           </Text>
         </View>
         <TouchableOpacity
-          style={styles.toCarousselButton}
+          style={styles.toCarrouselButton}
           onPress={() => {
             setPress((prevState) => !prevState);
           }}
         >
-          <Text style={styles.toCarousselText}>Revenir</Text>
+          <Text style={styles.toCarrouselText}>Revenir</Text>
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
       </View>
@@ -56,8 +49,6 @@ const ListStory = ({
             marginTop: 10,
             paddingHorizontal: 10,
             height: 500,
-            // borderColor: "yellow",
-            // borderWidth: 5,
           }}
         >
           {booksAgeList.map((book, index) => {
@@ -79,14 +70,7 @@ const ListStory = ({
                   />
                 </View>
                 <View style={styles.itemListDescription}>
-                  <Text
-                    style={{
-                      color: "rgb(165, 81, 69)",
-                      fontFamily: "casablanca",
-                      fontSize: 18,
-                    }}
-                    numberOfLines={1}
-                  >
+                  <Text style={styles.itemListText} numberOfLines={1}>
                     {book.title}
                   </Text>
                 </View>
@@ -99,12 +83,12 @@ const ListStory = ({
   );
 };
 const styles = StyleSheet.create({
-  toCarousselButton: {
+  toCarrouselButton: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
   },
-  toCarousselText: {
+  toCarrouselText: {
     color: "rgb(226, 218, 210)",
     fontFamily: "casablanca",
     fontSize: 18,
@@ -115,6 +99,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 30,
     marginTop: 20,
+  },
+  tagAgeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   listTitle: {
     color: "rgb(226, 218, 210)",
@@ -127,7 +116,6 @@ const styles = StyleSheet.create({
     height: "33%",
     width: "44%",
   },
-
   containerImageItemList: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -139,7 +127,6 @@ const styles = StyleSheet.create({
     height: "110%",
     width: "100%",
   },
-
   itemListDescription: {
     borderColor: "rgb(165, 81, 69)",
     borderWidth: 1,
@@ -151,7 +138,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 3,
   },
-
+  itemListText: {
+    color: "rgb(165, 81, 69)",
+    fontFamily: "casablanca",
+    fontSize: 18,
+  },
   icons: {
     color: "rgb(226, 218, 210)",
   },

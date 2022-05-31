@@ -1,5 +1,3 @@
-import React from "react";
-import { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -22,32 +20,23 @@ const Caroussel = ({
   tome,
 }) => {
   return dataBooksAge ? (
-    <View style={styles.containerCaroussel}>
-      <View style={styles.titleCarousselContainer}>
+    <View style={styles.containerCarrousel}>
+      <View style={styles.titleCarrouselContainer}>
         <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
+          style={styles.cardCarrousel}
           onPress={() => {
             setPress((prevState) => !prevState);
             setBooksAgeList(dataBooksAge);
-          }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
+          }}
+        >
+          <View style={styles.settingsContainer}>
             <Octicons
               style={styles.settingsIcon}
               name="dot-fill"
               size={12}
               color="black"
             />
-            <Text style={styles.titleCaroussel}>{title}</Text>
+            <Text style={styles.titleCarrousel}>{title}</Text>
           </View>
 
           <MaterialIcons
@@ -60,32 +49,28 @@ const Caroussel = ({
 
       <ScrollView
         horizontal={true}
-        style={styles.caroussel}
+        style={styles.carrousel}
         contentContainerStyle={{
           alignItems: "center",
         }}
-        showsHorizontalScrollIndicator={false}>
+        showsHorizontalScrollIndicator={false}
+      >
         {dataBooksAge.map((book, index) => {
           return (
             <TouchableOpacity
-              style={styles.itemCaroussel}
+              style={styles.itemCarrousel}
               key={index}
               activeOpacity={0.8}
               onPress={() => {
                 setShowSearchBar(false);
                 navigation.navigate("Story", { bookData: book, tome: tome });
-              }}>
-              <View style={styles.imageCarousselContainer}>
+              }}
+            >
+              <View style={styles.imageCarrouselContainer}>
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
               <View style={styles.itemDescription}>
-                <Text
-                  style={{
-                    color: "rgb(226, 218, 210)",
-                    fontFamily: "casablanca",
-                    fontSize: 15,
-                  }}
-                  numberOfLines={2}>
+                <Text style={styles.itemText} numberOfLines={2}>
                   {book.title}
                 </Text>
               </View>
@@ -100,39 +85,54 @@ const styles = StyleSheet.create({
   settingsIcon: {
     color: "rgb(226, 218, 210)",
   },
-  containerCaroussel: {
+  containerCarrousel: {
     marginTop: 20,
   },
-  titleCarousselContainer: {
+  titleCarrouselContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 30,
     marginBottom: 20,
   },
-  titleCaroussel: {
+  cardCarrousel: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  settingsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  titleCarrousel: {
     color: "rgb(226, 218, 210)",
     marginLeft: 20,
     fontFamily: "casablanca",
     fontSize: 18,
   },
-  caroussel: {
+  carrousel: {
     marginLeft: 15,
     backgroundColor: "rgb(226, 218, 210)",
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     height: Dimensions.get("screen").height / 4.5,
   },
-  itemCaroussel: {
+  itemCarrousel: {
     width: Dimensions.get("screen").width / 2.3,
     height: "85%",
     justifyContent: "center",
     alignItems: "center",
-    // borderColor: "blue",
-    // borderWidth: 5,
     marginHorizontal: 10,
   },
-  imageCarousselContainer: {
+  itemText: {
+    color: "rgb(226, 218, 210)",
+    fontFamily: "casablanca",
+    fontSize: 15,
+  },
+  imageCarrouselContainer: {
     flex: 6,
     width: "100%",
     borderTopLeftRadius: 15,
