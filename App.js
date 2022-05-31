@@ -17,8 +17,8 @@ import AfficheScreen from "./containers/AfficheScreen";
 import AllStoryScreen from "./containers/AllStorysScreen";
 import CountDownScreen from "./containers/CountdownScreen";
 
-import TestUser from "./containers/TestUser";
-import TestAdmin from "./containers/TestAdmin";
+import UserDisplay from "./containers/UserDisplay";
+import AdminDisplay from "./containers/AdminDisplay";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +34,7 @@ const App = () => {
   const [showSearchBar, setShowSearchBar] = useState(true);
 
   // state User information
-  const [userInfo, setUserInfo] = useState();
+  const [userStatut, setUserStatut] = useState();
 
   const setUser = async (token) => {
     token
@@ -43,10 +43,19 @@ const App = () => {
     setUserToken(token);
   };
 
+  const setStatut = async (statut) => {
+    statut
+      ? await AsyncStorage.setItem("statut", statut)
+      : await AsyncStorage.removeItem("statut");
+    setUserStatut(statut);
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const userToken = await AsyncStorage.getItem("userToken");
+      const statut = await AsyncStorage.getItem("statut");
       setUserToken(userToken);
+      setUserStatut(statut);
       setIsLoading(false);
     };
     fetchUser();
@@ -80,7 +89,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          gestureEnabled: false
+          gestureEnabled: false,
         }}>
         {!userToken ? (
           <>
@@ -89,7 +98,9 @@ const App = () => {
                 <HomeScreen
                   {...props}
                   setUser={setUser}
-                  setUserInfo={setUserInfo}
+                  setUserStatut={setUserStatut}
+                  userStatut={userStatut}
+                  setStatut={setStatut}
                 />
               )}
             </Stack.Screen>
@@ -105,6 +116,7 @@ const App = () => {
                   setUser={setUser}
                   setShowSearchBar={setShowSearchBar}
                   setSearchTitle={setSearchTitle}
+                  userStatut={userStatut}
                 />
               )}
             </Stack.Screen>
@@ -135,19 +147,27 @@ const App = () => {
             </Stack.Screen>
 
             <Stack.Screen name="CountDown">
-              {(props) => <CountDownScreen {...props} userInfo={userInfo} />}
+              {(props) => (
+                <CountDownScreen {...props} userStatut={userStatut} />
+              )}
             </Stack.Screen>
 
             <Stack.Screen name="Settings">
-              {(props) => <SettingsScreen {...props} setUser={setUser} />}
+              {(props) => (
+                <SettingsScreen
+                  {...props}
+                  setUser={setUser}
+                  setStatut={setStatut}
+                />
+              )}
             </Stack.Screen>
 
             {/* <Stack.Screen name="Display" component={DisplayScreen} /> */}
 
             {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
 
-            <Stack.Screen name="TestAdmin" component={TestAdmin} />
-            <Stack.Screen name="TestUser" component={TestUser} />
+            <Stack.Screen name="AdminDisplay" component={AdminDisplay} />
+            <Stack.Screen name="UserDisplay" component={UserDisplay} />
           </>
         )}
       </Stack.Navigator>

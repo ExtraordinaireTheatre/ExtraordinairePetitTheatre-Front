@@ -18,10 +18,11 @@ import Input from "./Input";
 
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import { setStatusBarTranslucent } from "expo-status-bar";
 
 const { height } = Dimensions.get("window");
 
-const SignupForm = ({ setLogin, setUser, setUserInfo }) => {
+const SignupForm = ({ setLogin, setUser, setStatut }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,7 +65,6 @@ const SignupForm = ({ setLogin, setUser, setUserInfo }) => {
               lightColor: "#FF231F7C",
             });
           }
-          console.log(expoToken);
           const response = await axios.post(
             "http://backoffice-forest-admin-sr.herokuapp.com/user/signup",
             {
@@ -75,9 +75,8 @@ const SignupForm = ({ setLogin, setUser, setUserInfo }) => {
               expoToken,
             }
           );
-          console.log(response.data);
           setUser(response.data.token);
-          setUserInfo(response.data);
+          setStatus(response.data.statut);
         } catch (error) {
           console.log(error);
         }

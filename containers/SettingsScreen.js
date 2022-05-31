@@ -24,8 +24,9 @@ import {
   Fontisto,
   EvilIcons,
 } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SettingsScreen = ({ navigation, setUser }) => {
+const SettingsScreen = ({ navigation, setUser, setStatut }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -46,6 +47,7 @@ const SettingsScreen = ({ navigation, setUser }) => {
         <TouchableOpacity
           onPress={() => {
             setUser(null);
+            setStatut(null);
           }}>
           <Entypo
             style={styles.settingsIcon}

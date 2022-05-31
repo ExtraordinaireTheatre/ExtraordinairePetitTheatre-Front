@@ -129,7 +129,6 @@ const AllStoryScreen = ({
       setSearchTitle("");
       setIsLoading(false);
     };
-    console.log("ici");
     getData();
     // animation.setValue(1);
     // animationShrink.setValue(1);
