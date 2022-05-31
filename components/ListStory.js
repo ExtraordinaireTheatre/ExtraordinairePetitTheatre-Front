@@ -14,6 +14,7 @@ const ListStory = ({
   booksAgeList,
   navigation,
   setShowSearchBar,
+  tome,
 }) => {
   return (
     <View style={styles.listContainer}>
