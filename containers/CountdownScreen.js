@@ -4,19 +4,16 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import {
   SafeAreaView,
   View,
-  Image,
   Text,
   StyleSheet,
-  Platform,
-  Button,
   TouchableOpacity,
   Dimensions,
 } from "react-native";
 
 import { Entypo } from "@expo/vector-icons";
-const { width, height } = Dimensions.get("window");
+
 const CountDownScreen = ({ navigation, route, userStatut }) => {
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(10);
 
   const { bookData, tome } = route.params;
   useEffect(() => {
