@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 import {
   ScrollView,
   View,
@@ -19,6 +22,24 @@ const Caroussel = ({
   setShowSearchBar,
   tome,
 }) => {
+  const [videoTest, setVideoTest] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchTest = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          "https://backoffice-forest-admin-sr.herokuapp.com/books/?title=test"
+        );
+        setVideoTest(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+      setIsLoading(false);
+    };
+    fetchTest();
+  }, []);
   return dataBooksAge ? (
     <View style={styles.containerCarrousel}>
       <View style={styles.titleCarrouselContainer}>
@@ -27,8 +48,7 @@ const Caroussel = ({
           onPress={() => {
             setPress((prevState) => !prevState);
             setBooksAgeList(dataBooksAge);
-          }}
-        >
+          }}>
           <View style={styles.settingsContainer}>
             <Octicons
               style={styles.settingsIcon}
@@ -53,8 +73,7 @@ const Caroussel = ({
         contentContainerStyle={{
           alignItems: "center",
         }}
-        showsHorizontalScrollIndicator={false}
-      >
+        showsHorizontalScrollIndicator={false}>
         {dataBooksAge.map((book, index) => {
           return (
             <TouchableOpacity
@@ -64,8 +83,7 @@ const Caroussel = ({
               onPress={() => {
                 setShowSearchBar(false);
                 navigation.navigate("Story", { bookData: book, tome: tome });
-              }}
-            >
+              }}>
               <View style={styles.imageCarrouselContainer}>
                 <Image style={styles.imageItem} source={{ uri: book.image }} />
               </View>
@@ -77,6 +95,34 @@ const Caroussel = ({
             </TouchableOpacity>
           );
         })}
+        {isLoading ? (
+          <Text>bientot</Text>
+        ) : (
+          videoTest && (
+            <TouchableOpacity
+              style={styles.itemCarrousel}
+              activeOpacity={0.8}
+              onPress={() => {
+                setShowSearchBar(false);
+                navigation.navigate("TestDisplay", {
+                  bookData: book,
+                  tome: tome,
+                });
+              }}>
+              <View style={styles.imageCarrouselContainer}>
+                <Image
+                  style={styles.imageItem}
+                  source={{ uri: videoTest[0].image }}
+                />
+              </View>
+              <View style={styles.itemDescription}>
+                <Text style={styles.itemText} numberOfLines={2}>
+                  {videoTest[0].title}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )
+        )}
       </ScrollView>
     </View>
   ) : null;
