@@ -91,11 +91,7 @@ const AfficheScreen = ({
         resizeMode="contain"
         loop={count ? true : false}
         ref={animation}
-        style={{
-          height: 200,
-          width: 200,
-          backgroundColor: "rgb(165, 81, 69)",
-        }}
+        style={styles.lottie}
         source={require("../assets/Mask.json")}
         onAnimationFinish={() => {
           setMask(false);
@@ -121,15 +117,11 @@ const AfficheScreen = ({
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{ alignSelf: "center", overflow: "hidden" }}>
+        <View style={styles.containerAnimation}>
           <Animated.View
             style={[
+              styles.searchAnimation,
               {
-                alignItems: "center",
-                paddingVertical: 30,
-                marginTop: 10,
-                overflow: "hidden",
-
                 transform: [{ translateY: leftValue }],
               },
             ]}>
@@ -148,16 +140,7 @@ const AfficheScreen = ({
               </TouchableOpacity>
             </View>
 
-            <Text
-              style={{
-                color: "rgb(226, 218, 210)",
-                fontSize: 30,
-                textTransform: "uppercase",
-                fontFamily: "casablanca",
-                fontFamily: "casablanca",
-              }}>
-              à l'affiche
-            </Text>
+            <Text style={styles.titleText}>à l'affiche</Text>
           </Animated.View>
         </View>
 
@@ -207,6 +190,24 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,
     flex: 1,
+  },
+  lottie: {
+    height: 200,
+    width: 200,
+    backgroundColor: "rgb(165, 81, 69)",
+  },
+  containerAnimation: { alignSelf: "center", overflow: "hidden" },
+  searchAnimation: {
+    alignItems: "center",
+    paddingVertical: 30,
+    marginTop: 10,
+    overflow: "hidden",
+  },
+  titleText: {
+    color: "rgb(226, 218, 210)",
+    fontSize: 30,
+    textTransform: "uppercase",
+    fontFamily: "casablanca",
   },
   header: {
     flexDirection: "row",

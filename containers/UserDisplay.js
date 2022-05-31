@@ -103,22 +103,10 @@ const UserDisplay = ({ navigation, route }) => {
   };
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    // navigation.goBack();
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
-  // useEffect(() => {
-  //   const gestureEndListener = () => {
-  //     console.log('iOS back gesture ended');
-  //   };
 
-  //   // You can also use the 'gestureStart' or 'gestureCancel' events
-  //   navigation.addListener('gestureEnd', gestureEndListener);
-
-  //   return () => {
-  //     navigation.removeListener('gestureEnd', gestureEndListener);
-  //   };
-  // }, []);
   return !finish ? (
     <View style={styles.animationContainer}>
       <StatusBar hidden={true} />
@@ -131,12 +119,9 @@ const UserDisplay = ({ navigation, route }) => {
           flex: 1,
           backgroundColor: "#000000",
         }}
-        // Find more Lottie files at https://lottiefiles.com/featured
         source={require("../assets/Curtain.json")}
         onAnimationFinish={() => {
           handleFinish();
-          // navigation.navigate("UserDisplay", { bookData: route.params.bookData });
-          // <Text style={{backgroundColor:'white'}}>fin de l'animation</Text>
         }}
       />
     </View>

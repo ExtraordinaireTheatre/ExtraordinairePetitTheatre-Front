@@ -56,7 +56,7 @@ const CountDownScreen = ({ navigation, route, userStatut }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ alignItems: "flex-end", paddingHorizontal: 10 }}>
+      <View style={styles.header}>
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => {
@@ -66,7 +66,7 @@ const CountDownScreen = ({ navigation, route, userStatut }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={{ alignItems: "center", marginTop: 100 }}>
+      <View style={styles.titleContainer}>
         <Text style={styles.title}>La représentation va commencer</Text>
       </View>
       <View style={styles.main}>
@@ -97,11 +97,19 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 20,
   },
+  header: {
+    alignItems: "flex-end",
+    paddingHorizontal: 10,
+  },
   goBack: {
     backgroundColor: "rgb(226, 218, 210)",
     borderRadius: 50,
     padding: 15,
     color: "rgb(165, 81, 69)",
+  },
+  titleContainer: {
+    alignItems: "center",
+    marginTop: 100,
   },
   title: {
     fontSize: 20,

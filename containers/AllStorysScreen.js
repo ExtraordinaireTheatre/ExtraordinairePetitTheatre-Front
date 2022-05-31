@@ -130,8 +130,6 @@ const AllStoryScreen = ({
       setIsLoading(false);
     };
     getData();
-    // animation.setValue(1);
-    // animationShrink.setValue(1);
   }, []);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -149,22 +147,12 @@ const AllStoryScreen = ({
   }, [fadeAnim]);
   const lottie = useRef(null);
   return isLoading ? (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "rgb(165, 81, 69)",
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
+    <View style={styles.lottieContainer}>
       <LottieView
         autoPlay={true}
         resizeMode="contain"
         ref={lottie}
-        style={{
-          height: 200,
-          width: 200,
-          backgroundColor: "rgb(165, 81, 69)",
-        }}
+        style={styles.lottieLoading}
         source={require("../assets/Mask.json")}
         onAnimationFinish={() => {
           setIsLoading(false);
@@ -173,26 +161,9 @@ const AllStoryScreen = ({
     </View>
   ) : (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          paddingHorizontal: 10,
-
-          height: Dimensions.get("screen").height / 9,
-        }}>
+      <View style={styles.header}>
         <TouchableOpacity
-          style={
-            showSearchBar
-              ? { width: "1%" }
-              : {
-                  backgroundColor: "rgb(226, 218, 210)",
-                  borderRadius: 50,
-                  padding: 15,
-                  color: "rgb(165, 81, 69)",
-                }
-          }
+          style={showSearchBar ? { width: "1%" } : styles.openSearchBar}
           onPress={() => {
             navigation.navigate("Affiche");
           }}>
@@ -341,17 +312,35 @@ const AllStoryScreen = ({
 };
 
 const styles = StyleSheet.create({
+  lottieContainer: {
+    flex: 1,
+    backgroundColor: "rgb(165, 81, 69)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  lottieLoading: {
+    height: 200,
+    width: 200,
+    backgroundColor: "rgb(165, 81, 69)",
+  },
   container: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "rgb(165, 81, 69)",
     flex: 1,
   },
-  // containerModalOff: { paddingTop: 20, borderColor: "blue", borderWidth: 4 },
   header: {
-    paddingHorizontal: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    height: Dimensions.get("screen").height / 9,
+  },
+
+  openSearchBar: {
+    backgroundColor: "rgb(226, 218, 210)",
+    borderRadius: 50,
+    padding: 15,
+    color: "rgb(165, 81, 69)",
   },
 
   viewSearch: {
