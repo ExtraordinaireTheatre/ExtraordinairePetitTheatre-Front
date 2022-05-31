@@ -24,7 +24,8 @@ const LoginForm = ({ setLogin, setUser, setStatut }) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  //EMAIL
+
+  //connnexion par e-mail
   const handleSubmit = async () => {
     setIsLoading(true);
     setErrorMessage("");
@@ -47,7 +48,7 @@ const LoginForm = ({ setLogin, setUser, setStatut }) => {
     }
     setIsLoading(false);
   };
-  //FACEBOOK
+  //connexion via facebook
   const facebookLogIn = async () => {
     try {
       await Facebook.initializeAsync({
@@ -70,7 +71,7 @@ const LoginForm = ({ setLogin, setUser, setStatut }) => {
       alert(`Facebook login error : ${message}`);
     }
   };
-  // GOOGLE
+  // connexion via google
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:
       "649247833998-lfjpf4d7u6kse8abm0kil78d9emf49uf.apps.googleusercontent.com",
@@ -88,11 +89,7 @@ const LoginForm = ({ setLogin, setUser, setStatut }) => {
       <View style={styles.container}>
         <View style={styles.ggLoginContainer}>
           <Image
-            style={{
-              width: 20,
-              height: 20,
-              marginStart: 5,
-            }}
+            style={styles.logo}
             source={require("../assets/img/logo-gg.png")}
           />
           <TouchableOpacity
@@ -104,11 +101,7 @@ const LoginForm = ({ setLogin, setUser, setStatut }) => {
         </View>
         <View style={styles.fbLoginContainer}>
           <Image
-            style={{
-              width: 20,
-              height: 20,
-              marginStart: 5,
-            }}
+            style={styles.logo}
             source={require("../assets/img/logo-fb.png")}
           />
           <TouchableOpacity onPress={facebookLogIn}>
@@ -154,6 +147,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 6,
     width: "100%",
+  },
+  logo: {
+    width: 20,
+    height: 20,
+    marginStart: 5,
   },
   ggLoginContainer: {
     backgroundColor: "white",

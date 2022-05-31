@@ -8,14 +8,9 @@ import {
 } from "react-native";
 
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-
-import { useState } from "react";
-
-import { useNavigation } from "@react-navigation/native";
-
-import axios from "axios";
 import Input from "./Input";
-
+import { useState } from "react";
+import axios from "axios";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { setStatusBarTranslucent } from "expo-status-bar";
@@ -30,8 +25,6 @@ const SignupForm = ({ setLogin, setUser, setStatut }) => {
   const [newsletter, setNewsletter] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigation = useNavigation();
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -65,6 +58,7 @@ const SignupForm = ({ setLogin, setUser, setStatut }) => {
               lightColor: "#FF231F7C",
             });
           }
+
           const response = await axios.post(
             "http://backoffice-forest-admin-sr.herokuapp.com/user/signup",
             {
@@ -75,6 +69,7 @@ const SignupForm = ({ setLogin, setUser, setStatut }) => {
               expoToken,
             }
           );
+
           setUser(response.data.token);
           setStatus(response.data.statut);
         } catch (error) {
@@ -129,13 +124,15 @@ const SignupForm = ({ setLogin, setUser, setStatut }) => {
         onPress={async () => {
           handleSubmit();
         }}
-        style={styles.signupBtn}>
+        style={styles.signupBtn}
+      >
         <Text style={styles.textBtn}>Créer le compte</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           setLogin((prevState) => !prevState);
-        }}>
+        }}
+      >
         <Text style={styles.text}>
           Vous avez déjà un compte ? Connectez-vous !
         </Text>
@@ -153,6 +150,7 @@ const styles = StyleSheet.create({
   },
   error: {
     textAlign: "center",
+    fontSize: 13,
   },
   signupBtn: {
     paddingVertical: 8,

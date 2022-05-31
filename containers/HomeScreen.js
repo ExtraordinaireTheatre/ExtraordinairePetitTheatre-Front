@@ -17,7 +17,9 @@ import LottieView from "lottie-react-native";
 
 const { width, height } = Dimensions.get("window");
 
+
 const HomeScreen = ({ setUser, setStatut }) => {
+
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(true);
   const animation = useRef(null);
@@ -34,13 +36,9 @@ const HomeScreen = ({ setUser, setStatut }) => {
     };
   }, []);
   return mask ? (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "rgb(165, 81, 69)",
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
+
+    <View style={styles.lottieContainer}>
+
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -108,6 +106,12 @@ const HomeScreen = ({ setUser, setStatut }) => {
   );
 };
 const styles = StyleSheet.create({
+  lottieContainer: {
+    flex: 1,
+    backgroundColor: "rgb(165, 81, 69)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     backgroundColor: "rgb(165, 81, 69)",
     paddingTop: Constants.statusBarHeight,

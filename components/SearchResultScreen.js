@@ -56,28 +56,15 @@ const SearchResult = ({
         </View>
       ) : (
         <View>
-          <View style={{ width: "100%", alignItems: "flex-end" }}>
+          <View style={styles.goBackContainer}>
             <TouchableOpacity
-              style={{
-                width: "30%",
-                paddingHorizontal: 30,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
+              style={styles.goBack}
               onPress={() => {
                 setShowSearchBar(false);
                 setSearchTitle("");
               }}
             >
-              <Text
-                style={{
-                  fontFamily: "casablanca",
-                  fontSize: 18,
-                  color: "rgb(226, 218, 210)",
-                }}
-              >
-                Retour
-              </Text>
+              <Text style={styles.goBackText}>Retour</Text>
               <MaterialIcons
                 name="navigate-next"
                 size={24}
@@ -87,7 +74,6 @@ const SearchResult = ({
           </View>
           <ScrollView
             contentContainerStyle={{
-              // flexGrow: 1,
               height: Dimensions.get("screen").height,
               flexDirection: "row",
               flexWrap: "wrap",
@@ -105,7 +91,6 @@ const SearchResult = ({
                     key={index}
                     activeOpacity={0.7}
                     onPress={() => {
-                      // setShowSearchBar(false);
                       navigation.navigate("Story", {
                         bookData: result,
                         tome: tome,
@@ -119,14 +104,7 @@ const SearchResult = ({
                       />
                     </View>
                     <View style={styles.itemListDescription}>
-                      <Text
-                        style={{
-                          color: "rgb(165, 81, 69)",
-                          fontFamily: "casablanca",
-                          fontSize: 18,
-                        }}
-                        numberOfLines={2}
-                      >
+                      <Text style={styles.itemListText} numberOfLines={2}>
                         {result.title}
                       </Text>
                     </View>
@@ -140,6 +118,21 @@ const SearchResult = ({
   );
 };
 const styles = StyleSheet.create({
+  goBackContainer: {
+    width: "100%",
+    alignItems: "flex-end",
+  },
+  goBack: {
+    width: "30%",
+    paddingHorizontal: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  goBackText: {
+    fontFamily: "casablanca",
+    fontSize: 18,
+    color: "rgb(226, 218, 210)",
+  },
   listTitleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -182,6 +175,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 2,
     width: "101%",
+  },
+  itemListText: {
+    color: "rgb(165, 81, 69)",
+    fontFamily: "casablanca",
+    fontSize: 18,
   },
 });
 
