@@ -13,10 +13,11 @@ import { useState } from "react";
 import axios from "axios";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import { setStatusBarTranslucent } from "expo-status-bar";
 
 const { height } = Dimensions.get("window");
 
-const SignupForm = ({ setLogin, setUser }) => {
+const SignupForm = ({ setLogin, setUser, setStatut }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,6 +71,7 @@ const SignupForm = ({ setLogin, setUser }) => {
           );
 
           setUser(response.data.token);
+          setStatus(response.data.statut);
         } catch (error) {
           console.log(error);
         }

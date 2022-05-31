@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import LottieView from 'lottie-react-native';
+import LottieView from "lottie-react-native";
 
 // import * as ScreenOrientation from "expo-screen-orientation";
 import {
@@ -25,7 +25,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
   // bookData single book
   const { bookData, tome } = route.params;
   const [isLoading, setIsLoading] = useState(true);
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={true} />
@@ -43,8 +43,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             setShowSearchBar(false),
               setSearchTitle(""),
               navigation.navigate("AllStory", { tome: tome });
-          }}
-        >
+          }}>
           <View style={styles.bgdGoBack}>
             <Ionicons
               name="arrow-back-outline"
@@ -61,8 +60,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             fontWeight: "bold",
             fontSize: 26,
             fontFamily: "casablanca",
-          }}
-        >
+          }}>
           {bookData.title}
         </Text>
         <Text
@@ -71,8 +69,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             fontWeight: "bold",
             fontSize: 18,
             fontFamily: "casablanca",
-          }}
-        >
+          }}>
           {bookData.author}
         </Text>
         <Text
@@ -80,8 +77,7 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
             color: "rgb(226, 218, 210)",
             fontSize: 15,
             fontFamily: "casablanca",
-          }}
-        >
+          }}>
           {bookData.duration}min
         </Text>
       </View>
@@ -89,42 +85,43 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
         style={styles.synopsis}
         contentContainerStyle={{
           flexGrow: 1,
-        }}
-      >
+        }}>
         <Text style={styles.text}>{bookData.description}</Text>
       </ScrollView>
-      {bookData.video ? 
-      (<TouchableOpacity
-        onPress={() => {
-          // foo();
-          // navigation.navigate("TestUser");
-          // navigation.navigate("TestAdmin");
-          navigation.navigate("CountDown", { bookData: bookData, tome: tome });
-        }}
-        style={styles.playContainer}
-      >
-        <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
-      </TouchableOpacity>): 
-      (<View style={{alignItems:'center', marginBottom:20,justifyContent:'center'}}>
-        <LottieView
+      {bookData.video ? (
+        <TouchableOpacity
+          onPress={() => {
+            // foo();
+            // navigation.navigate("TestUser");
+            // navigation.navigate("TestAdmin");
+            navigation.navigate("CountDown", {
+              bookData: bookData,
+              tome: tome,
+            });
+          }}
+          style={styles.playContainer}>
+          <AntDesign name="play" size={70} color="rgb(226, 218, 210)" />
+        </TouchableOpacity>
+      ) : (
+        <View
+          style={{
+            alignItems: "center",
+            marginBottom: 20,
+            justifyContent: "center",
+          }}>
+          <LottieView
             autoPlay={true}
-            resizeMode='contain'
+            resizeMode="contain"
             loop={true}
             ref={animation}
             style={{
-             height:180,
-             width:150,
+              height: 150,
+              width: 120,
             }}
-            source={require('../assets/grue-white.json')}
-            // onAnimationFinish={()=>{
-            //     setMask(false);
-            // }}
- 
-        />
-        {/* <Text style={{color:'white', fontFamily:'casablanca', fontSize:30}}>Encore un peu de patience</Text>
-        <Text style={{color:'white', fontFamily:'casablanca', fontSize:30}}>Ce conte sera bientot à l'affiche</Text> */}
-      </View>)}
-      
+            source={require("../assets/grue-white.json")}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
   // );

@@ -15,10 +15,11 @@ WebBrowser.maybeCompleteAuthSession();
 
 import axios from "axios";
 import Input from "./Input";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height } = Dimensions.get("window");
 
-const LoginForm = ({ setLogin, setUser }) => {
+const LoginForm = ({ setLogin, setUser, setStatut }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,9 +38,8 @@ const LoginForm = ({ setLogin, setUser }) => {
             password,
           }
         );
-
-        console.log(response.data);
         setUser(response.data.token);
+        setStatut(response.data.statut);
       } catch (error) {
         setErrorMessage("Votre adresse email ou mot de passe est incorrect");
       }
@@ -95,8 +95,7 @@ const LoginForm = ({ setLogin, setUser }) => {
           <TouchableOpacity
             onPress={() => {
               promptAsync();
-            }}
-          >
+            }}>
             <Text style={styles.ggLoginText}>Se connecter avec Google</Text>
           </TouchableOpacity>
         </View>
@@ -126,15 +125,13 @@ const LoginForm = ({ setLogin, setUser }) => {
           style={styles.loginBtn}
           onPress={async () => {
             handleSubmit();
-          }}
-        >
+          }}>
           <Text style={styles.textBtn}>Se connecter</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             setLogin((prevState) => !prevState);
-          }}
-        >
+          }}>
           <Text style={styles.text}>
             Vous n'avez pas encore de compte ? Inscrivez-vous !
           </Text>

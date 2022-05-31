@@ -17,7 +17,9 @@ import LottieView from "lottie-react-native";
 
 const { width, height } = Dimensions.get("window");
 
-const HomeScreen = ({ setUser }) => {
+
+const HomeScreen = ({ setUser, setStatut }) => {
+
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(true);
   const animation = useRef(null);
@@ -34,7 +36,9 @@ const HomeScreen = ({ setUser }) => {
     };
   }, []);
   return mask ? (
+
     <View style={styles.lottieContainer}>
+
       <LottieView
         autoPlay={true}
         resizeMode="contain"
@@ -68,8 +72,7 @@ const HomeScreen = ({ setUser }) => {
             onPress={() => {
               setModal(true);
               setLogin(false);
-            }}
-          >
+            }}>
             <Text style={styles.textSignupBtn}>S'inscrire</Text>
           </TouchableOpacity>
           <Text style={styles.homeText}>J'ai mes habitudes !</Text>
@@ -78,17 +81,24 @@ const HomeScreen = ({ setUser }) => {
             onPress={() => {
               setModal(true);
               setLogin(true);
-            }}
-          >
+            }}>
             <Text style={styles.textLoginBtn}>Se connecter</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <>
           {login ? (
-            <LoginForm setLogin={setLogin} setUser={setUser} />
+            <LoginForm
+              setLogin={setLogin}
+              setUser={setUser}
+              setStatut={setStatut}
+            />
           ) : (
-            <SignupForm setLogin={setLogin} setUser={setUser} />
+            <SignupForm
+              setLogin={setLogin}
+              setUser={setUser}
+              setStatut={setStatut}
+            />
           )}
         </>
       )}

@@ -18,21 +18,17 @@ import { Magnetometer } from "expo-sensors";
 
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as NavigationBar from "expo-navigation-bar";
-import StoryScreen from "./StoryScreen";
 
 import { Ionicons } from "@expo/vector-icons";
 
-// const width = Dimensions.get("window").height;
-// const height = Dimensions.get("window").width;
-
-const TestAdmin = ({ navigation, route }) => {
+const AdminDisplay = ({ navigation, route }) => {
   const video = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
   // NavigationBarVisibility='hidden';
-  const bookData = route.params.bookData;
+  const { bookData, tome } = route.params;
   const timeCode = [...bookData.timeCode];
-  
+
   const [i, setI] = useState(0);
   const [code, setCode] = useState(timeCode[i][2] * 1000);
   const [reset, setReset] = useState(timeCode[i][1] * 1000);
@@ -63,7 +59,7 @@ const TestAdmin = ({ navigation, route }) => {
       tome: route.params.tome,
     });
   };
-  useEffect(()=>{
+  useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
     // navigation.goBack();
     return () =>
@@ -76,7 +72,7 @@ const TestAdmin = ({ navigation, route }) => {
       <Video
         ref={video}
         style={styles.video}
-        source={{uri : bookData.video}}
+        source={{ uri: bookData.video }}
         shouldPlay={true}
         positionMillis={0}
         useNativeControls={false}
@@ -94,9 +90,7 @@ const TestAdmin = ({ navigation, route }) => {
         style={styles.goBack}
         onPress={() => {
           back();
-          // goBack();
-          //   back();
-          navigation.navigate("Story", { bookData: bookData });
+          navigation.navigate("Story", { bookData: bookData, tome: tome });
         }}>
         <Ionicons name="arrow-back-outline" size={22} color="white" />
       </TouchableOpacity>
@@ -135,8 +129,6 @@ const TestAdmin = ({ navigation, route }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    //   borderWidth:4,
-    //   borderColor:'yellow',
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -144,8 +136,6 @@ const styles = StyleSheet.create({
   video: {
     height: "100%",
     width: "90%",
-    //   borderWidth:4,
-    //   borderColor:'green',
     position: "relative",
   },
   goBack: {
@@ -162,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TestAdmin;
+export default AdminDisplay;

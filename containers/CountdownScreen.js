@@ -15,7 +15,7 @@ import {
 
 import { Entypo } from "@expo/vector-icons";
 const { width, height } = Dimensions.get("window");
-const CountDownScreen = ({ navigation, route }) => {
+const CountDownScreen = ({ navigation, route, userStatut }) => {
   const [count, setCount] = useState(3);
 
   const { bookData, tome } = route.params;
@@ -40,11 +40,17 @@ const CountDownScreen = ({ navigation, route }) => {
     if (count === 0) {
       foo();
 
-      // navigation.navigate("Curtain", { bookData: route.params.bookData });
-      navigation.navigate("TestUser", {
-        bookData: bookData,
-        tome: tome,
-      });
+      if (userStatut === "admin") {
+        navigation.navigate("AdminDisplay", {
+          bookData: bookData,
+          tome: tome,
+        });
+      } else {
+        navigation.navigate("UserDisplay", {
+          bookData: bookData,
+          tome: tome,
+        });
+      }
     }
   }, [count]);
 
@@ -55,8 +61,7 @@ const CountDownScreen = ({ navigation, route }) => {
           style={styles.goBack}
           onPress={() => {
             navigation.navigate("Story", { bookData: bookData, tome: tome });
-          }}
-        >
+          }}>
           <Entypo name="cross" size={22} color="rgb(165, 81, 69)" />
         </TouchableOpacity>
       </View>

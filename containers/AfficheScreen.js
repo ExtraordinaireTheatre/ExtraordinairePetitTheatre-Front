@@ -24,7 +24,12 @@ import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
 const { width, height } = Dimensions.get("window");
 
-const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
+const AfficheScreen = ({
+  navigation,
+  portrait,
+  setShowSearchBar,
+  userStatut,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tomesAffiche, setTomeAffiche] = useState();
 
@@ -44,7 +49,6 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
 
   useEffect(() => {
     portrait;
-    console.log("dans bon useEffect");
     const getAffiche = async () => {
       setIsLoading(true);
 
@@ -53,7 +57,6 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
           "https://backoffice-forest-admin-sr.herokuapp.com/tome"
         );
         setTomeAffiche(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error.message);
       }
@@ -74,6 +77,7 @@ const AfficheScreen = ({ navigation, portrait, setShowSearchBar }) => {
       clearInterval(countDown);
     };
   }, []);
+
   return mask ? (
     <View
       style={{
