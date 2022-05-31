@@ -18,7 +18,7 @@ const ListStory = ({
   return (
     <View style={styles.listContainer}>
       <View style={styles.listTitleContainer}>
-        <View style={tagAgeContainer}>
+        <View style={styles.tagAgeContainer}>
           <Octicons
             style={styles.icons}
             name="dot-fill"
@@ -33,8 +33,7 @@ const ListStory = ({
           style={styles.toCarrouselButton}
           onPress={() => {
             setPress((prevState) => !prevState);
-          }}
-        >
+          }}>
           <Text style={styles.toCarrouselText}>Revenir</Text>
           <MaterialIcons name="navigate-next" size={24} style={styles.icons} />
         </TouchableOpacity>
@@ -49,8 +48,7 @@ const ListStory = ({
             marginTop: 10,
             paddingHorizontal: 10,
             height: 500,
-          }}
-        >
+          }}>
           {booksAgeList.map((book, index) => {
             return (
               <TouchableOpacity
@@ -60,8 +58,7 @@ const ListStory = ({
                 onPress={() => {
                   setShowSearchBar(false);
                   navigation.navigate("Story", { bookData: book, tome: tome });
-                }}
-              >
+                }}>
                 <View style={styles.containerImageItemList}>
                   <Image
                     style={styles.imageItem}

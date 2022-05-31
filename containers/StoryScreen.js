@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import LottieView from "lottie-react-native";
 
-// import * as ScreenOrientation from "expo-screen-orientation";
 import {
   SafeAreaView,
   ScrollView,
@@ -14,11 +12,13 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
+
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
   const navigation = useNavigation();
   const animation = useRef(null);
+
   // const [data, setData] = useState();
   const [seeMore, setSeeMore] = useState(false);
 
@@ -92,7 +92,6 @@ const StoryScreen = ({ route, setSearchTitle, setShowSearchBar }) => {
       )}
     </SafeAreaView>
   );
-  // );
 };
 const styles = StyleSheet.create({
   container: {
