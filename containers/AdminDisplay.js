@@ -115,6 +115,19 @@ const AdminDisplay = ({ navigation, route }) => {
             }
           }}
         />
+        <Button
+          style={styles.button}
+          title={"prev"}
+          onPress={() => {
+            if (i > 0) {
+              setCode(timeCode[i - 1][2] * 1000);
+              setReset(timeCode[i - 1][1] * 1000);
+              {
+                i - 1 === timeCode.length - 1 ? i : setI(i - 1);
+              }
+            }
+          }}
+        />
         <Text
           style={{
             textAlign: "center",
