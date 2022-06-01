@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 import {
   ScrollView,
@@ -24,6 +25,11 @@ const Caroussel = ({
 }) => {
   const [videoTest, setVideoTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const foo = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+    );
+  };
 
   useEffect(() => {
     const fetchTest = async () => {
@@ -104,8 +110,9 @@ const Caroussel = ({
               activeOpacity={0.8}
               onPress={() => {
                 setShowSearchBar(false);
+                foo();
                 navigation.navigate("TestDisplay", {
-                  bookData: book,
+                  bookData: videoTest[0],
                   tome: tome,
                 });
               }}>
