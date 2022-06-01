@@ -138,6 +138,7 @@ const UserDisplay = ({ navigation, route }) => {
         positionMillis={0}
         useNativeControls={false}
         resizeMode="cover"
+        progressUpdateIntervalMillis={1}
         onPlaybackStatusUpdate={(status) => {
           setTime(status.positionMillis);
           {

@@ -19,6 +19,7 @@ import CountDownScreen from "./containers/CountdownScreen";
 
 import UserDisplay from "./containers/UserDisplay";
 import AdminDisplay from "./containers/AdminDisplay";
+import TestDisplay from "./containers/TestDisplay";
 
 const Stack = createNativeStackNavigator();
 
@@ -167,6 +168,7 @@ const App = () => {
             {/* <Stack.Screen name="Curtain" component={Curtain} /> */}
 
             <Stack.Screen name="AdminDisplay" component={AdminDisplay} />
+            <Stack.Screen name="TestDisplay" component={TestDisplay} />
             <Stack.Screen name="UserDisplay" component={UserDisplay} />
           </>
         )}
