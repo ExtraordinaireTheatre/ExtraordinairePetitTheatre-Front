@@ -33,6 +33,7 @@ const Caroussel = ({
           "https://backoffice-forest-admin-sr.herokuapp.com/books/?title=test"
         );
         setVideoTest(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log(error.message);
       }
